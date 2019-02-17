@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.item-card {
+  display: inline-block;
+  background-color: #f9f9f9;
+  padding: 1em 1.6em;
+  min-width: 80px;
+  border-radius: 4px;
+  cursor: pointer;
+}

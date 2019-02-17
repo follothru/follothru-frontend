@@ -18,6 +18,10 @@ export class ReminderService {
     return this.httpService.httpGet(this.getBackendUrl(), { params });
   }
 
+  createReminders(config) {
+    return this.httpService.httpPost(this.getBackendUrl(), config);
+  }
+
   private getBackendUrl(): string {
     return this.configService.getBackendUrl() + '/reminder';
   }

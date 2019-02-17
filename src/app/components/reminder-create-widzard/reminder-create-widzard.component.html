@@ -1,0 +1,273 @@
+<div>
+  <ul>
+    <ng-container>
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>What is the title of your reminder?</p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="text"
+              name="reminder_name"
+              class="form-control"
+              [(ngModel)]="answers.name"
+            />
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container>
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              Is there an expiration date (e.g., assignment deadline, exam date)
+              associated with this reminder?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="radio"
+              name="end_date_mode"
+              (change)="updateBoolean('end_date_yes')"
+            />
+            <span>YES (e.g., an exam date)</span>
+            <br />
+            <input
+              type="radio"
+              name="end_date_mode"
+              (change)="updateBoolean('end_date_more_than_once')"
+            />
+            <span>YES, MORE THAN ONE (e.g., weekly assignment due dates)</span>
+            <br />
+            <input
+              type="radio"
+              name="end_date_mode"
+              (change)="updateBoolean('end_date_no')"
+            />
+            <span>NOT REALLY (e.g., daily practice)</span>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_more_than_once">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              How often do these dates occur?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="checkbox"
+              name="repeat_daily"
+              [(ngModel)]="answers.repeat.daily"
+            />
+            <span>Daily</span>
+            <br />
+            <input
+              type="checkbox"
+              name="repeat_weekly"
+              [(ngModel)]="answers.repeat.weekly"
+            />
+            <span>Weekly</span>
+            <br />
+            <input
+              type="checkbox"
+              name="repeat_monthly"
+              [(ngModel)]="answers.repeat.monthly"
+            />
+            <span>Monthly</span>
+            <br />
+            <input type="checkbox" name="custom" />
+            <span>Custom</span>
+            <br />
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_more_than_once">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              What is the last date?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="text"
+              name="end_date"
+              class="form-control"
+              [(ngModel)]="answers.end_date"
+              bsDatepicker
+            />
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_yes">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              What is that date?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="text"
+              name="end_date"
+              class="form-control"
+              [(ngModel)]="answers.end_date"
+              bsDatepicker
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              What is that time?
+            </p>
+          </div>
+          <div class="question-answer">
+            <timepicker [(ngModel)]="answers.end_time"></timepicker>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_yes || answers.end_date_no">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              When should reminders be sent?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="checkbox"
+              name="sent_1_hour_before"
+              [(ngModel)]="answers.sendTime.one_hour"
+            />
+            <span>1 hour before</span>
+            <br />
+            <input
+              type="checkbox"
+              name="sent_1_day_before"
+              [(ngModel)]="answers.sendTime.one_day"
+            />
+            <span>1 day before</span>
+            <br />
+            <input
+              type="checkbox"
+              name="sent_1_week_before"
+              [(ngModel)]="answers.sendTime.one_week"
+            />
+            <span>1 week before</span>
+            <br />
+            <input type="checkbox" name="custom" />
+            <span>Custom</span>
+            <br />
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_more_than_once">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              What is the first date?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="text"
+              name="end_date"
+              class="form-control"
+              [(ngModel)]="answers.start_date"
+              bsDatepicker
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              What is that time?
+            </p>
+          </div>
+          <div class="question-answer">
+            <timepicker [(ngModel)]="answers.start_time"></timepicker>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_no">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              When would you like to start sending reminders?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="text"
+              name="end_date"
+              class="form-control"
+              [(ngModel)]="answers.start_date"
+              bsDatepicker
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              What is that time?
+            </p>
+          </div>
+          <div class="question-answer">
+            <timepicker [(ngModel)]="answers.start_time"></timepicker>
+          </div>
+        </div>
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="answers.end_date_no">
+      <li>
+        <div class="form-group">
+          <div class="question-desc">
+            <p>
+              When would you like to stop sending reminders?
+            </p>
+          </div>
+          <div class="question-answer">
+            <input
+              type="text"
+              name="end_date"
+              class="form-control"
+              [(ngModel)]="answers.end_date"
+              bsDatepicker
+            />
+          </div>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+  <div class="button-group">
+    <button class="btn btn-primary" (click)="createReminders()">
+      Create reminders
+    </button>
+    <button class="btn btn-danger">Cancel</button>
+  </div>
+</div>

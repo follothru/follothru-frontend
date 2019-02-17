@@ -10,6 +10,7 @@ import { CourseService, ReminderService } from '../../services';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  courseId: string;
   course$: Observable<any>;
   reminders$: Observable<any>;
 
@@ -20,9 +21,11 @@ export class CourseComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const { id } = this.activatedRoute.snapshot.params;
-    this.course$ = this.courseService.getCourseById(id);
-    this.reminders$ = this.reminderService.getRemindersByCourseId(id);
+    this.courseId = this.activatedRoute.snapshot.params.id;
+    this.course$ = this.courseService.getCourseById(this.courseId);
+    this.reminders$ = this.reminderService.getRemindersByCourseId(
+      this.courseId
+    );
     this.course$.subscribe();
     this.reminders$.subscribe();
   }
