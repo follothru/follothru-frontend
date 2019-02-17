@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { ReminderService } from '../../services';
+import { CourseComponent } from '../course/course.component';
 
 @Component({
   selector: 'app-reminder-create-widzard',
@@ -10,29 +10,31 @@ import { ReminderService } from '../../services';
 })
 export class ReminderCreateWidzardComponent implements OnInit {
   @Input()
-  courseId: string;
-
   answers: any = {
     repeat: {},
     sendTime: {}
   };
 
-  constructor(private reminderService: ReminderService) {}
+  constructor(
+    public dialogRef: MatDialogRef<CourseComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit() {}
+
   createReminders() {
-    this.answers.courseId = this.courseId;
-    console.log(this.answers);
-    this.reminderService
-      .createReminders(this.answers)
-      .pipe(tap(console.log))
-      .subscribe();
+    this.answers.courseId = this.data.courseId;
+    this.dialogRef.close(this.answers);
   }
 
   updateBoolean(key) {
-    this.answers['end_date_yes'] = false;
-    this.answers['end_date_more_than_once'] = false;
-    this.answers['end_date_no'] = false;
+    this.answers['endDate_yes'] = false;
+    this.answers['endDate_more_than_once'] = false;
+    this.answers['endDate_no'] = false;
     this.answers[key] = true;
+  }
+
+  onCancelClick() {
+    this.dialogRef.close();
   }
 }

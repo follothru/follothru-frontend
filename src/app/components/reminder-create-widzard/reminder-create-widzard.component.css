@@ -1,0 +1,9 @@
+input[type='radio'],
+input[type='checkbox'] {
+  margin-right: 0.6em;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 1em;
+}
