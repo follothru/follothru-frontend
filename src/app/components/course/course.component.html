@@ -1,69 +1,81 @@
-<ng-container *ngIf="(course$ | async) as course; else loading">
-  <ng-container *ngIf="!course.isError; else courseError">
-    <h2 class="page-header">{{ course.name }}</h2>
-    <hr />
-    <p>{{ course.description }}</p>
-    <div class="course-details">
-      <form>
-        <div class="form-group">
-          <label for="course_name">Course name</label>
-          <input
-            type="text"
-            name="course_name"
-            class="form-control"
-            value="{{ course.name }}"
-          />
-        </div>
-        <div class="form-group">
-          <label for="course_name">End date</label>
-          <input
-            type="date"
-            name="end_date"
-            class="form-control"
-            value="{{ course.endDate }}"
-          />
-        </div>
-        <div class="form-group">
-          <label for="course_name">Reminder link</label>
-          <small>(send this link to students to sign up for reminders) </small>
-          <a href="{{ course.registerLink }}"></a>
-        </div>
-        <div class="form-group">
-          <label for="instructors">Instructors</label>
-          <ul>
-            <ng-container *ngFor="let instructor of course.instructors">
-              <li>
-                {{ instructor }}
-              </li></ng-container
-            >
-          </ul>
-        </div>
-      </form>
-    </div>
-
-    <div class="reminders-container">
-      <h3>Reminders</h3>
+<div class="container">
+  <ng-container *ngIf="(course$ | async) as course; else loading">
+    <ng-container *ngIf="!course.isError; else courseError">
+      <h2 class="page-header">{{ course.name }}</h2>
       <hr />
-    </div>
+      <p>{{ course.description }}</p>
+      <div class="course-details">
+        <form>
+          <div class="form-group">
+            <label for="course_name">Course name</label>
+            <input
+              type="text"
+              name="course_name"
+              class="form-control"
+              value="{{ course.name }}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="course_name">End date</label>
+            <input
+              type="date"
+              name="end_date"
+              class="form-control"
+              value="{{ course.endDate }}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="course_name">Reminder link</label>
+            <small
+              >(send this link to students to sign up for reminders)
+            </small>
+            <br />
+            <a href="{{ course.registerLink }}">https://www.follothru.com</a>
+          </div>
+          <div class="form-group">
+            <label for="instructors">Instructors</label>
+            <ul>
+              <ng-container *ngFor="let instructor of course.instructors">
+                <li>
+                  {{ instructor }}
+                </li></ng-container
+              >
+            </ul>
+          </div>
+        </form>
+      </div>
 
-    <button class="btn btn-default" (click)="newReminder()">
-      <i class="fas fa-plus"></i>
-    </button>
-    <ng-container *ngIf="(reminders$ | async) as reminders; else loading">
-      <ng-container *ngIf="!reminders.isError; else remindersError">
-        <ng-container *ngIf="reminders.length > 0; else noReminders">
-          <ul>
-            <ng-container *ngFor="let reminder of reminders">
-              <li>
-                <app-reminder [reminder]="reminder"></app-reminder>
-              </li>
+      <div class="reminders-container">
+        <h3>Reminders</h3>
+        <hr />
+      </div>
+
+      <button class="btn btn-default" (click)="newReminder()">
+        <i class="fas fa-plus"></i>
+      </button>
+      <div class="row">
+        <div class="col-md-5">
+          <ng-container *ngIf="(reminders$ | async) as reminders; else loading">
+            <ng-container *ngIf="!reminders.isError; else remindersError">
+              <ng-container *ngIf="reminders.length > 0; else noReminders">
+                <ul>
+                  <ng-container *ngFor="let reminder of reminders">
+                    <li>
+                      <app-reminder [reminder]="reminder"></app-reminder>
+                    </li>
+                  </ng-container>
+                </ul>
+              </ng-container>
             </ng-container>
-          </ul>
-        </ng-container>
-      </ng-container>
+          </ng-container>
+        </div>
+        <div class="col-md-7">
+          <app-calendar></app-calendar>
+        </div>
+      </div>
     </ng-container>
   </ng-container>
-</ng-container>
+</div>
 <ng-template #loading><app-spinner></app-spinner></ng-template>
 <ng-template #remindersError
   ><p class="padding-md align-center">

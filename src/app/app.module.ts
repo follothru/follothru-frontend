@@ -27,6 +27,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ReminderCreateWidzardComponent } from './components/reminder-create-widzard/reminder-create-widzard.component';
 import { ReminderCreateWidzardItemComponent } from './components/reminder-create-widzard-item/reminder-create-widzard-item.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CalendarMonthComponent } from './components/calendar-month/calendar-month.component';
 
 import { services } from './services';
 
@@ -42,7 +44,9 @@ import { services } from './services';
     SpinnerComponent,
     ReminderCreateWidzardComponent,
     ReminderCreateWidzardItemComponent,
-    ReminderComponent
+    ReminderComponent,
+    CalendarComponent,
+    CalendarMonthComponent
   ],
   imports: [
     BrowserModule,
