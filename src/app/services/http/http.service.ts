@@ -20,4 +20,10 @@ export class HttpService {
       .post(url, options)
       .pipe(catchError(err => of({ isError: true, err })));
   }
+
+  httpPut(url: string, options: any = {}): Observable<any> {
+    return this.httpClient
+      .put(url, options)
+      .pipe(catchError(err => of({ isError: true, err })));
+  }
 }

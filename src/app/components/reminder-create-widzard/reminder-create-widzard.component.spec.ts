@@ -8,9 +8,8 @@ describe('ReminderCreateWidzardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReminderCreateWidzardComponent ]
-    })
-    .compileComponents();
+      declarations: [ReminderCreateWidzardComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

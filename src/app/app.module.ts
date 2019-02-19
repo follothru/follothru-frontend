@@ -13,9 +13,9 @@ import {
   MatDialogModule
 } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -25,10 +25,13 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { OverviewComponent } from './components/overview/overview.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ReminderCreateWidzardComponent } from './components/reminder-create-widzard/reminder-create-widzard.component';
-import { ReminderCreateWidzardItemComponent } from './components/reminder-create-widzard-item/reminder-create-widzard-item.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarMonthComponent } from './components/calendar-month/calendar-month.component';
+import { NewCourseDialogComponent } from './components/new-course-dialog/new-course-dialog.component';
+import { CourseRemindersComponent } from './components/course-reminders/course-reminders.component';
+import { CourseSettingsComponent } from './components/course-settings/course-settings.component';
+import { CourseOverviewComponent } from './components/course-overview/course-overview.component';
 
 import { services } from './services';
 
@@ -43,10 +46,13 @@ import { services } from './services';
     OverviewComponent,
     SpinnerComponent,
     ReminderCreateWidzardComponent,
-    ReminderCreateWidzardItemComponent,
     ReminderComponent,
     CalendarComponent,
-    CalendarMonthComponent
+    CalendarMonthComponent,
+    NewCourseDialogComponent,
+    CourseRemindersComponent,
+    CourseSettingsComponent,
+    CourseOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +71,7 @@ import { services } from './services';
     MatInputModule,
     MatDialogModule
   ],
-  entryComponents: [ReminderCreateWidzardComponent],
+  entryComponents: [ReminderCreateWidzardComponent, NewCourseDialogComponent],
   exports: [],
   providers: [...services],
   bootstrap: [AppComponent]
