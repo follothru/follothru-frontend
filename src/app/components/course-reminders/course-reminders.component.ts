@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Unsubscribable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import { ReminderCreateWidzardComponent } from '../reminder-create-widzard/reminder-create-widzard.component';
@@ -12,10 +12,14 @@ import { ReminderService } from 'src/app/services';
   templateUrl: './course-reminders.component.html',
   styleUrls: ['./course-reminders.component.css']
 })
-export class CourseRemindersComponent implements OnInit {
+export class CourseRemindersComponent implements OnInit, OnDestroy {
   @Input()
   courseId: string;
   reminders$: Observable<any>;
+
+  private dialogSubscription: Unsubscribable = null;
+  private createSubscription: Unsubscribable = null;
+  private loadSubscription: Unsubscribable = null;
 
   constructor(
     private reminderService: ReminderService,
@@ -26,6 +30,18 @@ export class CourseRemindersComponent implements OnInit {
     this.loadReminders();
   }
 
+  ngOnDestroy() {
+    if (this.dialogSubscription !== null) {
+      this.dialogSubscription.unsubscribe();
+    }
+    if (this.createSubscription !== null) {
+      this.createSubscription.unsubscribe();
+    }
+    if (this.loadSubscription !== null) {
+      this.loadSubscription.unsubscribe();
+    }
+  }
+
   newReminder() {
     const dialogRef = this.dialog.open(ReminderCreateWidzardComponent, {
       width: '60vw',
@@ -33,7 +49,12 @@ export class CourseRemindersComponent implements OnInit {
       data: { courseId: this.courseId }
     });
 
-    dialogRef.afterClosed().subscribe(config => this.createNewReminder(config));
+    if (this.dialogSubscription !== null) {
+      this.dialogSubscription.unsubscribe();
+    }
+    this.dialogSubscription = dialogRef
+      .afterClosed()
+      .subscribe(config => this.createNewReminder(config));
   }
   private createNewReminder(config) {
     if (config !== undefined) {
@@ -47,7 +68,11 @@ export class CourseRemindersComponent implements OnInit {
         sendTime
       } = config;
       const courseId = this.courseId;
-      this.reminderService
+
+      if (this.createSubscription !== null) {
+        this.createSubscription.unsubscribe();
+      }
+      this.createSubscription = this.reminderService
         .createReminders({
           courseId,
           name,
@@ -75,6 +100,9 @@ export class CourseRemindersComponent implements OnInit {
     this.reminders$ = this.reminderService.getRemindersByCourseId(
       this.courseId
     );
-    this.reminders$.subscribe();
+    if (this.loadSubscription !== null) {
+      this.loadSubscription.unsubscribe();
+    }
+    this.loadSubscription = this.reminders$.subscribe();
   }
 }

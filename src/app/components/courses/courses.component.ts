@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, Unsubscribable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { NewCourseDialogComponent } from '../new-course-dialog/new-course-dialog.component';
@@ -11,8 +11,11 @@ import { CourseService } from '../../services';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
   courses$: Observable<any>;
+
+  private createSubscription: Unsubscribable = null;
+  private loadSubscription: Unsubscribable = null;
 
   constructor(
     private courseService: CourseService,
@@ -21,6 +24,15 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.loadCourses();
+  }
+
+  ngOnDestroy() {
+    if (this.createSubscription !== null) {
+      this.createSubscription.unsubscribe();
+    }
+    if (this.loadSubscription !== null) {
+      this.loadSubscription.unsubscribe();
+    }
   }
 
   onNewCourse() {
@@ -34,7 +46,10 @@ export class CoursesComponent implements OnInit {
 
   private createNewCourse(config) {
     if (config !== undefined) {
-      this.courseService
+      if (this.createSubscription !== null) {
+        this.createSubscription.unsubscribe();
+      }
+      this.createSubscription = this.courseService
         .createNewCourse(config.name, config.endDate, config.description)
         .pipe(tap(() => this.loadCourses()))
         .subscribe();
@@ -43,6 +58,10 @@ export class CoursesComponent implements OnInit {
 
   private loadCourses() {
     this.courses$ = this.courseService.getCourses().pipe();
-    this.courses$.subscribe();
+
+    if (this.loadSubscription !== null) {
+      this.loadSubscription.unsubscribe();
+    }
+    this.loadSubscription = this.courses$.subscribe();
   }
 }

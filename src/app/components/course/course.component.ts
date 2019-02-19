@@ -39,10 +39,11 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   private loadCourse() {
+    this.course$ = this.courseService.getCourseById(this.courseId);
+
     if (this.courseSubscription) {
       this.courseSubscription.unsubscribe();
     }
-    this.course$ = this.courseService.getCourseById(this.courseId);
     this.courseSubscription = this.course$.subscribe();
   }
 }
