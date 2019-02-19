@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 import { CourseService } from 'src/app/services';
-import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-settings',
@@ -50,6 +50,7 @@ export class CourseSettingsComponent implements OnInit {
             this.course.name = this.nameTemp;
             this.course.description = this.descriptionTemp;
             this.course.endDate = this.endDateTemp;
+            this.changed = false;
           })
         )
         .subscribe();

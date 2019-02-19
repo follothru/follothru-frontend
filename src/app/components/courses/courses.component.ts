@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
-
-import { CourseService } from '../../services';
-import { NewCourseDialogComponent } from '../new-course-dialog/new-course-dialog.component';
 import { tap } from 'rxjs/operators';
+
+import { NewCourseDialogComponent } from '../new-course-dialog/new-course-dialog.component';
+import { CourseService } from '../../services';
 
 @Component({
   selector: 'app-courses',
