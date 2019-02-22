@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { tap, filter } from 'rxjs/operators';
+import { tap, filter, map } from 'rxjs/operators';
 import { Observable, Unsubscribable } from 'rxjs';
 
 import * as fromStore from '../../store';
@@ -40,7 +40,8 @@ export class SignInComponent implements OnInit, OnDestroy {
             fromStore.authEntitiesSelector(state).type ===
             fromStore.SIGN_IN_FAILURE
         ),
-        select(fromStore.authIsErrorSelector),
+        select(fromStore.authEntitiesSelector),
+        map(entities => entities.isError),
         tap(isErr => {
           if (isErr === true) {
             this.store.dispatch(
@@ -58,8 +59,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const username = this.email;
-    const password = this.password;
+    const username = this.email.slice();
+    const password = this.password.slice();
     this.store.dispatch(new fromStore.SignIn({ username, password }));
   }
 }

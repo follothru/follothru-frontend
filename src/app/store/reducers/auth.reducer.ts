@@ -44,7 +44,11 @@ export function AuthReducer(
     case fromAction.RESUME_SESSION_FAILURE:
       return {
         ...state,
-        authEntities: { type: action.type },
+        authEntities: {
+          type: action.type,
+          isError: true,
+          timestamp: new Date()
+        },
         isLoading: false,
         isSuccess: false,
         isError: true
