@@ -1,29 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Unsubscribable } from 'rxjs';
 
-import { CourseService, ReminderService } from '../../services';
+import { CourseService } from '../../services';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, OnDestroy {
+  courseId: string;
   course$: Observable<any>;
   reminders$: Observable<any>;
+  currentTab: string;
+  private courseSubscription: Unsubscribable;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private courseService: CourseService,
-    private reminderService: ReminderService
-  ) {}
+    private courseService: CourseService
+  ) {
+    this.setCurrentTab('reminders');
+  }
 
   ngOnInit() {
-    const { id } = this.activatedRoute.snapshot.params;
-    this.course$ = this.courseService.getCourseById(id);
-    this.reminders$ = this.reminderService.getRemindersByCourseId(id);
-    this.course$.subscribe();
-    this.reminders$.subscribe();
+    this.courseId = this.activatedRoute.snapshot.params.id;
+    this.loadCourse();
+  }
+
+  ngOnDestroy() {
+    if (this.courseSubscription) {
+      this.courseSubscription.unsubscribe();
+    }
+  }
+
+  setCurrentTab(tab: string) {
+    this.currentTab = tab;
+  }
+
+  private loadCourse() {
+    this.course$ = this.courseService.getCourseById(this.courseId);
+
+    if (this.courseSubscription) {
+      this.courseSubscription.unsubscribe();
+    }
+    this.courseSubscription = this.course$.subscribe();
   }
 }

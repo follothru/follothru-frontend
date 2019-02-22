@@ -1,0 +1,21 @@
+.calendar-header {
+  font-size: 1.6em;
+  margin-bottom: 0.6em;
+}
+
+.curr-year {
+  text-align: center;
+}
+
+.calendar-btn {
+  display: block;
+  cursor: pointer;
+}
+
+.prev-btn {
+  text-align: left;
+}
+
+.next-btn {
+  text-align: right;
+}

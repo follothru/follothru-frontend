@@ -1,18 +1,38 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CoursesComponent } from './components/courses/courses.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CourseComponent } from './components/course/course.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import { CourseOverviewComponent } from './components/course-overview/course-overview.component';
+import { AuthGuard } from './guards/auth.guard';
+import { MainAppComponent } from './components/main-app/main-app.component';
+import { SignInComponent } from './components/signin/signin.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: '', component: OverviewComponent },
-  { path: 'course/:id', component: CourseComponent },
-  { path: '**', component: PageNotFoundComponent }
-  // { path: 'subjects/:subject/:courseId', component: CourseComponent },
-  // { path: 'courses', component: CoursesComponent },
-  // { path: 'courses/:courseId', component: CourseComponent },
+  { path: 'login', component: SignInComponent },
+  {
+    path: '',
+    component: MainAppComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      {
+        path: 'overview',
+        component: OverviewComponent
+      },
+      {
+        path: 'course',
+        component: CourseOverviewComponent
+      },
+      {
+        path: 'course/:id',
+        component: CourseComponent
+      },
+      {
+        path: 'course/:id/:mode',
+        component: CourseComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

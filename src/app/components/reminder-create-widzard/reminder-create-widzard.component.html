@@ -1,0 +1,310 @@
+<h2 mat-dialog-title>Create reminder</h2>
+<div>
+  <div mat-dialog-content>
+    <ul>
+      <ng-container>
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>What is the title of your reminder?</p>
+            </div>
+            <div class="question-answer">
+              <input
+                type="text"
+                name="reminder_name"
+                class="form-control"
+                [(ngModel)]="answers.name"
+              />
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container>
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                Is there an expiration date (e.g., assignment deadline, exam
+                date) associated with this reminder?
+              </p>
+            </div>
+            <div class="question-answer">
+              <input
+                type="radio"
+                name="endDate_mode"
+                (change)="updateBoolean('endDate_yes')"
+              />
+              <span>YES (e.g., an exam date)</span>
+              <br />
+              <input
+                type="radio"
+                name="endDate_mode"
+                (change)="updateBoolean('endDate_more_than_once')"
+              />
+              <span
+                >YES, MORE THAN ONE (e.g., weekly assignment due dates)</span
+              >
+              <br />
+              <input
+                type="radio"
+                name="endDate_mode"
+                (change)="updateBoolean('endDate_no')"
+              />
+              <span>NOT REALLY (e.g., daily practice)</span>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_more_than_once">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                How often do these dates occur?
+              </p>
+            </div>
+            <div class="question-answer">
+              <input
+                type="checkbox"
+                name="repeat_daily"
+                [(ngModel)]="answers.repeat.daily"
+              />
+              <span>Daily</span>
+              <br />
+              <input
+                type="checkbox"
+                name="repeat_weekly"
+                [(ngModel)]="answers.repeat.weekly"
+              />
+              <span>Weekly</span>
+              <br />
+              <input
+                type="checkbox"
+                name="repeat_monthly"
+                [(ngModel)]="answers.repeat.monthly"
+              />
+              <span>Monthly</span>
+              <br />
+              <input type="checkbox" name="custom" />
+              <span>Custom</span>
+              <br />
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_more_than_once">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is the last date?
+              </p>
+            </div>
+            <div class="question-answer">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="endDate_picker"
+                  placeholder="Choose a date"
+                  [(ngModel)]="answers.endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="endDate_picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endDate_picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_yes">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is that date?
+              </p>
+            </div>
+            <div class="question-answer">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="endDate_picker"
+                  placeholder="Choose a date"
+                  [(ngModel)]="answers.endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="endDate_picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endDate_picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is that time?
+              </p>
+            </div>
+            <div class="question-answer">
+              <timepicker [(ngModel)]="answers.endTime"></timepicker>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_yes || answers.endDate_no">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                When should reminders be sent?
+              </p>
+            </div>
+            <div class="question-answer">
+              <input
+                type="checkbox"
+                name="sent_1_hour_before"
+                [(ngModel)]="answers.sendTime.oneHourBefore"
+              />
+              <span>1 hour before</span>
+              <br />
+              <input
+                type="checkbox"
+                name="sent_1_day_before"
+                [(ngModel)]="answers.sendTime.oneDayBefore"
+              />
+              <span>1 day before</span>
+              <br />
+              <input
+                type="checkbox"
+                name="sent_1_week_before"
+                [(ngModel)]="answers.sendTime.oneWeekBefore"
+              />
+              <span>1 week before</span>
+              <br />
+              <input type="checkbox" name="custom" />
+              <span>Custom</span>
+              <br />
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_more_than_once">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is the first date?
+              </p>
+            </div>
+            <div class="question-answer">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="startDate_picker"
+                  placeholder="Choose a date"
+                  [(ngModel)]="answers.endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="startDate_picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startDate_picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is that time?
+              </p>
+            </div>
+            <div class="question-answer">
+              <timepicker [(ngModel)]="answers.startTime"></timepicker>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_no">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                When would you like to start sending reminders?
+              </p>
+            </div>
+            <div class="question-answer">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="startDate_picker"
+                  placeholder="Choose a date"
+                  [(ngModel)]="answers.endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="startDate_picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startDate_picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is that time?
+              </p>
+            </div>
+            <div class="question-answer">
+              <timepicker [(ngModel)]="answers.startTime"></timepicker>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_no">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                When would you like to stop sending reminders?
+              </p>
+            </div>
+            <div class="question-answer">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="endDate_picker"
+                  placeholder="Choose a date"
+                  [(ngModel)]="answers.endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="endDate_picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endDate_picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div mat-dialog-actions class="button-group">
+    <button mat-button (click)="createReminders()">
+      Create reminders
+    </button>
+    <button mat-button (click)="onCancelClick()">
+      Cancel
+    </button>
+  </div>
+</div>

@@ -15,10 +15,21 @@ export class ReminderService {
 
   getRemindersByCourseId(courseId: string): Observable<any> {
     const params = { courseId };
-    return this.httpService.httpGet(this.getBackendUrl(), { params });
+    return this.httpService.httpGet(
+      this.getCourseServiceBackendUrl() + '/' + courseId + '/reminder',
+      { params }
+    );
+  }
+
+  createReminders(config): Observable<any> {
+    return this.httpService.httpPost(this.getBackendUrl(), config);
   }
 
   private getBackendUrl(): string {
     return this.configService.getBackendUrl() + '/reminder';
+  }
+
+  private getCourseServiceBackendUrl(): string {
+    return this.configService.getBackendUrl() + '/course';
   }
 }

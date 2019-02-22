@@ -1,0 +1,36 @@
+.calendar-month-wrapper {
+  padding: 0.8em 0;
+}
+
+.calendar-row {
+  display: flex;
+  padding: 0.2em;
+}
+
+.calendar-col {
+  display: inline-block;
+  padding: 0.6em;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  flex-basis: 14.2857%;
+  max-width: 14.2857%;
+  cursor: default;
+}
+
+.month-display-text {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: default;
+}
+
+.calendar-weekdays {
+  color: #888;
+}
+
+.calendar-dates {
+  color: #555;
+}

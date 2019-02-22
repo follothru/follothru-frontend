@@ -1,12 +1,26 @@
+<h2>
+  Courses
+</h2>
+<hr />
+<button class="btn btn-default" (click)="onNewCourse()">
+  <i class="fas fa-plus"></i>
+</button>
 <ng-container *ngIf="(courses$ | async) as courses; else loading">
-  <ul>
-    <ng-container *ngFor="let course of courses">
-      <li>
-        <a [routerLink]="['/course', course.id]">
-          {{ course.name }} ({{ course.description }})
-        </a>
-      </li>
-    </ng-container>
-  </ul>
+  <ng-container *ngIf="!courses.isError; else error">
+    <ul>
+      <ng-container *ngFor="let course of courses">
+        <li class="course-list-item">
+          <a class="item-card" [routerLink]="['/course', course.id]">
+            {{ course.name }}
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
 </ng-container>
-<ng-template #loading>Loading...</ng-template>
+<ng-template #loading><app-spinner></app-spinner></ng-template>
+<ng-template #error
+  ><p class="padding-lg align-center">
+    Failed to load courses.
+  </p></ng-template
+>

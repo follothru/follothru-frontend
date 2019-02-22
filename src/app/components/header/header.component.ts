@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +12,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  currentUser$: Observable<any>;
 
-  ngOnInit() {}
+  constructor(
+    private store: Store<fromStore.StoreState>,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.currentUser$ = this.store.pipe(
+      select(fromStore.authEntitiesSelector),
+      map(result => result.user)
+    );
+  }
+
+  onSignOut() {
+    this.store.dispatch(new fromStore.SignOut());
+    this.router.navigate(['/login']);
+  }
 }

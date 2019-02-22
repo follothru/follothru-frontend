@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="calendar-header row">
+    <div class="col-md-2">
+      <i
+        class="fas fa-angle-left calendar-btn prev-btn"
+        (click)="onPrevious()"
+      ></i>
+    </div>
+    <div class="col-md-8">
+      <p class="curr-year">{{ currentYear }}</p>
+    </div>
+    <div class="col-md-2">
+      <i
+        class="fas fa-angle-right calendar-btn next-btn"
+        (click)="onNext()"
+      ></i>
+    </div>
+  </div>
+  <div class="calendar-months">
+    <div class="row">
+      <div class="col-md-6">
+        <app-calendar-month
+          [year]="currentYear"
+          [month]="allMonths[currentSeason][0]"
+        ></app-calendar-month>
+      </div>
+      <div class="col-md-6">
+        <app-calendar-month
+          [year]="currentYear"
+          [month]="allMonths[currentSeason][1]"
+        ></app-calendar-month>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <app-calendar-month
+          [year]="currentYear"
+          [month]="allMonths[currentSeason][2]"
+        ></app-calendar-month>
+      </div>
+      <div class="col-md-6">
+        <app-calendar-month
+          [year]="currentYear"
+          [month]="allMonths[currentSeason][3]"
+        ></app-calendar-month>
+      </div>
+    </div>
+  </div>
+</div>

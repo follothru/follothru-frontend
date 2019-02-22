@@ -1,0 +1,27 @@
+<div class="calendar-month-wrapper">
+  <div>
+    <div class="month-display-text">
+      <p class="align-center">{{ monthDisplayText }}</p>
+    </div>
+    <div class="calendar-weekdays">
+      <li class="calendar-row">
+        <span class="calendar-col">SU</span>
+        <span class="calendar-col">MO</span>
+        <span class="calendar-col">TU</span>
+        <span class="calendar-col">WE</span>
+        <span class="calendar-col">TH</span>
+        <span class="calendar-col">FR</span>
+        <span class="calendar-col">SA</span>
+      </li>
+    </div>
+    <div class="calendar-dates">
+      <ul>
+        <li class="calendar-row" *ngFor="let row of grid">
+          <span class="calendar-col" *ngFor="let date of row">{{
+            date !== undefined ? date.getDate() : ''
+          }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

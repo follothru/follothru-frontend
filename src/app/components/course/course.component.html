@@ -1,5 +1,45 @@
-<ng-container *ngIf="(course$ | async) as course; else loading">
-  <h2>{{ course.name }}</h2>
-  <p>{{ course.description }}</p>
-</ng-container>
-<ng-template #loading>Loading...</ng-template>
+<div>
+  <ng-container *ngIf="(course$ | async) as course; else loading">
+    <ng-container *ngIf="!course.isError; else courseError">
+      <h2 class="page-header">{{ course.name }}</h2>
+      <p>{{ course.description }}</p>
+      <hr />
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [ngClass]="{ active: currentTab === 'reminders' }"
+              href="javascript:;"
+              (click)="setCurrentTab('reminders')"
+              >Reminders</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [ngClass]="{ active: currentTab === 'settings' }"
+              (click)="setCurrentTab('settings')"
+              >Settings</a
+            >
+          </li>
+        </ul>
+        <div>
+          <ng-container *ngIf="currentTab === 'reminders'"
+            ><app-course-reminders [courseId]="courseId"></app-course-reminders>
+          </ng-container>
+          <ng-container *ngIf="currentTab === 'settings'">
+            <app-course-settings [course]="course"></app-course-settings>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+<ng-template #loading><app-spinner></app-spinner></ng-template>
+<ng-template #courseError
+  ><p class="padding-lg align-center">
+    Failed to retrieve courseInfo.
+  </p></ng-template
+>
