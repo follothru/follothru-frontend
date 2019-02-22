@@ -14,7 +14,7 @@ const routes: Routes = [
     component: MainAppComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: '/overview', pathMatch: 'full' },
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
       {
         path: 'overview',
         component: OverviewComponent

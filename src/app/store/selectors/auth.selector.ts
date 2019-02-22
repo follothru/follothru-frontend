@@ -1,9 +1,10 @@
-import * as fromState from '../states';
 import {
   MemoizedSelector,
   createFeatureSelector,
   createSelector
 } from '@ngrx/store';
+
+import * as fromState from '../states';
 
 export const authStateSelector: MemoizedSelector<
   any,

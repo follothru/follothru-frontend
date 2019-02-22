@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
 
   onSignOut() {
     this.store.dispatch(new fromStore.SignOut());
-    console.log('haha');
     this.router.navigate(['/login']);
   }
 }

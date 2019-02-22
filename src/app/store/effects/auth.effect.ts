@@ -16,7 +16,7 @@ export class AuthEffects {
     switchMap((action: fromAction.SignIn) => {
       const { username, password } = action.payload;
       return this.authService.authenticateUser(username, password).pipe(
-        map(result => new fromAction.SignInSuccess(result)),
+        map(result => new fromAction.SignInSuccess({ ...result })),
         catchError(err => of(new fromAction.SignInFailure()))
       );
     })

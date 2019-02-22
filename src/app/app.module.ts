@@ -36,6 +36,7 @@ import { CourseSettingsComponent } from './components/course-settings/course-set
 import { CourseOverviewComponent } from './components/course-overview/course-overview.component';
 import { MainAppComponent } from './components/main-app/main-app.component';
 import { SignInComponent } from './components/signin/signin.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -62,7 +63,8 @@ import { services } from './services';
     CourseSettingsComponent,
     CourseOverviewComponent,
     MainAppComponent,
-    SignInComponent
+    SignInComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
