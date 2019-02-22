@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "------"
 echo "Validating code formatting (yarn prettier)..."
 yarn prettier
 if [ $? -eq 0 ]; then
