@@ -1,8 +1,6 @@
 #!/bin/bash
-./validate-style.sh
-
 echo "------"
-echo "Building app..."
+echo "Building & deploying app..."
 ng build --base-href https://follothru.github.io/follothru-frontend/
 
 cd ./dist/follothru-frontend
