@@ -3,13 +3,36 @@ import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './components/course/course.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CourseOverviewComponent } from './components/course-overview/course-overview.component';
+import { AuthGuard } from './guards/auth.guard';
+import { MainAppComponent } from './components/main-app/main-app.component';
+import { SignInComponent } from './components/signin/signin.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/overview', pathMatch: 'full' },
-  { path: 'overview', component: OverviewComponent },
-  { path: 'course', component: CourseOverviewComponent },
-  { path: 'course/:id', component: CourseComponent },
-  { path: 'course/:id/:mode', component: CourseComponent }
+  { path: 'login', component: SignInComponent },
+  {
+    path: '',
+    component: MainAppComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: '/overview', pathMatch: 'full' },
+      {
+        path: 'overview',
+        component: OverviewComponent
+      },
+      {
+        path: 'course',
+        component: CourseOverviewComponent
+      },
+      {
+        path: 'course/:id',
+        component: CourseComponent
+      },
+      {
+        path: 'course/:id/:mode',
+        component: CourseComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

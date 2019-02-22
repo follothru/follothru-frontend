@@ -1,8 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-  <a class="navbar-brand" [routerLink]="['/']"
-    ><img
-      style="height: 20px; line-height: 40px; vertical-align: middle"
-      src="./assets/logo.png"
-      alt=""
-  /></a>
+  <div class="form-inline  col-md-10 col-sm-12">
+    <a class="navbar-brand" [routerLink]="['/']"
+      ><img
+        style="height: 20px; line-height: 40px; vertical-align: middle"
+        src="./assets/logo.png"
+        alt=""
+    /></a>
+  </div>
+  <div class="col-md-2 col-sm-12">
+    <ng-container class="user-dropdown" *ngIf="(currentUser$ | async) as user">
+      <div class="dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{ user.firstname }} {{ user.lastname }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="javascript:;">Settings</a>
+          <a class="dropdown-item" href="javascript:;" (click)="onSignOut()"
+            >Sign out</a
+          >
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </nav>

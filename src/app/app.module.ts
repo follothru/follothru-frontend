@@ -12,6 +12,8 @@ import {
   MatInputModule,
   MatDialogModule
 } from '@angular/material';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +34,12 @@ import { NewCourseDialogComponent } from './components/new-course-dialog/new-cou
 import { CourseRemindersComponent } from './components/course-reminders/course-reminders.component';
 import { CourseSettingsComponent } from './components/course-settings/course-settings.component';
 import { CourseOverviewComponent } from './components/course-overview/course-overview.component';
+import { MainAppComponent } from './components/main-app/main-app.component';
+import { SignInComponent } from './components/signin/signin.component';
+
+import { AuthGuard } from './guards/auth.guard';
+
+import * as fromStore from './store';
 
 import { services } from './services';
 
@@ -52,7 +60,9 @@ import { services } from './services';
     NewCourseDialogComponent,
     CourseRemindersComponent,
     CourseSettingsComponent,
-    CourseOverviewComponent
+    CourseOverviewComponent,
+    MainAppComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -69,11 +79,13 @@ import { services } from './services';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    StoreModule.forRoot(fromStore.reducers),
+    EffectsModule.forRoot(fromStore.effects)
   ],
   entryComponents: [ReminderCreateWidzardComponent, NewCourseDialogComponent],
   exports: [],
-  providers: [...services],
+  providers: [...services, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

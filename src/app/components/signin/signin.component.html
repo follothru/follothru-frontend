@@ -1,0 +1,31 @@
+<div class="signin-container text-center">
+  <div class="form-signin">
+    <!-- <img class="mb-4" alt="" width="72" height="72" /> -->
+    <ng-container *ngIf="(error$ | async) as error"
+      >Failed to sign in.</ng-container
+    >
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Email address"
+      autofocus
+      [(ngModel)]="email"
+    />
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      [(ngModel)]="password"
+    />
+    <!-- <div class="checkbox mb-3">
+      <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+    </div> -->
+    <button class="btn btn-lg btn-primary btn-block" (click)="onSubmit()">
+      Sign in
+    </button>
+    <p class="mt-5 mb-3 text-muted">&copy; FolloThru 2019</p>
+  </div>
+</div>
