@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import * as fromStore from '../../store';
 
@@ -15,15 +15,14 @@ export class AlertComponent implements OnInit {
   alert$: Observable<any>;
   timeout = false;
 
-  constructor(private store: Store<fromStore.StoreState>) {}
+  constructor(private actions$: Actions) {}
 
   ngOnInit() {
-    this.alert$ = this.store.pipe(
-      select(fromStore.alertEntitiesSelector),
-      filter(alert => alert.message !== undefined),
+    this.alert$ = this.actions$.pipe(
+      ofType(fromStore.RAISE_ALERT),
+      map((action: fromStore.RaiseAlert) => action.payload),
       tap(() => (this.timeout = false)),
       tap(() => setTimeout(() => (this.timeout = true), this.TIME_OUT))
     );
-    this.alert$.subscribe();
   }
 }

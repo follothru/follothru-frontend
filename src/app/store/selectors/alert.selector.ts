@@ -7,7 +7,7 @@ import {
 import * as fromState from '../states';
 
 export const alertStateSelector: MemoizedSelector<
-  any,
+  fromState.StoreState,
   fromState.AlertState
 > = createFeatureSelector<fromState.AlertState>('alert');
 

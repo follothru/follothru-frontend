@@ -1,71 +1,57 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { CourseService } from 'src/app/services';
-import { Unsubscribable } from 'rxjs';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-course-settings',
   templateUrl: './course-settings.component.html',
   styleUrls: ['./course-settings.component.css']
 })
-export class CourseSettingsComponent implements OnInit, OnDestroy {
-  @Input()
-  course: any;
+export class CourseSettingsComponent implements OnInit {
+  course$: Observable<any>;
 
   changed = false;
-  nameTemp: string;
-  descriptionTemp: string;
-  endDateTemp: Date;
+  courseOriginal: any = {};
+  courseTemp: any = {};
 
-  private modifyCourseSubscription: Unsubscribable = null;
-
-  constructor(private courseService: CourseService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store<fromStore.StoreState>
+  ) {}
 
   ngOnInit() {
-    this.nameTemp = this.course.name;
-    this.descriptionTemp = this.course.description;
-    this.endDateTemp = this.course.endDate;
-  }
-
-  ngOnDestroy() {
-    if (this.modifyCourseSubscription !== null) {
-      this.modifyCourseSubscription.unsubscribe();
-    }
+    this.course$ = this.store.pipe(
+      select(fromStore.courseEntitiesSelector),
+      tap(course => Object.assign(this.courseOriginal, course)),
+      tap(course => Object.assign(this.courseTemp, course))
+    );
   }
 
   onChange() {
     this.changed =
-      this.nameTemp !== this.course.name ||
-      this.descriptionTemp !== this.course.description ||
-      this.endDateTemp !== this.course.endDate;
+      this.courseTemp.name !== this.courseOriginal.name ||
+      this.courseTemp.endDate !== this.courseOriginal.endDate;
   }
 
   onSaveClick() {
-    if (this.changed) {
-      if (this.modifyCourseSubscription !== null) {
-        this.modifyCourseSubscription.unsubscribe();
-      }
-      this.modifyCourseSubscription = this.courseService
-        .modifyCourse(
-          this.course.id,
-          this.nameTemp,
-          this.descriptionTemp,
-          this.endDateTemp
-        )
-        .pipe(
-          tap(result => {
-            if (result.ieError) {
-              return;
-            }
-            this.course.name = this.nameTemp;
-            this.course.description = this.descriptionTemp;
-            this.course.endDate = this.endDateTemp;
-            this.changed = false;
-          })
-        )
-        .subscribe();
-    }
+    this.store.dispatch(
+      new fromStore.UpdateCourse({
+        courseId: this.courseOriginal.id,
+        name: this.courseTemp.name,
+        description: this.courseTemp.description,
+        endDate: this.courseTemp.endDate
+      })
+    );
+  }
+
+  onDeleteClick() {
+    this.store.dispatch(
+      new fromStore.DeleteCourse({ courseId: this.courseOriginal.id })
+    );
+    this.router.navigate(['/course']);
   }
 }

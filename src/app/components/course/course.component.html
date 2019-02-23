@@ -1,6 +1,8 @@
 <div>
-  <ng-container *ngIf="(course$ | async) as course; else loading">
-    <ng-container *ngIf="!course.isError; else courseError">
+  <ng-container
+    *ngIf="!(isLoading$ | async) && (course$ | async) as course; else loading"
+  >
+    <ng-container *ngIf="!(isError$ | async); else courseError">
       <h2 class="page-header">{{ course.name }}</h2>
       <p>{{ course.description }}</p>
       <hr />
@@ -30,7 +32,7 @@
             ><app-course-reminders [courseId]="courseId"></app-course-reminders>
           </ng-container>
           <ng-container *ngIf="currentTab === 'settings'">
-            <app-course-settings [course]="course"></app-course-settings>
+            <app-course-settings></app-course-settings>
           </ng-container>
         </div>
       </div>

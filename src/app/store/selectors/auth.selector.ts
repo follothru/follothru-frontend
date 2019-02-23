@@ -7,7 +7,7 @@ import {
 import * as fromState from '../states';
 
 export const authStateSelector: MemoizedSelector<
-  any,
+  fromState.StoreState,
   fromState.AuthState
 > = createFeatureSelector<fromState.AuthState>('auth');
 
@@ -35,10 +35,10 @@ export const authIsSuccessSelector: MemoizedSelector<
   fromState.isAuthSuccess
 );
 
-export const authIsErrorSelector: MemoizedSelector<
+export const authErrorSelector: MemoizedSelector<
   fromState.StoreState,
-  boolean
+  any
 > = createSelector(
   authStateSelector,
-  fromState.isAuthError
+  fromState.getAuthError
 );

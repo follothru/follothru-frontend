@@ -24,10 +24,10 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | boolean {
     this.store.dispatch(new fromStore.ResumeSession());
     return this.store.pipe(
-      select(fromStore.authIsErrorSelector),
-      map(result => !result),
-      tap(result => {
-        if (!result) {
+      select(fromStore.authErrorSelector),
+      map(err => err === null),
+      tap(success => {
+        if (!success) {
           this.router.navigate(['/', 'login']);
         }
       })

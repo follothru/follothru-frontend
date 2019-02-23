@@ -13,7 +13,6 @@ import * as fromStore from '../../store';
 })
 export class SignInComponent implements OnInit, OnDestroy {
   private subscription: Unsubscribable;
-  private errorSubscription: Unsubscribable;
 
   success$: Observable<any>;
 
@@ -31,31 +30,23 @@ export class SignInComponent implements OnInit, OnDestroy {
       filter(success => success),
       tap(() => this.router.navigate(['/']))
     );
-    this.subscription = this.success$.subscribe();
 
-    this.errorSubscription = this.store
+    this.store
       .pipe(
-        filter(
-          (state: fromStore.StoreState) =>
-            fromStore.authEntitiesSelector(state).type ===
-            fromStore.SIGN_IN_FAILURE
-        ),
-        select(fromStore.authEntitiesSelector),
-        map(entities => entities.isError),
-        tap(isErr => {
-          if (isErr === true) {
-            this.store.dispatch(
-              new fromStore.RaiseAlert({ message: 'Failed to sign in.' })
-            );
-          }
-        })
+        select(fromStore.authErrorSelector),
+        filter(error => error !== null),
+        tap(error =>
+          this.store.dispatch(
+            new fromStore.RaiseAlert({ type: 'danger', content: error.message })
+          )
+        )
       )
       .subscribe();
+    this.subscription = this.success$.subscribe();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
   }
 
   onSubmit() {

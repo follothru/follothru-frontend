@@ -24,7 +24,7 @@ export class SignInSuccess implements Action {
 
 export class SignInFailure implements Action {
   readonly type = SIGN_IN_FAILURE;
-  constructor() {}
+  constructor(public payload: any = {}) {}
 }
 
 export class SignOut implements Action {
@@ -39,7 +39,7 @@ export class SignOutSuccess implements Action {
 
 export class SignOutFailure implements Action {
   readonly type = SIGN_OUT_FAILURE;
-  constructor() {}
+  constructor(public payload: any = {}) {}
 }
 
 export class ResumeSession implements Action {
@@ -54,7 +54,7 @@ export class ResumeSessionSuccess implements Action {
 
 export class ResumeSessionFailure implements Action {
   readonly type = RESUME_SESSION_FAILURE;
-  constructor() {}
+  constructor(public payload: any = {}) {}
 }
 
 export type AuthAction =

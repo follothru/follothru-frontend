@@ -33,17 +33,21 @@ export class CourseService {
     });
   }
 
-  modifyCourse(
+  updateCourse(
     courseId: string,
     name: string,
     description: string,
     endDate: Date
-  ) {
+  ): Observable<any> {
     return this.httpService.httpPut(this.getCourseUrl() + '/' + courseId, {
       name,
       description,
       endDate
     });
+  }
+
+  deleteCourse(courseId: string): Observable<any> {
+    return this.httpService.httpDelete(this.getCourseUrl() + '/' + courseId);
   }
 
   private getCourseUrl(): string {
