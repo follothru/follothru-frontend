@@ -10,6 +10,9 @@ import * as fromStore from '../../store';
 })
 export class ReminderComponent implements OnInit {
   @Input()
+  courseId: string;
+
+  @Input()
   reminder: any;
   showInfo = false;
 
@@ -19,7 +22,10 @@ export class ReminderComponent implements OnInit {
 
   onDeleleClick() {
     this.store.dispatch(
-      new fromStore.DeleteReminders({ reminderId: this.reminder.id })
+      new fromStore.DeleteReminders({
+        reminderId: this.reminder.id,
+        courseId: this.courseId
+      })
     );
   }
 }

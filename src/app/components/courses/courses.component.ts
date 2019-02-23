@@ -18,7 +18,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   isError$: Observable<boolean>;
 
-  private expiredSubscription: Unsubscribable;
   private dialogSubscription: Unsubscribable = null;
 
   constructor(
@@ -31,21 +30,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.store.pipe(
       select(fromStore.coursesIsLoadingSelector)
     );
-    this.isError$ = this.store.pipe(select(fromStore.coursesIsErrorSelector));
-
-    this.expiredSubscription = this.store
-      .pipe(
-        select(fromStore.coursesExpiredSelector),
-        filter(expired => expired),
-        tap(() => this.loadCourses())
-      )
-      .subscribe();
 
     this.loadCourses();
   }
 
   ngOnDestroy() {
-    this.expiredSubscription.unsubscribe();
     if (this.dialogSubscription !== null) {
       this.dialogSubscription.unsubscribe();
     }

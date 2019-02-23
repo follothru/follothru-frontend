@@ -26,19 +26,3 @@ export const remindersIsLoadingSelector: MemoizedSelector<
   remindersStateSelector,
   fromState.getRemindersIsLoading
 );
-
-export const remindersIsExpiredSelector: MemoizedSelector<
-  fromState.StoreState,
-  boolean
-> = createSelector(
-  remindersStateSelector,
-  fromState.getRemindersIsExpired
-);
-
-export const remindersErrorSelector: MemoizedSelector<
-  fromState.StoreState,
-  any
-> = createSelector(
-  remindersStateSelector,
-  fromState.getRemindersError
-);

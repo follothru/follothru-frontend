@@ -14,7 +14,10 @@
           <ul>
             <ng-container *ngFor="let reminder of reminders">
               <li>
-                <app-reminder [reminder]="reminder"></app-reminder>
+                <app-reminder
+                  [courseId]="courseId"
+                  [reminder]="reminder"
+                ></app-reminder>
               </li>
             </ng-container>
           </ul>

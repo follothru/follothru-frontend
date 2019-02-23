@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Observable, Unsubscribable } from 'rxjs';
-import { tap, map, filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import * as fromStore from '../../store';
 
@@ -18,8 +17,6 @@ export class CourseComponent implements OnInit, OnDestroy {
   isError$: Observable<boolean>;
   reminders$: Observable<any>;
   currentTab: string;
-
-  private expiredSubscription: Unsubscribable;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,24 +34,10 @@ export class CourseComponent implements OnInit, OnDestroy {
       select(fromStore.courseIsLoadingSelector)
     );
 
-    this.isError$ = this.store.pipe(
-      select(fromStore.courseErrorSelector),
-      map(err => err !== null)
-    );
-
-    this.expiredSubscription = this.store
-      .pipe(
-        select(fromStore.courseExpiredSelector),
-        filter(expired => expired),
-        tap(() => this.loadCourse())
-      )
-      .subscribe();
     this.loadCourse();
   }
 
-  ngOnDestroy() {
-    this.expiredSubscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   setCurrentTab(tab: string) {
     this.currentTab = tab;

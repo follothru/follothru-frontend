@@ -20,7 +20,6 @@ export class AlertComponent implements OnInit {
   ngOnInit() {
     this.alert$ = this.actions$.pipe(
       ofType(fromStore.RAISE_ALERT),
-      tap(console.log),
       map((action: fromStore.RaiseAlert) => action.payload),
       tap(() => (this.timeout = false)),
       tap(() => setTimeout(() => (this.timeout = true), this.TIME_OUT))

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError, mergeMap, tap } from 'rxjs/operators';
 
@@ -13,12 +13,11 @@ import * as fromState from '../states';
 export class RemindersEffects {
   constructor(
     private actions$: Actions,
-    private reminderService: ReminderService,
-    private store: Store<fromState.StoreState>
+    private reminderService: ReminderService
   ) {}
 
   @Effect()
-  $getReminders: Observable<fromAction.RemindersAction> = this.actions$.pipe(
+  getReminders$: Observable<fromAction.RemindersAction> = this.actions$.pipe(
     ofType(fromAction.GET_REMINDERS),
     switchMap((action: fromAction.GetReminders) =>
       this.reminderService.getRemindersByCourseId(action.payload.courseId).pipe(
@@ -29,21 +28,55 @@ export class RemindersEffects {
   );
 
   @Effect()
-  $createReminders: Observable<fromAction.RemindersAction> = this.actions$.pipe(
+  getRemindersFailure$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.GET_REMINDERS_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'danger',
+          content: 'Failed to load reminders.'
+        })
+    )
+  );
+
+  @Effect()
+  createReminders$: Observable<fromAction.RemindersAction> = this.actions$.pipe(
     ofType(fromAction.CREATE_REMINDERS),
     mergeMap((action: fromAction.CreateReminders) =>
       this.reminderService.createReminders(action.payload).pipe(
-        tap(() =>
-          this.store.dispatch(
-            new fromAction.RaiseAlert({
-              type: 'success',
-              content: 'The reminder has been created.'
-            })
-          )
+        map(
+          result =>
+            new fromAction.CreateRemindersSuccess(
+              result,
+              action.payload.courseId
+            )
         ),
-        map(() => new fromAction.CreateRemindersSuccess()),
         catchError(err => of(new fromAction.CreateRemindersFailure(err)))
       )
+    )
+  );
+
+  @Effect()
+  createRemindersSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.CREATE_REMINDERS_SUCCESS),
+    switchMap((action: fromAction.CreateRemindersSuccess) => [
+      new fromAction.RaiseAlert({
+        type: 'success',
+        content: `The reminder has been created.`
+      }),
+      new fromAction.GetReminders({ courseId: action.courseId })
+    ])
+  );
+
+  @Effect()
+  createRemindersFailure$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.CREATE_REMINDERS_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'danger',
+          content: `Failed to create the reminder.`
+        })
     )
   );
 
@@ -52,17 +85,39 @@ export class RemindersEffects {
     ofType(fromAction.DELETE_REMINDERS),
     switchMap((action: fromAction.DeleteReminders) =>
       this.reminderService.deleteReminder(action.payload.reminderId).pipe(
-        tap(() =>
-          this.store.dispatch(
-            new fromAction.RaiseAlert({
-              type: 'success',
-              content: 'The reminder has been deleted.'
-            })
-          )
+        map(
+          result =>
+            new fromAction.DeleteRemindersSuccess(
+              result,
+              action.payload.courseId
+            )
         ),
-        map(() => new fromAction.DeleteRemindersSuccess()),
         catchError(err => of(new fromAction.DeleteRemindersFailure(err)))
       )
+    )
+  );
+
+  @Effect()
+  $deleteReminderSuccesss: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.DELETE_REMINDERS_SUCCESS),
+    switchMap((action: fromAction.DeleteRemindersSuccess) => [
+      new fromAction.RaiseAlert({
+        type: 'success',
+        content: 'The reminder has been deleted.'
+      }),
+      new fromAction.GetReminders({ courseId: action.courseId })
+    ])
+  );
+
+  @Effect()
+  $deleteReminderFailure: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.DELETE_REMINDERS_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'success',
+          content: 'Failed to delete the reminder.'
+        })
     )
   );
 }

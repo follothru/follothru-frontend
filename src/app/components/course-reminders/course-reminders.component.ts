@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable, Unsubscribable } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
 
 import { ReminderCreateWidzardComponent } from '../reminder-create-widzard/reminder-create-widzard.component';
 
@@ -21,7 +20,6 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
   error$: Observable<any>;
 
   private dialogSubscription: Unsubscribable = null;
-  private expiredSubscription: Unsubscribable;
 
   constructor(
     private dialog: MatDialog,
@@ -35,22 +33,11 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.store.pipe(
       select(fromStore.remindersIsLoadingSelector)
     );
-    this.error$ = this.store.pipe(
-      select(fromStore.remindersErrorSelector),
-      filter(error => error !== null)
-    );
-    this.expiredSubscription = this.store
-      .pipe(
-        select(fromStore.remindersIsExpiredSelector),
-        filter(expired => expired),
-        tap(() => this.loadReminders())
-      )
-      .subscribe();
+
     this.loadReminders();
   }
 
   ngOnDestroy() {
-    this.expiredSubscription.unsubscribe();
     if (this.dialogSubscription !== null) {
       this.dialogSubscription.unsubscribe();
     }

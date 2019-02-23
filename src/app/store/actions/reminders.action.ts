@@ -34,7 +34,7 @@ export class CreateReminders implements Action {
 
 export class CreateRemindersSuccess implements Action {
   readonly type = CREATE_REMINDERS_SUCCESS;
-  constructor() {}
+  constructor(public payload: any, public courseId: string) {}
 }
 
 export class CreateRemindersFailure implements Action {
@@ -49,7 +49,7 @@ export class DeleteReminders implements Action {
 
 export class DeleteRemindersSuccess implements Action {
   readonly type = DELETE_REMINDERS_SUCCESS;
-  constructor() {}
+  constructor(public payload: string, public courseId: string) {}
 }
 
 export class DeleteRemindersFailure implements Action {
