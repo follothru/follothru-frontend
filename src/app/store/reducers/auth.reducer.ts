@@ -7,11 +7,9 @@ export function AuthReducer(
 ): fromState.AuthState {
   switch (action.type) {
     case fromAction.SIGN_IN:
-    case fromAction.SIGN_OUT:
     case fromAction.RESUME_SESSION:
       return {
         ...state,
-        authEntities: { type: action.type },
         error: null,
         isLoading: true,
         isSuccess: false
@@ -20,7 +18,6 @@ export function AuthReducer(
     case fromAction.SIGN_IN_SUCCESS:
     case fromAction.RESUME_SESSION_SUCCESS: {
       const authEntities = action.payload;
-      authEntities.type = action.type;
       return {
         ...state,
         authEntities,
@@ -30,17 +27,7 @@ export function AuthReducer(
       };
     }
 
-    case fromAction.SIGN_OUT_SUCCESS:
-      return {
-        ...state,
-        authEntities: { type: action.type },
-        error: null,
-        isLoading: false,
-        isSuccess: true
-      };
-
     case fromAction.SIGN_IN_FAILURE:
-    case fromAction.SIGN_OUT_FAILURE:
     case fromAction.RESUME_SESSION_FAILURE:
       return {
         ...state,

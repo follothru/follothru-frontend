@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { tap, filter, map } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 import { Observable, Unsubscribable } from 'rxjs';
 
 import * as fromStore from '../../store';
@@ -34,12 +34,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.store
       .pipe(
         select(fromStore.authErrorSelector),
-        filter(error => error !== null),
-        tap(error =>
-          this.store.dispatch(
-            new fromStore.RaiseAlert({ type: 'danger', content: error.message })
-          )
-        )
+        filter(error => error !== null)
       )
       .subscribe();
     this.subscription = this.success$.subscribe();

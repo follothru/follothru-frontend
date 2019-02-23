@@ -10,12 +10,14 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import * as fromStore from '../store';
+import { AuthService } from '../services';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private store: Store<fromStore.StoreState>
+    private store: Store<fromStore.StoreState>,
+    private authService: AuthService
   ) {}
 
   canActivate(

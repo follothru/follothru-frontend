@@ -6,6 +6,7 @@ import { CourseOverviewComponent } from './components/course-overview/course-ove
 import { AuthGuard } from './guards/auth.guard';
 import { MainAppComponent } from './components/main-app/main-app.component';
 import { SignInComponent } from './components/signin/signin.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: SignInComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
         component: CourseComponent
       }
     ]
-  }
+  },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

@@ -6,10 +6,16 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../services';
 
 import * as fromAction from '../actions';
+import * as fromState from '../states';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private store: Store<fromState.StoreState>
+  ) {}
 
   @Effect()
   signIn$: Observable<fromAction.AuthAction> = this.actions$.pipe(
@@ -18,7 +24,12 @@ export class AuthEffects {
       const { username, password } = action.payload;
       return this.authService.authenticateUser(username, password).pipe(
         map(result => new fromAction.SignInSuccess({ ...result })),
-        catchError(err => of(new fromAction.SignInFailure(err)))
+        catchError(err => {
+          this.store.dispatch(
+            new fromAction.RaiseAlert({ type: 'danger', content: err.message })
+          );
+          return of(new fromAction.SignInFailure(err));
+        })
       );
     })
   );

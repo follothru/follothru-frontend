@@ -12,6 +12,8 @@ export const RESUME_SESSION = '[Auth] Resume Session';
 export const RESUME_SESSION_SUCCESS = '[Auth] Resume Session Success';
 export const RESUME_SESSION_FAILURE = '[Auth] Resume Session Failure';
 
+export const USER_SESSION_UPDATE = '[Auth] User Session Update';
+
 export class SignIn implements Action {
   readonly type = SIGN_IN;
   constructor(public payload: any) {}
@@ -57,6 +59,11 @@ export class ResumeSessionFailure implements Action {
   constructor(public payload: any = {}) {}
 }
 
+export class UserSessionUpdate implements Action {
+  readonly type = USER_SESSION_UPDATE;
+  constructor() {}
+}
+
 export type AuthAction =
   | SignIn
   | SignInSuccess
@@ -66,4 +73,5 @@ export type AuthAction =
   | SignOutFailure
   | ResumeSession
   | ResumeSessionSuccess
-  | ResumeSessionFailure;
+  | ResumeSessionFailure
+  | UserSessionUpdate;
