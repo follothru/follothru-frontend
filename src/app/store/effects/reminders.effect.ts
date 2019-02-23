@@ -7,7 +7,6 @@ import { switchMap, map, catchError, mergeMap, tap } from 'rxjs/operators';
 import { ReminderService } from '../../services';
 
 import * as fromAction from '../actions';
-import * as fromState from '../states';
 
 @Injectable()
 export class RemindersEffects {
