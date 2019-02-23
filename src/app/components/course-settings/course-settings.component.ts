@@ -38,14 +38,16 @@ export class CourseSettingsComponent implements OnInit {
   }
 
   onSaveClick() {
-    this.store.dispatch(
-      new fromStore.UpdateCourse({
-        courseId: this.courseOriginal.id,
-        name: this.courseTemp.name,
-        description: this.courseTemp.description,
-        endDate: this.courseTemp.endDate
-      })
-    );
+    if (this.changed === true) {
+      this.store.dispatch(
+        new fromStore.UpdateCourse({
+          courseId: this.courseOriginal.id,
+          name: this.courseTemp.name,
+          description: this.courseTemp.description,
+          endDate: this.courseTemp.endDate
+        })
+      );
+    }
   }
 
   onDeleteClick() {

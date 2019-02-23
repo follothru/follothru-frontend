@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-reminder',
@@ -8,8 +11,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ReminderComponent implements OnInit {
   @Input()
   reminder: any;
+  showInfo = false;
 
-  constructor() {}
+  constructor(private store: Store<fromStore.StoreState>) {}
 
   ngOnInit() {}
+
+  onDeleleClick() {
+    this.store.dispatch(
+      new fromStore.DeleteReminders({ reminderId: this.reminder.id })
+    );
+  }
 }

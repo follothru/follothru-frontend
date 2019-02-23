@@ -14,11 +14,11 @@ export class CourseService {
   ) {}
 
   getCourses(): Observable<any> {
-    return this.httpService.httpGet(this.getCourseUrl());
+    return this.httpService.httpAuthGet(this.getCourseUrl());
   }
 
   getCourseById(id: string): Observable<any> {
-    return this.httpService.httpGet(this.getCourseUrl() + '/' + id);
+    return this.httpService.httpAuthGet(this.getCourseUrl() + '/' + id);
   }
 
   createNewCourse(
@@ -26,7 +26,7 @@ export class CourseService {
     endDate: Date,
     description: string
   ): Observable<any> {
-    return this.httpService.httpPost(this.getCourseUrl(), {
+    return this.httpService.httpAuthPost(this.getCourseUrl(), {
       name,
       endDate,
       description
@@ -39,7 +39,7 @@ export class CourseService {
     description: string,
     endDate: Date
   ): Observable<any> {
-    return this.httpService.httpPut(this.getCourseUrl() + '/' + courseId, {
+    return this.httpService.httpAuthPut(this.getCourseUrl() + '/' + courseId, {
       name,
       description,
       endDate
@@ -47,7 +47,9 @@ export class CourseService {
   }
 
   deleteCourse(courseId: string): Observable<any> {
-    return this.httpService.httpDelete(this.getCourseUrl() + '/' + courseId);
+    return this.httpService.httpAuthDelete(
+      this.getCourseUrl() + '/' + courseId
+    );
   }
 
   private getCourseUrl(): string {

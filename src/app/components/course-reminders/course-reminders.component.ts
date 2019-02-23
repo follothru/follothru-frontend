@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable, throwError, Unsubscribable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import { Observable, Unsubscribable } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
 
 import { ReminderCreateWidzardComponent } from '../reminder-create-widzard/reminder-create-widzard.component';
 
-import { ReminderService } from 'src/app/services';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-course-reminders',
@@ -16,29 +17,42 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
   @Input()
   courseId: string;
   reminders$: Observable<any>;
+  isLoading$: Observable<any>;
+  error$: Observable<any>;
 
   private dialogSubscription: Unsubscribable = null;
-  private createSubscription: Unsubscribable = null;
-  private loadSubscription: Unsubscribable = null;
+  private expiredSubscription: Unsubscribable;
 
   constructor(
-    private reminderService: ReminderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private store: Store<fromStore.StoreState>
   ) {}
 
   ngOnInit() {
+    this.reminders$ = this.store.pipe(
+      select(fromStore.remindersEntitiesSelector)
+    );
+    this.isLoading$ = this.store.pipe(
+      select(fromStore.remindersIsLoadingSelector)
+    );
+    this.error$ = this.store.pipe(
+      select(fromStore.remindersErrorSelector),
+      filter(error => error !== null)
+    );
+    this.expiredSubscription = this.store
+      .pipe(
+        select(fromStore.remindersIsExpiredSelector),
+        filter(expired => expired),
+        tap(() => this.loadReminders())
+      )
+      .subscribe();
     this.loadReminders();
   }
 
   ngOnDestroy() {
+    this.expiredSubscription.unsubscribe();
     if (this.dialogSubscription !== null) {
       this.dialogSubscription.unsubscribe();
-    }
-    if (this.createSubscription !== null) {
-      this.createSubscription.unsubscribe();
-    }
-    if (this.loadSubscription !== null) {
-      this.loadSubscription.unsubscribe();
     }
   }
 
@@ -56,53 +70,17 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe(config => this.createNewReminder(config));
   }
+
   private createNewReminder(config) {
     if (config !== undefined) {
-      const {
-        name,
-        startDate,
-        startTime,
-        endDate,
-        endTime,
-        repeat,
-        sendTime
-      } = config;
-      const courseId = this.courseId;
-
-      if (this.createSubscription !== null) {
-        this.createSubscription.unsubscribe();
-      }
-      this.createSubscription = this.reminderService
-        .createReminders({
-          courseId,
-          name,
-          startDate,
-          startTime,
-          endDate,
-          endTime,
-          repeat,
-          sendTime
-        })
-        .pipe(
-          tap(() => {
-            this.loadReminders();
-          }),
-          catchError(err => {
-            console.error('Failed to create reminder:', err);
-            return throwError(console.error);
-          })
-        )
-        .subscribe();
+      config.courseId = this.courseId;
+      this.store.dispatch(new fromStore.CreateReminders(config));
     }
   }
 
   private loadReminders() {
-    this.reminders$ = this.reminderService.getRemindersByCourseId(
-      this.courseId
+    this.store.dispatch(
+      new fromStore.GetReminders({ courseId: this.courseId })
     );
-    if (this.loadSubscription !== null) {
-      this.loadSubscription.unsubscribe();
-    }
-    this.loadSubscription = this.reminders$.subscribe();
   }
 }

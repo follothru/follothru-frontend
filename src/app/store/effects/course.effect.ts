@@ -51,7 +51,15 @@ export class CourseEffects {
             )
           ),
           map(result => new fromAction.UpdateCourseSuccess(result)),
-          catchError(err => of(new fromAction.UpdateCourseFailure(err)))
+          catchError(err => {
+            this.store.dispatch(
+              new fromAction.RaiseAlert({
+                type: 'danger',
+                content: 'Failed to update course.'
+              })
+            );
+            return of(new fromAction.UpdateCourseFailure(err));
+          })
         )
     )
   );

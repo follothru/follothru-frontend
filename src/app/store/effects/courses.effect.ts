@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import { switchMap, map, catchError, tap, mergeMap } from 'rxjs/operators';
 
 import { CourseService } from '../../services';
 
@@ -30,7 +30,7 @@ export class CoursesEffects {
   @Effect()
   $createCourse: Observable<fromAction.CoursesAction> = this.actions$.pipe(
     ofType(fromAction.CREATE_COURSE),
-    switchMap((action: fromAction.CreateCourse) =>
+    mergeMap((action: fromAction.CreateCourse) =>
       this.courseService
         .createNewCourse(
           action.payload.name,
@@ -47,7 +47,15 @@ export class CoursesEffects {
             )
           ),
           map(result => new fromAction.CreateCourseSuccess(result)),
-          catchError(err => of(new fromAction.CreateCourseFailure(err)))
+          catchError(err => {
+            this.store.dispatch(
+              new fromAction.RaiseAlert({
+                type: 'danger',
+                content: 'Failed to create course.'
+              })
+            );
+            return of(new fromAction.CreateCourseFailure(err));
+          })
         )
     )
   );
@@ -66,7 +74,15 @@ export class CoursesEffects {
           )
         ),
         map(result => new fromAction.DeleteCourseSuccess(result)),
-        catchError(err => of(new fromAction.DeleteCourseFailure(err)))
+        catchError(err => {
+          this.store.dispatch(
+            new fromAction.RaiseAlert({
+              type: 'danger',
+              content: 'Failed to delete course.'
+            })
+          );
+          return of(new fromAction.DeleteCourseFailure(err));
+        })
       )
     )
   );

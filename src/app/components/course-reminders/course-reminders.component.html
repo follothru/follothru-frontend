@@ -3,8 +3,13 @@
 </button>
 <div class="row">
   <div class="col-md-5">
-    <ng-container *ngIf="(reminders$ | async) as reminders; else loading">
-      <ng-container *ngIf="!reminders.isError; else remindersError">
+    <ng-container
+      *ngIf="
+        !(isLoading$ | async) && (reminders$ | async) as reminders;
+        else loading
+      "
+    >
+      <ng-container *ngIf="!(error$ | async); else remindersError">
         <ng-container *ngIf="reminders.length > 0; else noReminders">
           <ul>
             <ng-container *ngFor="let reminder of reminders">

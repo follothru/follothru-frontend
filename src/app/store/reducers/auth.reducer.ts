@@ -4,7 +4,7 @@ import * as fromAction from '../actions';
 export function AuthReducer(
   state: fromState.AuthState = fromState.initialAuthState,
   action: fromAction.AuthAction
-) {
+): fromState.AuthState {
   switch (action.type) {
     case fromAction.SIGN_IN:
     case fromAction.SIGN_OUT:

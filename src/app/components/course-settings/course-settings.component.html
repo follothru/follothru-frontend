@@ -38,7 +38,9 @@
       <ul>
         <ng-container *ngFor="let instructor of course.instructors">
           <li>
-            {{ instructor }}
+            {{ instructor.firstname }} {{ instructor.lastname }} ({{
+              instructor.email
+            }})
           </li></ng-container
         >
       </ul>
