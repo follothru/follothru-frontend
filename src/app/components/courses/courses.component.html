@@ -5,8 +5,10 @@
 <button class="btn btn-default" (click)="onNewCourse()">
   <i class="fas fa-plus"></i>
 </button>
-<ng-container *ngIf="(courses$ | async) as courses; else loading">
-  <ng-container *ngIf="!courses.isError; else error">
+<ng-container
+  *ngIf="!(isLoading$ | async) && (courses$ | async) as courses; else loading"
+>
+  <ng-container *ngIf="!(isError$ | async); else error">
     <ul>
       <ng-container *ngFor="let course of courses">
         <li class="course-list-item">

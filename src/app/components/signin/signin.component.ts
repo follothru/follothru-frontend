@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { tap, filter } from 'rxjs/operators';
+import { tap, filter, map } from 'rxjs/operators';
 import { Observable, Unsubscribable } from 'rxjs';
 
 import * as fromStore from '../../store';
@@ -13,7 +13,6 @@ import * as fromStore from '../../store';
 })
 export class SignInComponent implements OnInit, OnDestroy {
   private subscription: Unsubscribable;
-  private errorSubscription: Unsubscribable;
 
   success$: Observable<any>;
 
@@ -31,35 +30,28 @@ export class SignInComponent implements OnInit, OnDestroy {
       filter(success => success),
       tap(() => this.router.navigate(['/']))
     );
-    this.subscription = this.success$.subscribe();
 
-    this.errorSubscription = this.store
+    this.store
       .pipe(
-        filter(
-          (state: fromStore.StoreState) =>
-            fromStore.authEntitiesSelector(state).type ===
-            fromStore.SIGN_IN_FAILURE
-        ),
-        select(fromStore.authIsErrorSelector),
-        tap(isErr => {
-          if (isErr === true) {
-            this.store.dispatch(
-              new fromStore.RaiseAlert({ message: 'Failed to sign in.' })
-            );
-          }
-        })
+        select(fromStore.authErrorSelector),
+        filter(error => error !== null),
+        tap(error =>
+          this.store.dispatch(
+            new fromStore.RaiseAlert({ type: 'danger', content: error.message })
+          )
+        )
       )
       .subscribe();
+    this.subscription = this.success$.subscribe();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
   }
 
   onSubmit() {
-    const username = this.email;
-    const password = this.password;
+    const username = this.email.slice();
+    const password = this.password.slice();
     this.store.dispatch(new fromStore.SignIn({ username, password }));
   }
 }

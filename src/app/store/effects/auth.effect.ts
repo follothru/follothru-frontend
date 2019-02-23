@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
+import { switchMap, map, catchError } from 'rxjs/operators';
+
+import { AuthService } from '../../services';
 
 import * as fromAction from '../actions';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services';
 
 @Injectable()
 export class AuthEffects {
   constructor(private actions$: Actions, private authService: AuthService) {}
 
   @Effect()
-  signIn$: Observable<any> = this.actions$.pipe(
+  signIn$: Observable<fromAction.AuthAction> = this.actions$.pipe(
     ofType(fromAction.SIGN_IN),
     switchMap((action: fromAction.SignIn) => {
       const { username, password } = action.payload;
       return this.authService.authenticateUser(username, password).pipe(
         map(result => new fromAction.SignInSuccess({ ...result })),
-        catchError(err => of(new fromAction.SignInFailure()))
+        catchError(err => of(new fromAction.SignInFailure(err)))
       );
     })
   );
@@ -31,7 +32,7 @@ export class AuthEffects {
       }
       return this.authService.resumeCurrentSession().pipe(
         map(result => new fromAction.ResumeSessionSuccess(result)),
-        catchError(err => of(new fromAction.ResumeSessionFailure()))
+        catchError(err => of(new fromAction.ResumeSessionFailure(err)))
       );
     })
   );

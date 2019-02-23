@@ -1,5 +1,8 @@
 <ng-container *ngIf="!timeout && (alert$ | async) as alert">
-  <div class="alert alert-message alert-primary" role="alert">
-    {{ alert.message }}
+  <div
+    class="alert alert-message alert-{{ alert.type ? alert.type : 'primary' }}"
+    role="alert"
+  >
+    {{ alert.content }}
   </div>
 </ng-container>

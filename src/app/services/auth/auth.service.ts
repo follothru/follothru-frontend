@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { ConfigService } from '../config';
 import { HttpService } from '../http';
@@ -17,22 +17,17 @@ export class AuthService {
   ) {}
 
   authenticateUser(username: string, password: string): Observable<any> {
-    const result$: Observable<any> = this.httpService
-      .httpPost(this.getSessionBackendUrl(), {
-        username,
-        password
-      })
+    return this.httpService
+      .httpPost(this.getSessionBackendUrl(), { username, password })
       .pipe(
-        switchMap(result => {
-          if (result.isError) {
-            this.signOut();
-            return throwError(result);
-          }
+        tap(result => {
           this.setAuthToken(result.id);
-          return of(result);
+        }),
+        catchError(err => {
+          sessionStorage.removeItem(this.AUTH_KEY);
+          return throwError(err.error);
         })
       );
-    return result$;
   }
 
   isSignedIn(): boolean {

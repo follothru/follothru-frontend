@@ -12,9 +12,9 @@ export function AuthReducer(
       return {
         ...state,
         authEntities: { type: action.type },
+        error: null,
         isLoading: true,
-        isSuccess: false,
-        isError: false
+        isSuccess: false
       };
 
     case fromAction.SIGN_IN_SUCCESS:
@@ -24,9 +24,9 @@ export function AuthReducer(
       return {
         ...state,
         authEntities,
+        error: null,
         isLoading: false,
-        isSuccess: true,
-        isError: false
+        isSuccess: true
       };
     }
 
@@ -34,9 +34,9 @@ export function AuthReducer(
       return {
         ...state,
         authEntities: { type: action.type },
+        error: null,
         isLoading: false,
-        isSuccess: true,
-        isError: false
+        isSuccess: true
       };
 
     case fromAction.SIGN_IN_FAILURE:
@@ -44,10 +44,9 @@ export function AuthReducer(
     case fromAction.RESUME_SESSION_FAILURE:
       return {
         ...state,
-        authEntities: { type: action.type },
+        error: action.payload,
         isLoading: false,
-        isSuccess: false,
-        isError: true
+        isSuccess: false
       };
   }
   return state;

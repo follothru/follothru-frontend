@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
 import { Observable, Unsubscribable } from 'rxjs';
+import { tap, map, filter } from 'rxjs/operators';
 
-import { CourseService } from '../../services';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-course',
@@ -12,26 +14,46 @@ import { CourseService } from '../../services';
 export class CourseComponent implements OnInit, OnDestroy {
   courseId: string;
   course$: Observable<any>;
+  isLoading$: Observable<boolean>;
+  isError$: Observable<boolean>;
   reminders$: Observable<any>;
   currentTab: string;
-  private courseSubscription: Unsubscribable;
+
+  private expiredSubscription: Unsubscribable;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private courseService: CourseService
+    private store: Store<fromStore.StoreState>
   ) {
     this.setCurrentTab('reminders');
   }
 
   ngOnInit() {
     this.courseId = this.activatedRoute.snapshot.params.id;
+
+    this.course$ = this.store.pipe(select(fromStore.courseEntitiesSelector));
+
+    this.isLoading$ = this.store.pipe(
+      select(fromStore.courseIsLoadingSelector)
+    );
+
+    this.isError$ = this.store.pipe(
+      select(fromStore.courseErrorSelector),
+      map(err => err !== null)
+    );
+
+    this.expiredSubscription = this.store
+      .pipe(
+        select(fromStore.courseExpiredSelector),
+        filter(expired => expired),
+        tap(() => this.loadCourse())
+      )
+      .subscribe();
     this.loadCourse();
   }
 
   ngOnDestroy() {
-    if (this.courseSubscription) {
-      this.courseSubscription.unsubscribe();
-    }
+    this.expiredSubscription.unsubscribe();
   }
 
   setCurrentTab(tab: string) {
@@ -39,11 +61,6 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   private loadCourse() {
-    this.course$ = this.courseService.getCourseById(this.courseId);
-
-    if (this.courseSubscription) {
-      this.courseSubscription.unsubscribe();
-    }
-    this.courseSubscription = this.course$.subscribe();
+    this.store.dispatch(new fromStore.GetCourse({ courseId: this.courseId }));
   }
 }
