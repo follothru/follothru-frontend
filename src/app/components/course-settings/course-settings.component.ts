@@ -34,7 +34,8 @@ export class CourseSettingsComponent implements OnInit {
   onChange() {
     this.changed =
       this.courseTemp.name !== this.courseOriginal.name ||
-      this.courseTemp.endDate !== this.courseOriginal.endDate;
+      this.courseTemp.endDate !== this.courseOriginal.endDate ||
+      this.courseTemp.description !== this.courseOriginal.description;
   }
 
   onSaveClick() {

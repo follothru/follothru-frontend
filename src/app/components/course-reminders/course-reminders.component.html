@@ -1,4 +1,4 @@
-<div class="margin-top-sm">
+<div>
   <button class="btn btn-default" (click)="newReminder()">
     <i class="fas fa-plus"></i>
   </button>
@@ -15,7 +15,7 @@
         <ng-container *ngIf="reminders.length > 0; else noReminders">
           <ul>
             <ng-container *ngFor="let reminder of reminders">
-              <li>
+              <li class="reminder-list-item">
                 <app-reminder
                   [courseId]="courseId"
                   [reminder]="reminder"

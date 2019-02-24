@@ -1,4 +1,13 @@
 .course-list-item {
-  display: inline;
-  margin: 0 1em 1em 1em;
+  display: inline-block;
+  margin: 0.6em;
+}
+
+.course-list-item .item-card {
+  /* color: #212529; */
+  text-decoration: none;
+}
+
+.course-list-item .item-card:hover {
+  background-color: #eee;
 }
