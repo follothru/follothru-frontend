@@ -1,7 +1,21 @@
 .reminder-card {
-  padding: 0.6em;
   margin-top: 0.6em;
   border-radius: 4px;
   background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
   cursor: pointer;
+}
+
+.basic-info,
+.reminder-details {
+  padding: 0.8em 1.6em;
+}
+
+.reminder-details {
+  background-color: #fff;
+  display: none;
+}
+
+.reminder-details.active {
+  display: block;
 }

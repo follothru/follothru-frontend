@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import * as fromStore from '../../store';
 
@@ -21,8 +20,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser$ = this.store.pipe(
-      select(fromStore.authEntitiesSelector),
-      map(result => result.user)
+      select(fromStore.SessionCurrentUserSelector)
     );
   }
 

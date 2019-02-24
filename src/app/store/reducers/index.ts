@@ -6,15 +6,21 @@ import { CourseReducer } from './course.reducer';
 import { CoursesReducer } from './courses.reducer';
 
 import * as fromState from '../states';
+import { RemindersReducer } from './reminders.reducer';
+import { SessionReducer } from './session.reducer';
 
 export * from './auth.reducer';
 export * from './alert.reducer';
 export * from './course.reducer';
 export * from './courses.reducer';
+export * from './reminders.reducer';
+export * from './session.reducer';
 
 export const reducers: ActionReducerMap<fromState.StoreState> = {
   auth: AuthReducer,
   alert: AlertReducers,
   course: CourseReducer,
-  courses: CoursesReducer
+  courses: CoursesReducer,
+  reminders: RemindersReducer,
+  session: SessionReducer
 };

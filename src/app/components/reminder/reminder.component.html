@@ -1,3 +1,10 @@
-<div class="reminder-card">
-  <p>{{ reminder.name }}</p>
+<div class="reminder-card" (click)="showInfo = !showInfo">
+  <div class="basic-info">
+    <p>{{ reminder.name }}</p>
+  </div>
+  <div class="reminder-details" [ngClass]="{ active: showInfo }">
+    <div class="">
+      <a href="javascript:;" (click)="onDeleleClick()">Delete</a>
+    </div>
+  </div>
 </div>

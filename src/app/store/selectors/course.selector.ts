@@ -26,19 +26,3 @@ export const courseIsLoadingSelector: MemoizedSelector<
   courseStateSelector,
   fromState.getCourseIsLoading
 );
-
-export const courseExpiredSelector: MemoizedSelector<
-  fromState.StoreState,
-  boolean
-> = createSelector(
-  courseStateSelector,
-  fromState.getCourseExpired
-);
-
-export const courseErrorSelector: MemoizedSelector<
-  fromState.StoreState,
-  any
-> = createSelector(
-  courseStateSelector,
-  fromState.getCourseError
-);

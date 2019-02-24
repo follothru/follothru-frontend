@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
-import { tap, filter, map } from 'rxjs/operators';
 import { Observable, Unsubscribable } from 'rxjs';
 
 import * as fromStore from '../../store';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signin',
@@ -14,35 +15,22 @@ import * as fromStore from '../../store';
 export class SignInComponent implements OnInit, OnDestroy {
   private subscription: Unsubscribable;
 
-  success$: Observable<any>;
-
   email: string;
   password: string;
 
   constructor(
     private store: Store<fromStore.StoreState>,
+    private actions$: Actions,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.success$ = this.store.pipe(
-      select(fromStore.authIsSuccessSelector),
-      filter(success => success),
-      tap(() => this.router.navigate(['/']))
-    );
-
-    this.store
+    this.subscription = this.actions$
       .pipe(
-        select(fromStore.authErrorSelector),
-        filter(error => error !== null),
-        tap(error =>
-          this.store.dispatch(
-            new fromStore.RaiseAlert({ type: 'danger', content: error.message })
-          )
-        )
+        ofType(fromStore.SIGN_IN_SUCCESS),
+        tap(() => this.router.navigate(['/overview']))
       )
       .subscribe();
-    this.subscription = this.success$.subscribe();
   }
 
   ngOnDestroy() {

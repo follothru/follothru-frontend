@@ -14,15 +14,19 @@ export class ReminderService {
   ) {}
 
   getRemindersByCourseId(courseId: string): Observable<any> {
-    const params = { courseId };
-    return this.httpService.httpGet(
-      this.getCourseServiceBackendUrl() + '/' + courseId + '/reminder',
-      { params }
+    return this.httpService.httpAuthGet(
+      this.getCourseServiceBackendUrl() + '/' + courseId + '/reminder'
     );
   }
 
   createReminders(config): Observable<any> {
-    return this.httpService.httpPost(this.getBackendUrl(), config);
+    return this.httpService.httpAuthPost(this.getBackendUrl(), config);
+  }
+
+  deleteReminder(reminderId: string): Observable<any> {
+    return this.httpService.httpAuthDelete(
+      this.getBackendUrl() + '/' + reminderId
+    );
   }
 
   private getBackendUrl(): string {
