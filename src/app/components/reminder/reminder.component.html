@@ -1,4 +1,10 @@
-<div class="reminder-card" (click)="showInfo = !showInfo">
+<div
+  class="reminder-card"
+  (click)="showInfo = !showInfo"
+  (mouseover)="reminder.hover = true"
+  (mouseleave)="reminder.hover = false"
+  [ngClass]="{ hover: reminder.hover }"
+>
   <div class="basic-info">
     <p>{{ reminder.name }}</p>
   </div>

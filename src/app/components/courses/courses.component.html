@@ -2,9 +2,11 @@
   Courses
 </h2>
 <hr />
-<button class="btn btn-default" (click)="onNewCourse()">
-  <i class="fas fa-plus"></i>
-</button>
+<div class="margin-bottom-sm">
+  <button class="btn btn-default" (click)="onNewCourse()">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>
 <ng-container
   *ngIf="!(isLoading$ | async) && (courses$ | async) as courses; else loading"
 >

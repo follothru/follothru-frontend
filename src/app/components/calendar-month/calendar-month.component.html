@@ -17,9 +17,22 @@
     <div class="calendar-dates">
       <ul>
         <li class="calendar-row" *ngFor="let row of grid">
-          <span class="calendar-col" *ngFor="let date of row">{{
-            date !== undefined ? date.getDate() : ''
-          }}</span>
+          <div class="calendar-col" *ngFor="let date of row">
+            <span class="day-text">{{
+              date !== undefined ? date.getDate() : ''
+            }}</span>
+            <div class="markers">
+              <ng-container *ngIf="getRemindersForDate(date) !== null">
+                <span
+                  class="reminder-marker"
+                  *ngFor="let reminder of getRemindersForDate(date)"
+                  (mouseover)="reminder.hover = true"
+                  (mouseleave)="reminder.hover = false"
+                  [ngClass]="{ hover: reminder.hover }"
+                ></span>
+              </ng-container>
+            </div>
+          </div>
         </li>
       </ul>
     </div>

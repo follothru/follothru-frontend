@@ -22,12 +22,14 @@
         <app-calendar-month
           [year]="currentYear"
           [month]="allMonths[currentSeason][0]"
+          [reminders]="reminders$ | async"
         ></app-calendar-month>
       </div>
       <div class="col-md-6">
         <app-calendar-month
           [year]="currentYear"
           [month]="allMonths[currentSeason][1]"
+          [reminders]="reminders$ | async"
         ></app-calendar-month>
       </div>
     </div>
@@ -36,12 +38,14 @@
         <app-calendar-month
           [year]="currentYear"
           [month]="allMonths[currentSeason][2]"
+          [reminders]="reminders$ | async"
         ></app-calendar-month>
       </div>
       <div class="col-md-6">
         <app-calendar-month
           [year]="currentYear"
           [month]="allMonths[currentSeason][3]"
+          [reminders]="reminders$ | async"
         ></app-calendar-month>
       </div>
     </div>
