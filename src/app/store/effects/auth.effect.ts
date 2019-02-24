@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
@@ -11,11 +10,7 @@ import * as fromAction from '../actions';
 
 @Injectable()
 export class AuthEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 
   @Effect()
   signIn$: Observable<fromAction.AuthAction> = this.actions$.pipe(
@@ -34,7 +29,8 @@ export class AuthEffects {
     ofType(fromAction.SIGN_IN_SUCCESS),
     switchMap((action: fromAction.SignInSuccess) => [
       new fromAction.SetCurrentSession(action.payload.id),
-      new fromAction.SetCurrentUser(action.payload.user)
+      new fromAction.SetCurrentUser(action.payload.user),
+      new fromAction.RouterNavigate('/')
     ])
   );
 
@@ -82,9 +78,9 @@ export class AuthEffects {
     ofType(fromAction.SIGN_OUT),
     switchMap(() => [
       new fromAction.ClearCurrentSession(),
-      new fromAction.ClearCurrentUser()
-    ]),
-    tap(() => this.router.navigate(['/login']))
+      new fromAction.ClearCurrentUser(),
+      new fromAction.RouterNavigate('/signin')
+    ])
   );
 
   @Effect({ dispatch: false })

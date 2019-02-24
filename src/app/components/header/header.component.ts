@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -13,10 +12,7 @@ import * as fromStore from '../../store';
 export class HeaderComponent implements OnInit {
   currentUser$: Observable<any>;
 
-  constructor(
-    private store: Store<fromStore.StoreState>,
-    private router: Router
-  ) {}
+  constructor(private store: Store<fromStore.StoreState>) {}
 
   ngOnInit() {
     this.currentUser$ = this.store.pipe(
@@ -26,6 +22,5 @@ export class HeaderComponent implements OnInit {
 
   onSignOut() {
     this.store.dispatch(new fromStore.SignOut());
-    this.router.navigate(['/login']);
   }
 }
