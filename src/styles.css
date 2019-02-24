@@ -18,6 +18,22 @@ li {
   cursor: pointer;
 }
 
+.margin-sm {
+  margin: 0.6em;
+}
+
+.margin-top-sm {
+  margin-top: 0.6em;
+}
+
+.margin-bottom-sm {
+  margin-bottom: 0.6em;
+}
+
+.margin-bottom-md {
+  margin-bottom: 1em;
+}
+
 .padding-md {
   padding: 1em;
 }

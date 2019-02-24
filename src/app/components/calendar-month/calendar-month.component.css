@@ -7,15 +7,46 @@
   padding: 0.2em;
 }
 
+.calendar-weekdays .calendar-row {
+  margin-bottom: 1em;
+}
+
 .calendar-col {
   display: inline-block;
-  padding: 0.6em;
+  padding: 0 0.6em;
   font-size: 12px;
   text-align: center;
   text-transform: uppercase;
   flex-basis: 14.2857%;
   max-width: 14.2857%;
   cursor: default;
+}
+
+.calendar-col .markers {
+  display: flex;
+  min-height: 1em;
+}
+
+.calendar-col .day-text {
+  display: block;
+}
+
+.calendar-col .reminder-marker {
+  transition: 0.2s;
+  display: inline-block;
+  flex: auto;
+  flex-basis: 10%;
+  background-color: #1abc9c;
+  min-width: 6px;
+  height: 4px;
+  margin: 1px;
+  border-radius: 14px;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.calendar-col .reminder-marker.hover {
+  opacity: 0.5;
 }
 
 .month-display-text {

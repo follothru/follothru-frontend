@@ -5,6 +5,7 @@ import {
   OnChanges,
   SimpleChange
 } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-calendar-month',
@@ -16,6 +17,8 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   month: number;
   @Input()
   year: number;
+  @Input()
+  reminders: any = {};
 
   monthText: string[] = [
     'January',
@@ -50,6 +53,20 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
       this.year = change.year.currentValue;
     }
     this.update();
+  }
+
+  getRemindersForDate(date: Date) {
+    if (!date) {
+      return null;
+    }
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    return this.reminders[year] &&
+      this.reminders[year][month] &&
+      this.reminders[year][month][day]
+      ? this.reminders[year][month][day]
+      : null;
   }
 
   private update() {

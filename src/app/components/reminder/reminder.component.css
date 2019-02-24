@@ -6,6 +6,10 @@
   cursor: pointer;
 }
 
+.reminder-card.hover {
+  background-color: #eee;
+}
+
 .basic-info,
 .reminder-details {
   padding: 0.8em 1.6em;
