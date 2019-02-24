@@ -98,7 +98,7 @@ export class CoursesEffects {
         type: 'success',
         content: 'The course has been deleted.'
       }),
-      new fromAction.GetCourses()
+      new fromAction.RouterNavigate('/course')
     ])
   );
 

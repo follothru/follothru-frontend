@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --config ./.prettierrc --list-different \"src/**/*{.ts,.js,.json,.scss,.html}\""
+    "prettier": "prettier --config ./.prettierrc --list-different \"src/**/*{.ts,.js,.json,.css,.scss,.html}\""
   },
   "private": true,
   "dependencies": {
@@ -25,7 +25,7 @@
     "@angular/router": "~7.0.0",
     "@ngrx/effects": "^7.2.0",
     "@ngrx/store": "^7.2.0",
-    "bootstrap": "4.2.1",
+    "bootstrap": ">=4.3.1",
     "core-js": "^2.5.4",
     "ngx-bootstrap": "^3.2.0",
     "rxjs": "~6.3.3",

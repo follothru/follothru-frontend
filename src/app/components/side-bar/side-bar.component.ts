@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ResolveStart, ActivatedRoute } from '@angular/router';
+import { Router, ResolveStart } from '@angular/router';
 import { tap, filter, map } from 'rxjs/operators';
 import { Unsubscribable } from 'rxjs';
 
@@ -12,7 +12,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private subscription: Unsubscribable;
   currentTab: string;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.currentTab = this.router.url.split('/')[1];

@@ -64,7 +64,7 @@
       <button
         class="btn btn-warning"
         (click)="onSaveClick()"
-        [ngClass]="{ disabled: !changed }"
+        [disabled]="!changed"
       >
         Save
       </button>

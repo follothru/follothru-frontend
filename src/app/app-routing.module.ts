@@ -9,7 +9,7 @@ import { SignInComponent } from './components/signin/signin.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: 'login', component: SignInComponent },
+  { path: 'signin', component: SignInComponent },
   {
     path: '',
     component: MainAppComponent,
