@@ -8,11 +8,11 @@
     /></a>
   </div>
   <div class="col-md-2 col-sm-12">
-    <ng-container class="user-dropdown" *ngIf="(currentUser$ | async) as user">
-      <div class="dropdown">
+    <ng-container *ngIf="(currentUser$ | async) as user">
+      <div class="dropdown user-dropdown">
         <a
-          class="nav-link dropdown-toggle"
-          href="#"
+          class="nav-link dropdown-toggle user"
+          href="javascript:;"
           id="navbarDropdown"
           role="button"
           data-toggle="dropdown"

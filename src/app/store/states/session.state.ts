@@ -5,7 +5,7 @@ export interface SessionState {
 
 export const initialSessionState: SessionState = {
   currentUser: null,
-  currentSession: null
+  currentSession: sessionStorage.getItem('user_session')
 };
 
 export const getSessionCurrentUser = (state: SessionState) => state.currentUser;

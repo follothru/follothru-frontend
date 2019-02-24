@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../services';
 
@@ -10,7 +11,11 @@ import * as fromAction from '../actions';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   @Effect()
   signIn$: Observable<fromAction.AuthAction> = this.actions$.pipe(
@@ -69,10 +74,7 @@ export class AuthEffects {
   @Effect()
   resumeSessionFailure$: Observable<Action> = this.actions$.pipe(
     ofType(fromAction.RESUME_SESSION_FAILURE),
-    switchMap(() => [
-      new fromAction.ClearCurrentSession(),
-      new fromAction.ClearCurrentUser()
-    ])
+    map(() => new fromAction.SignOut())
   );
 
   @Effect()
@@ -81,6 +83,21 @@ export class AuthEffects {
     switchMap(() => [
       new fromAction.ClearCurrentSession(),
       new fromAction.ClearCurrentUser()
-    ])
+    ]),
+    tap(() => this.router.navigate(['/login']))
+  );
+
+  @Effect({ dispatch: false })
+  setCurrentSession$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.SET_CURRENT_SESSION),
+    tap((action: fromAction.SetCurrentSession) =>
+      sessionStorage.setItem('user_session', action.currentSession)
+    )
+  );
+
+  @Effect({ dispatch: false })
+  clearCurrentSession$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.CLEAR_CURRENT_SESSION),
+    tap(() => sessionStorage.removeItem('user_session'))
   );
 }
