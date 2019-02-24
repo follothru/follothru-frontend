@@ -10,30 +10,22 @@ export function AuthReducer(
     case fromAction.RESUME_SESSION:
       return {
         ...state,
-        error: null,
-        isLoading: true,
-        isSuccess: false
+        isLoading: true
       };
 
     case fromAction.SIGN_IN_SUCCESS:
-    case fromAction.RESUME_SESSION_SUCCESS: {
-      const authEntities = action.payload;
+    case fromAction.RESUME_SESSION_SUCCESS:
       return {
         ...state,
-        authEntities,
-        error: null,
-        isLoading: false,
-        isSuccess: true
+        authEntities: action.payload,
+        isLoading: false
       };
-    }
 
     case fromAction.SIGN_IN_FAILURE:
     case fromAction.RESUME_SESSION_FAILURE:
       return {
         ...state,
-        error: action.payload,
-        isLoading: false,
-        isSuccess: false
+        isLoading: false
       };
   }
   return state;

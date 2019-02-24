@@ -30,22 +30,21 @@ export class AuthService {
       );
   }
 
-  isSignedIn(): boolean {
-    return this.getAuthToken() !== null;
-  }
-
   resumeCurrentSession(): Observable<any> {
+    if (this.getAuthToken() === null) {
+      return throwError(false);
+    }
     return this.httpService.httpGet(
       this.getSessionBackendUrl() + '/' + this.getAuthToken()
     );
   }
 
-  signOut() {
-    sessionStorage.removeItem(this.AUTH_KEY);
+  isSignedIn(): boolean {
+    return this.getAuthToken() !== null;
   }
 
-  getCurrentUser(): any {
-    return null;
+  signOut() {
+    sessionStorage.removeItem(this.AUTH_KEY);
   }
 
   getAuthToken(): string {

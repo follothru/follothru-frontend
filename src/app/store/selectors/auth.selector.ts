@@ -26,19 +26,3 @@ export const authIsLoadingSelector: MemoizedSelector<
   authStateSelector,
   fromState.isAuthLoading
 );
-
-export const authIsSuccessSelector: MemoizedSelector<
-  fromState.StoreState,
-  boolean
-> = createSelector(
-  authStateSelector,
-  fromState.isAuthSuccess
-);
-
-export const authErrorSelector: MemoizedSelector<
-  fromState.StoreState,
-  any
-> = createSelector(
-  authStateSelector,
-  fromState.getAuthError
-);
