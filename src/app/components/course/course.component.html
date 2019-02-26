@@ -3,7 +3,7 @@
     *ngIf="!(isLoading$ | async) && (course$ | async) as course; else loading"
   >
     <ng-container *ngIf="!(isError$ | async); else courseError">
-      <h2 class="page-header">{{ course.name }}</h2>
+      <h4 class="page-header">{{ course.name }}</h4>
       <p>{{ course.description }}</p>
       <hr />
       <div>

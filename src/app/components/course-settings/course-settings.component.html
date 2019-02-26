@@ -46,13 +46,30 @@
       </ul>
     </div>
     <div class="form-group">
-      <label for="description">Description</label>
+      <label for="description">Planning Prompt</label><br />
+      <small
+        >Research examining individual’s follow through on intentions has
+        demonstrated that writing out a specific plan to engage in some future
+        activity increases the likelihood that individuals will do so (e,g.,
+        Milkman et al., 2011). By selecting the “include planning prompt option”
+        students will be asked to produce a plan when they confirm their email
+        address using a prompt you enter below (once the option is selected). A
+        default generic prompt is provided but please feel free to customize it
+        for your needs. The more specific the better.</small
+      >
+      <br />
+      <input
+        type="checkbox"
+        name="include_planning_prompt"
+        [(ngModel)]="courseTemp.includePlanningPrompt"
+      />
+      <label for="include_planning_prompt">Include planning prompt</label>
       <textarea
         class="form-control"
         name="description"
         rows="4"
         (change)="onChange()"
-        [(ngModel)]="courseTemp.description"
+        [(ngModel)]="courseTemp.planningPrompt"
       ></textarea>
     </div>
     <div class="form-group">
