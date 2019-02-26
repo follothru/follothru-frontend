@@ -22,8 +22,8 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    const username = this.email.slice();
-    const password = this.password.slice();
+    const username = this.email;
+    const password = this.password;
     this.store.dispatch(new fromStore.SignIn({ username, password }));
   }
 }
