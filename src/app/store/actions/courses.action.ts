@@ -29,7 +29,15 @@ export class GetCoursesFailure implements Action {
 
 export class CreateCourse implements Action {
   readonly type = CREATE_COURSE;
-  constructor(public payload: any) {}
+  constructor(
+    public payload: {
+      name: string;
+      endDate: Date;
+      description: string;
+      hasPlanningPrompt: boolean;
+      planningPrompt: string;
+    }
+  ) {}
 }
 
 export class CreateCourseSuccess implements Action {

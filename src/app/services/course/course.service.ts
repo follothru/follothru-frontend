@@ -24,25 +24,31 @@ export class CourseService {
   createNewCourse(
     name: string,
     endDate: Date,
-    description: string
+    description: string,
+    hasPlanningPrompt,
+    planningPrompt
   ): Observable<any> {
     return this.httpService.httpAuthPost(this.getCourseUrl(), {
       name,
       endDate,
-      description
+      description,
+      hasPlanningPrompt,
+      planningPrompt
     });
   }
 
   updateCourse(
     courseId: string,
     name: string,
-    description: string,
-    endDate: Date
+    endDate: Date,
+    hasPlanningPrompt: boolean,
+    planningPrompt: string
   ): Observable<any> {
     return this.httpService.httpAuthPut(this.getCourseUrl() + '/' + courseId, {
       name,
-      description,
-      endDate
+      endDate,
+      hasPlanningPrompt,
+      planningPrompt
     });
   }
 

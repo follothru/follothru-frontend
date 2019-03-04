@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable, Unsubscribable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ReminderCreateWidzardComponent } from '../reminder-create-widzard/reminder-create-widzard.component';
 
@@ -55,6 +56,21 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
     }
     this.dialogSubscription = dialogRef
       .afterClosed()
+      .pipe(
+        map(result => {
+          const { name, startDate, endDate, repeats } = result;
+          if (repeats.daily) {
+            repeats.dayInterval = 1;
+          }
+          if (repeats.weekly) {
+            repeats.weekInterval = 1;
+          }
+          if (repeats.monthly) {
+            repeats.monthInterval = 1;
+          }
+          return { name, startDate, endDate, repeats };
+        })
+      )
       .subscribe(config => this.createNewReminder(config));
   }
 

@@ -31,7 +31,10 @@ export class CourseSettingsComponent implements OnInit {
     this.changed =
       this.courseTemp.name !== this.courseOriginal.name ||
       this.courseTemp.endDate !== this.courseOriginal.endDate ||
-      this.courseTemp.description !== this.courseOriginal.description;
+      this.courseTemp.description !== this.courseOriginal.description ||
+      this.courseTemp.hasPlanningPrompt !==
+        this.courseOriginal.hasPlanningPrompt ||
+      this.courseTemp.planningPrompt !== this.courseOriginal.planningPrompt;
   }
 
   onSaveClick() {
@@ -39,8 +42,9 @@ export class CourseSettingsComponent implements OnInit {
       new fromStore.UpdateCourse({
         courseId: this.courseOriginal.id,
         name: this.courseTemp.name,
-        description: this.courseTemp.description,
-        endDate: this.courseTemp.endDate
+        endDate: this.courseTemp.endDate,
+        hasPlanningPrompt: this.courseTemp.hasPlanningPrompt,
+        planningPrompt: this.courseTemp.planningPrompt
       })
     );
   }

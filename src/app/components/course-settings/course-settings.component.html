@@ -1,5 +1,7 @@
 <ng-container *ngIf="(course$ | async) as course">
   <div class="course-details">
+    <h5>Basic Info</h5>
+    <hr />
     <div class="form-group">
       <label for="course_name">Course name</label>
       <input
@@ -45,8 +47,9 @@
         >
       </ul>
     </div>
+    <h5>Planning Prompt</h5>
+    <hr />
     <div class="form-group">
-      <label for="description">Planning Prompt</label><br />
       <small
         >Research examining individual’s follow through on intentions has
         demonstrated that writing out a specific plan to engage in some future
@@ -57,18 +60,26 @@
         default generic prompt is provided but please feel free to customize it
         for your needs. The more specific the better.</small
       >
-      <br />
+    </div>
+    <div class="form-group form-check">
       <input
         type="checkbox"
+        class="form-check-input"
         name="include_planning_prompt"
-        [(ngModel)]="courseTemp.includePlanningPrompt"
+        (change)="onChange()"
+        [(ngModel)]="courseTemp.hasPlanningPrompt"
       />
-      <label for="include_planning_prompt">Include planning prompt</label>
+      <label class="form-check-input-label" for="include_planning_prompt"
+        >Include planning prompt</label
+      >
+    </div>
+    <div class="form-group">
       <textarea
         class="form-control"
         name="description"
         rows="4"
         (change)="onChange()"
+        *ngIf="courseTemp.hasPlanningPrompt"
         [(ngModel)]="courseTemp.planningPrompt"
       ></textarea>
     </div>

@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { MainAppComponent } from './components/main-app/main-app.component';
 import { SignInComponent } from './components/signin/signin.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 const routes: Routes = [
   { path: 'signin', component: SignInComponent },
@@ -33,6 +34,11 @@ const routes: Routes = [
         component: CourseComponent
       }
     ]
+  },
+  {
+    path: 'settings',
+    canActivate: [AuthGuard],
+    component: UserSettingsComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];

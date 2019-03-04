@@ -11,7 +11,7 @@ import { CourseComponent } from '../course/course.component';
 export class ReminderCreateWidzardComponent implements OnInit {
   @Input()
   answers: any = {
-    repeat: {},
+    repeats: {},
     sendTime: {}
   };
 
@@ -23,7 +23,6 @@ export class ReminderCreateWidzardComponent implements OnInit {
   ngOnInit() {}
 
   createReminders() {
-    this.answers.courseId = this.data.courseId;
     this.dialogRef.close(this.answers);
   }
 

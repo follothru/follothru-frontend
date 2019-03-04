@@ -46,8 +46,9 @@ export class CourseEffects {
         .updateCourse(
           action.payload.courseId,
           action.payload.name,
-          action.payload.description,
-          action.payload.endDate
+          action.payload.endDate,
+          action.payload.hasPlanningPrompt,
+          action.payload.planningPrompt
         )
         .pipe(
           map(result => new fromAction.UpdateCourseSuccess(result)),

@@ -46,7 +46,9 @@ export class CoursesEffects {
         .createNewCourse(
           action.payload.name,
           action.payload.endDate,
-          action.payload.description
+          action.payload.description,
+          action.payload.hasPlanningPrompt,
+          action.payload.planningPrompt
         )
         .pipe(
           map(result => new fromAction.CreateCourseSuccess(result)),
