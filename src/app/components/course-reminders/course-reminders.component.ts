@@ -58,7 +58,7 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(
         map(result => {
-          const { name, startDate, endDate, repeats } = result;
+          const { name, startDate, endDate, repeats, endDate_no } = result;
           if (repeats.daily) {
             repeats.dayInterval = 1;
           }
@@ -68,7 +68,7 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
           if (repeats.monthly) {
             repeats.monthInterval = 1;
           }
-          return { name, startDate, endDate, repeats };
+          return { name, startDate, endDate, repeats, endDate_no };
         })
       )
       .subscribe(config => this.createNewReminder(config));
