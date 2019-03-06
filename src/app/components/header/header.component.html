@@ -22,7 +22,12 @@
           {{ user.firstname }} {{ user.lastname }}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="javascript:;">Settings</a>
+          <a
+            class="dropdown-item"
+            href="javascript:;"
+            [routerLink]="['/settings']"
+            >Settings</a
+          >
           <a class="dropdown-item" href="javascript:;" (click)="onSignOut()"
             >Sign out</a
           >

@@ -1,0 +1,7 @@
+.user-settings-container {
+  padding: 1em;
+}
+
+.buttons button:first-child {
+  margin-right: 0.6em;
+}

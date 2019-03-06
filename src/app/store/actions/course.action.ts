@@ -25,7 +25,15 @@ export class GetCourseFailure implements Action {
 
 export class UpdateCourse implements Action {
   readonly type = UPDATE_COURSE;
-  constructor(public payload: any) {}
+  constructor(
+    public payload: {
+      courseId: string;
+      name: string;
+      endDate: Date;
+      hasPlanningPrompt: boolean;
+      planningPrompt: string;
+    }
+  ) {}
 }
 
 export class UpdateCourseSuccess implements Action {

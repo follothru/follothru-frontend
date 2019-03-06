@@ -69,27 +69,54 @@
               <input
                 type="checkbox"
                 name="repeat_daily"
-                [(ngModel)]="answers.repeat.daily"
+                [(ngModel)]="answers.repeats.daily"
               />
               <span>Daily</span>
               <br />
               <input
                 type="checkbox"
                 name="repeat_weekly"
-                [(ngModel)]="answers.repeat.weekly"
+                [(ngModel)]="answers.repeats.weekly"
               />
               <span>Weekly</span>
               <br />
               <input
                 type="checkbox"
                 name="repeat_monthly"
-                [(ngModel)]="answers.repeat.monthly"
+                [(ngModel)]="answers.repeats.monthly"
               />
               <span>Monthly</span>
               <br />
               <input type="checkbox" name="custom" />
               <span>Custom</span>
               <br />
+            </div>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="answers.endDate_more_than_once">
+        <li>
+          <div class="form-group">
+            <div class="question-desc">
+              <p>
+                What is the first date?
+              </p>
+            </div>
+            <div class="question-answer">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="startDate_picker"
+                  placeholder="Choose a date"
+                  [(ngModel)]="answers.startDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="startDate_picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startDate_picker></mat-datepicker>
+              </mat-form-field>
             </div>
           </div>
         </li>
@@ -134,26 +161,16 @@
               <mat-form-field>
                 <input
                   matInput
-                  [matDatepicker]="endDate_picker"
+                  [matDatepicker]="startDate_picker"
                   placeholder="Choose a date"
-                  [(ngModel)]="answers.endDate"
+                  [(ngModel)]="answers.startDate"
                 />
                 <mat-datepicker-toggle
                   matSuffix
-                  [for]="endDate_picker"
+                  [for]="startDate_picker"
                 ></mat-datepicker-toggle>
-                <mat-datepicker #endDate_picker></mat-datepicker>
+                <mat-datepicker #startDate_picker></mat-datepicker>
               </mat-form-field>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="question-desc">
-              <p>
-                What is that time?
-              </p>
-            </div>
-            <div class="question-answer">
-              <timepicker [(ngModel)]="answers.endTime"></timepicker>
             </div>
           </div>
         </li>
@@ -197,43 +214,6 @@
         </li>
       </ng-container>
 
-      <ng-container *ngIf="answers.endDate_more_than_once">
-        <li>
-          <div class="form-group">
-            <div class="question-desc">
-              <p>
-                What is the first date?
-              </p>
-            </div>
-            <div class="question-answer">
-              <mat-form-field>
-                <input
-                  matInput
-                  [matDatepicker]="startDate_picker"
-                  placeholder="Choose a date"
-                  [(ngModel)]="answers.startDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="startDate_picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #startDate_picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="question-desc">
-              <p>
-                What is that time?
-              </p>
-            </div>
-            <div class="question-answer">
-              <timepicker [(ngModel)]="answers.startTime"></timepicker>
-            </div>
-          </div>
-        </li>
-      </ng-container>
-
       <ng-container *ngIf="answers.endDate_no">
         <li>
           <div class="form-group">
@@ -256,16 +236,6 @@
                 ></mat-datepicker-toggle>
                 <mat-datepicker #startDate_picker></mat-datepicker>
               </mat-form-field>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="question-desc">
-              <p>
-                What is that time?
-              </p>
-            </div>
-            <div class="question-answer">
-              <timepicker [(ngModel)]="answers.startTime"></timepicker>
             </div>
           </div>
         </li>
