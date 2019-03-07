@@ -2,8 +2,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable, Unsubscribable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
+import { ReminderModel } from '../../models';
 import { ReminderCreateWidzardComponent } from '../reminder-create-widzard/reminder-create-widzard.component';
 
 import * as fromStore from '../../store';
@@ -16,8 +17,8 @@ import * as fromStore from '../../store';
 export class CourseRemindersComponent implements OnInit, OnDestroy {
   @Input()
   courseId: string;
-  reminders$: Observable<any>;
-  isLoading$: Observable<any>;
+  reminders$: Observable<ReminderModel[]>;
+  isLoading$: Observable<boolean>;
   error$: Observable<any>;
 
   private dialogSubscription: Unsubscribable = null;
@@ -57,6 +58,7 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
     this.dialogSubscription = dialogRef
       .afterClosed()
       .pipe(
+        filter(result => result !== undefined),
         map(result => {
           const { name, startDate, endDate, repeats, endDate_no } = result;
           if (repeats.daily) {

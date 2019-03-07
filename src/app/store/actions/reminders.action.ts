@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { ReminderModel } from '../../models';
+
 export const GET_REMINDERS = '[Reminders] Get Reminders';
 export const GET_REMINDERS_SUCCESS = '[Reminders] Get Reminders Success';
 export const GET_REMINDERS_FAILURE = '[Reminders] Get Reminders Failure';
@@ -19,7 +21,7 @@ export class GetReminders implements Action {
 
 export class GetRemindersSuccess implements Action {
   readonly type = GET_REMINDERS_SUCCESS;
-  constructor(public payload: any) {}
+  constructor(public payload: ReminderModel[]) {}
 }
 
 export class GetRemindersFailure implements Action {

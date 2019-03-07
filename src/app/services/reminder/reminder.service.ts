@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ConfigService } from '../config';
 import { HttpService } from '../http';
+import { ReminderModel } from '../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ReminderService {
     );
   }
 
-  createReminders(config): Observable<any> {
+  createReminders(config): Observable<ReminderModel> {
     const { courseId, name, startDate, endDate, endDate_no, repeats } = config;
     const type = endDate_no ? 'activity' : 'event';
 

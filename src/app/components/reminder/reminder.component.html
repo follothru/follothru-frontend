@@ -1,16 +1,38 @@
 <div
   class="reminder-card"
-  (click)="showInfo = !showInfo"
   (mouseover)="reminder.hover = true"
   (mouseleave)="reminder.hover = false"
   [ngClass]="{ hover: reminder.hover }"
 >
-  <div class="basic-info">
-    <p>{{ reminder.name }}</p>
+  <div class="basic-info" (click)="showInfo = !showInfo">
+    <p class="reminder-name">{{ reminder.name }}</p>
+    <p>
+      <small class="upcomming-dates">{{ reminder.upcommingDisplay }}</small>
+    </p>
+    <a href="javascript:;" (click)="onDeleleClick()">Delete</a>
   </div>
   <div class="reminder-details" [ngClass]="{ active: showInfo }">
-    <div class="">
-      <a href="javascript:;" (click)="onDeleleClick()">Delete</a>
+    <div class="subreminders-container">
+      <ul class="months">
+        <li class="month" *ngFor="let monthCat of categories">
+          <p>{{ monthCat.category }}</p>
+          <ul class="days">
+            <li class="day" *ngFor="let dayCat of monthCat.content">
+              <p>{{ dayCat.category }}</p>
+              <ul class="subremidners">
+                <li
+                  class="subreminder"
+                  *ngFor="let subreminder of dayCat.content"
+                >
+                  <app-sub-reminder
+                    [subreminder]="subreminder"
+                  ></app-sub-reminder>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

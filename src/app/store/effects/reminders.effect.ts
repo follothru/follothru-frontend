@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError, mergeMap, tap } from 'rxjs/operators';
 
 import { ReminderService } from '../../services';
+import { ReminderModel } from '../../models';
 
 import * as fromAction from '../actions';
 
@@ -20,7 +21,10 @@ export class RemindersEffects {
     ofType(fromAction.GET_REMINDERS),
     switchMap((action: fromAction.GetReminders) =>
       this.reminderService.getRemindersByCourseId(action.payload.courseId).pipe(
-        map(result => new fromAction.GetRemindersSuccess(result)),
+        map(
+          (result: ReminderModel[]) =>
+            new fromAction.GetRemindersSuccess(result)
+        ),
         catchError(err => of(new fromAction.GetRemindersFailure(err)))
       )
     )
