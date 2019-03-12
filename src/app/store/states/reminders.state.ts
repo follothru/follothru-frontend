@@ -1,5 +1,7 @@
+import { ReminderModel } from '../../models';
+
 export interface RemindersState {
-  remindersEntities: [];
+  remindersEntities: ReminderModel[];
   isLoading: boolean;
 }
 

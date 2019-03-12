@@ -4,6 +4,8 @@ import {
   createSelector
 } from '@ngrx/store';
 
+import { ReminderModel } from '../../models';
+
 import * as fromState from '../states';
 
 export const remindersStateSelector: MemoizedSelector<
@@ -13,7 +15,7 @@ export const remindersStateSelector: MemoizedSelector<
 
 export const remindersEntitiesSelector: MemoizedSelector<
   fromState.StoreState,
-  any
+  ReminderModel[]
 > = createSelector(
   remindersStateSelector,
   fromState.getReminderEntities

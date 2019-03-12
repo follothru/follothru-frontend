@@ -1,12 +1,5 @@
 .reminder-card {
-  border-radius: 4px;
-  background-color: #f2f2f2;
-  border: 1px solid #f2f2f2;
   cursor: pointer;
-}
-
-.reminder-card.hover {
-  background-color: #eee;
 }
 
 .basic-info,
@@ -14,11 +7,48 @@
   padding: 0.8em 1.6em;
 }
 
+.reminder-card .basic-info {
+  border-radius: 6px;
+  background-color: #f2f2f2;
+}
+
+.reminder-card:hover .basic-info {
+  background-color: #eee;
+}
+
 .reminder-details {
+  padding-top: 0;
   background-color: #fff;
   display: none;
 }
 
 .reminder-details.active {
   display: block;
+}
+
+.basic-info .reminder-name {
+  margin-bottom: 0.6em;
+}
+
+.basic-info .upcomming-dates {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.reminder-operations {
+  padding: 0.6em;
+}
+
+.subreminders-container ul {
+  margin-left: 0.6em;
+  border-left: 2px solid #f2f2f2;
+  padding: 0.8em;
+}
+
+.subreminders-container ul:hover {
+  border-color: #bbb;
+}
+
+.subreminders-container ul:first-child {
+  margin-left: 0;
 }

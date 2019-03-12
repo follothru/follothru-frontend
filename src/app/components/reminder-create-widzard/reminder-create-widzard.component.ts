@@ -26,11 +26,22 @@ export class ReminderCreateWidzardComponent implements OnInit {
     this.dialogRef.close(this.answers);
   }
 
-  updateBoolean(key) {
-    this.answers['endDate_yes'] = false;
+  onEndDateYes(): void {
+    this.answers['endDate_yes'] = true;
     this.answers['endDate_more_than_once'] = false;
     this.answers['endDate_no'] = false;
-    this.answers[key] = true;
+  }
+
+  onEndDateMoreThanOnce(): void {
+    this.answers['endDate_yes'] = false;
+    this.answers['endDate_more_than_once'] = true;
+    this.answers['endDate_no'] = false;
+  }
+
+  onEndDateNo(): void {
+    this.answers['endDate_yes'] = false;
+    this.answers['endDate_more_than_once'] = false;
+    this.answers['endDate_no'] = true;
   }
 
   onCancelClick() {

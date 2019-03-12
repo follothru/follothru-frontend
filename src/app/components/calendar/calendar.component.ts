@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import * as fromStore from '../../store';
-import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -25,27 +24,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.reminders$ = this.store.pipe(
-      select(fromStore.remindersEntitiesSelector),
-      map((data: any[]) => {
-        const reminders = {};
-        data.forEach(reminder => {
-          const startDate = new Date(reminder.startDate);
-          const year = startDate.getFullYear();
-          const month = startDate.getMonth();
-          const day = startDate.getDate();
-          if (reminders[year] === undefined) {
-            reminders[year] = {};
-          }
-          if (reminders[year][month] === undefined) {
-            reminders[year][month] = {};
-          }
-          if (reminders[year][month][day] === undefined) {
-            reminders[year][month][day] = [];
-          }
-          reminders[year][month][day].push(reminder);
-        });
-        return reminders;
-      })
+      select(fromStore.remindersEntitiesSelector)
     );
   }
 

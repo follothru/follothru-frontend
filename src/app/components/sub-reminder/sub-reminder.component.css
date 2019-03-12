@@ -1,0 +1,9 @@
+.subreminder-container {
+  padding: 0.6em;
+  border-radius: 6px;
+  background-color: #f2f2f2;
+}
+
+.subreminder-container:hover {
+  background-color: #eee;
+}

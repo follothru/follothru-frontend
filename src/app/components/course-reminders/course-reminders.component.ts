@@ -2,8 +2,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable, Unsubscribable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
+import { ReminderModel } from '../../models';
 import { ReminderCreateWidzardComponent } from '../reminder-create-widzard/reminder-create-widzard.component';
 
 import * as fromStore from '../../store';
@@ -16,8 +17,8 @@ import * as fromStore from '../../store';
 export class CourseRemindersComponent implements OnInit, OnDestroy {
   @Input()
   courseId: string;
-  reminders$: Observable<any>;
-  isLoading$: Observable<any>;
+  reminders$: Observable<ReminderModel[]>;
+  isLoading$: Observable<boolean>;
   error$: Observable<any>;
 
   private dialogSubscription: Unsubscribable = null;
@@ -56,29 +57,83 @@ export class CourseRemindersComponent implements OnInit, OnDestroy {
     }
     this.dialogSubscription = dialogRef
       .afterClosed()
-      .pipe(
-        map(result => {
-          const { name, startDate, endDate, repeats, endDate_no } = result;
-          if (repeats.daily) {
-            repeats.dayInterval = 1;
-          }
-          if (repeats.weekly) {
-            repeats.weekInterval = 1;
-          }
-          if (repeats.monthly) {
-            repeats.monthInterval = 1;
-          }
-          return { name, startDate, endDate, repeats, endDate_no };
-        })
-      )
+      .pipe(filter(result => result !== undefined))
       .subscribe(config => this.createNewReminder(config));
   }
 
-  private createNewReminder(config) {
-    if (config !== undefined) {
-      config.courseId = this.courseId;
-      this.store.dispatch(new fromStore.CreateReminders(config));
+  private createNewReminder(answers) {
+    if (answers !== undefined) {
+      answers.courseId = this.courseId;
+      this.store.dispatch(
+        new fromStore.CreateReminders(this.processAnswers(answers))
+      );
     }
+  }
+
+  private processAnswers(
+    answer
+  ): {
+    courseId: string;
+    name: string;
+    type: string;
+    startDateTime?: Date;
+    endDateTime?: Date;
+    repeats: any[];
+    sendTime: any[];
+  } {
+    const {
+      name,
+      startDate,
+      startTime,
+      endDate,
+      repeats,
+      sendTime,
+      endDate_no
+    } = answer;
+    const startDateTime = new Date(startTime.getTime());
+    startDateTime.setFullYear(startDate.getFullYear());
+    startDateTime.setMonth(startDate.getMonth());
+    startDateTime.setDate(startDate.getDate());
+    let endDateTime = null;
+    if (endDate) {
+      endDateTime = new Date(startTime.getTime());
+      endDateTime.setFullYear(endDate.getFullYear());
+      endDateTime.setMonth(endDate.getMonth());
+      endDateTime.setDate(endDate.getDate());
+    }
+    const reqRepeats: any[] = [];
+    if (repeats.daily) {
+      reqRepeats.push({ name: 'dayInterval', value: 1 });
+    }
+    if (repeats.weekly) {
+      reqRepeats.push({ name: 'weekInterval', value: 1 });
+    }
+    if (repeats.monthly) {
+      reqRepeats.push({ name: 'monthInterval', value: 1 });
+    }
+
+    const reqSendTime: any[] = [];
+    if (sendTime.oneHourBefore) {
+      reqSendTime.push({ name: 'hourAdvance', value: 1 });
+    }
+    if (sendTime.oneDayBefore) {
+      reqSendTime.push({ name: 'dayAdvance', value: 1 });
+    }
+    if (sendTime.oneWeekBefore) {
+      reqSendTime.push({ name: 'weekAdvance', value: 1 });
+    }
+
+    const type = endDate_no ? 'activity' : 'event';
+
+    return {
+      courseId: this.courseId,
+      name,
+      type,
+      startDateTime,
+      endDateTime,
+      repeats: reqRepeats,
+      sendTime: reqSendTime
+    };
   }
 
   private loadReminders() {

@@ -38,6 +38,7 @@ import { MainAppComponent } from './components/main-app/main-app.component';
 import { SignInComponent } from './components/signin/signin.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { SubReminderComponent } from './components/sub-reminder/sub-reminder.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -66,7 +67,8 @@ import { services } from './services';
     MainAppComponent,
     SignInComponent,
     AlertComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    SubReminderComponent
   ],
   imports: [
     BrowserModule,

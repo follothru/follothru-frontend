@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { ReminderModel, Category } from '../../models';
+
 import * as fromStore from '../../store';
 
 @Component({
@@ -13,12 +15,18 @@ export class ReminderComponent implements OnInit {
   courseId: string;
 
   @Input()
-  reminder: any;
+  reminder: ReminderModel;
+
+  subreminders: any[];
+  days: string[];
+  categories: Category[];
   showInfo = false;
 
   constructor(private store: Store<fromStore.StoreState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.categories = this.reminder.categories;
+  }
 
   onDeleleClick() {
     this.store.dispatch(
