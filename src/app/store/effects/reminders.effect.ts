@@ -118,7 +118,7 @@ export class RemindersEffects {
     map(
       () =>
         new fromAction.RaiseAlert({
-          type: 'success',
+          type: 'danger',
           content: 'Failed to delete the reminder.'
         })
     )

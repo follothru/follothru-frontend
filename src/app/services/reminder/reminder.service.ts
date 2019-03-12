@@ -21,18 +21,25 @@ export class ReminderService {
   }
 
   createReminders(config): Observable<ReminderModel> {
-    const { courseId, name, startDate, endDate, endDate_no, repeats } = config;
-    const type = endDate_no ? 'activity' : 'event';
+    const {
+      courseId,
+      name,
+      startDateTime,
+      endDateTime,
+      repeats,
+      type,
+      sendTime
+    } = config;
 
     return this.httpService.httpAuthPost(
       this.getCourseServiceBackendUrl() + '/' + courseId + '/reminder',
       {
         name,
-        startDate,
-        endDate,
-        endDate_no,
+        startDateTime,
+        endDateTime,
         type,
-        repeats
+        repeats,
+        sendTime
       }
     );
   }
