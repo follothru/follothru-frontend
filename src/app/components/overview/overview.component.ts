@@ -11,14 +11,14 @@ import * as fromStore from '../../store';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-  upcommingReminders$: Observable<any[]>;
+  upcomingReminders$: Observable<any[]>;
   isLoading$: Observable<boolean>;
 
   constructor(private store: Store<fromStore.StoreState>) {}
 
   ngOnInit() {
-    this.upcommingReminders$ = this.store.pipe(
-      select(fromStore.upcommingRemindersSelector),
+    this.upcomingReminders$ = this.store.pipe(
+      select(fromStore.upcomingRemindersSelector),
       map(reminders =>
         reminders.map(reminder =>
           reminder.subreminders.map(subreminder => {
@@ -41,7 +41,7 @@ export class OverviewComponent implements OnInit {
       select(fromStore.remindersIsLoadingSelector)
     );
 
-    this.upcommingReminders$.subscribe();
-    this.store.dispatch(new fromStore.GetUpcommingReminders());
+    this.upcomingReminders$.subscribe();
+    this.store.dispatch(new fromStore.GetUpcomingReminders());
   }
 }

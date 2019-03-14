@@ -52,10 +52,10 @@ export const subremindersForMonthSelector = (
     }
   );
 
-export const upcommingRemindersSelector: MemoizedSelector<
+export const upcomingRemindersSelector: MemoizedSelector<
   fromState.StoreState,
   ReminderModel[]
 > = createSelector(
   remindersStateSelector,
-  fromState.getUpcommingReminders
+  fromState.getUpcomingReminders
 );

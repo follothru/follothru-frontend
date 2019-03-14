@@ -28,6 +28,6 @@ export interface ReminderModel {
   name: string;
   course: any;
   subreminders: SubreminderModel[];
-  upcommingDisplay: string;
+  upcomingDisplay: string;
   categories: any;
 }

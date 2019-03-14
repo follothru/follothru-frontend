@@ -7,7 +7,7 @@ export function RemindersReducer(
 ): fromState.RemindersState {
   switch (action.type) {
     case fromAction.GET_REMINDERS:
-    case fromAction.GET_UPCOMMING_REMINDERS:
+    case fromAction.GET_UPCOMING_REMINDERS:
       return { ...state, isLoading: true };
 
     case fromAction.GET_REMINDERS_SUCCESS:
@@ -20,17 +20,17 @@ export function RemindersReducer(
         categories: action.payload.categories ? action.payload.categories : {}
       };
 
-    case fromAction.GET_UPCOMMING_REMINDERS_SUCCESS:
+    case fromAction.GET_UPCOMING_REMINDERS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        upcommingReminders: action.payload.reminders
+        upcomingReminders: action.payload.reminders
           ? action.payload.reminders
           : []
       };
 
     case fromAction.GET_REMINDERS_FAILURE:
-    case fromAction.GET_UPCOMMING_REMINDERS_FAILURE:
+    case fromAction.GET_UPCOMING_REMINDERS_FAILURE:
       return { ...state, isLoading: false };
   }
   return state;

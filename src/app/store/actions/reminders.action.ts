@@ -14,11 +14,11 @@ export const DELETE_REMINDERS = '[Reminders] Delete Reminders';
 export const DELETE_REMINDERS_SUCCESS = '[Reminders] Delete Reminders Success';
 export const DELETE_REMINDERS_FAILURE = '[Reminders] Delete Reminders Failure';
 
-export const GET_UPCOMMING_REMINDERS = '[Reminders] Get Upcomming Reminders';
-export const GET_UPCOMMING_REMINDERS_SUCCESS =
-  '[Reminders] Get Upcomming Reminders Success';
-export const GET_UPCOMMING_REMINDERS_FAILURE =
-  '[Reminders] Get Upcomming Reminders Failure';
+export const GET_UPCOMING_REMINDERS = '[Reminders] Get Upcoming Reminders';
+export const GET_UPCOMING_REMINDERS_SUCCESS =
+  '[Reminders] Get Upcoming Reminders Success';
+export const GET_UPCOMING_REMINDERS_FAILURE =
+  '[Reminders] Get Upcoming Reminders Failure';
 
 export class GetReminders implements Action {
   readonly type = GET_REMINDERS;
@@ -70,13 +70,13 @@ export class DeleteRemindersFailure implements Action {
   constructor(public payload: any) {}
 }
 
-export class GetUpcommingReminders implements Action {
-  readonly type = GET_UPCOMMING_REMINDERS;
+export class GetUpcomingReminders implements Action {
+  readonly type = GET_UPCOMING_REMINDERS;
   constructor() {}
 }
 
-export class GetUpcommingRemindersSuccess implements Action {
-  readonly type = GET_UPCOMMING_REMINDERS_SUCCESS;
+export class GetUpcomingRemindersSuccess implements Action {
+  readonly type = GET_UPCOMING_REMINDERS_SUCCESS;
   constructor(
     public payload: {
       reminders: ReminderModel[];
@@ -84,8 +84,8 @@ export class GetUpcommingRemindersSuccess implements Action {
   ) {}
 }
 
-export class GetUpcommingRemindersFailure implements Action {
-  readonly type = GET_UPCOMMING_REMINDERS_FAILURE;
+export class GetUpcomingRemindersFailure implements Action {
+  readonly type = GET_UPCOMING_REMINDERS_FAILURE;
   constructor(public payload: any) {}
 }
 
@@ -99,6 +99,6 @@ export type RemindersAction =
   | DeleteReminders
   | DeleteRemindersSuccess
   | DeleteRemindersFailure
-  | GetUpcommingReminders
-  | GetUpcommingRemindersSuccess
-  | GetUpcommingRemindersFailure;
+  | GetUpcomingReminders
+  | GetUpcomingRemindersSuccess
+  | GetUpcomingRemindersFailure;

@@ -125,29 +125,29 @@ export class RemindersEffects {
   );
 
   @Effect()
-  $getUpcommingReminders: Observable<
+  $getUpcomingReminders: Observable<
     fromAction.RemindersAction
   > = this.actions$.pipe(
-    ofType(fromAction.GET_UPCOMMING_REMINDERS),
+    ofType(fromAction.GET_UPCOMING_REMINDERS),
     switchMap(() =>
-      this.reminderService.getUpcommingReminders().pipe(
+      this.reminderService.getUpcomingReminders().pipe(
         map(
           (result: { reminders: ReminderModel[] }) =>
-            new fromAction.GetUpcommingRemindersSuccess(result)
+            new fromAction.GetUpcomingRemindersSuccess(result)
         ),
-        catchError(err => of(new fromAction.GetUpcommingRemindersFailure(err)))
+        catchError(err => of(new fromAction.GetUpcomingRemindersFailure(err)))
       )
     )
   );
 
   @Effect()
-  $getUpcommingRemindersFailure: Observable<Action> = this.actions$.pipe(
-    ofType(fromAction.GET_UPCOMMING_REMINDERS_FAILURE),
+  $getUpcomingRemindersFailure: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.GET_UPCOMING_REMINDERS_FAILURE),
     map(
       () =>
         new fromAction.RaiseAlert({
           type: 'danger',
-          content: 'Failed to retrieve upcomming reminders information.'
+          content: 'Failed to retrieve upcoming reminders information.'
         })
     )
   );

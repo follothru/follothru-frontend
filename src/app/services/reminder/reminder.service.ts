@@ -50,7 +50,7 @@ export class ReminderService {
     );
   }
 
-  getUpcommingReminders(): Observable<any> {
+  getUpcomingReminders(): Observable<any> {
     return this.httpService.httpAuthGet(this.getBackendUrl());
   }
 
