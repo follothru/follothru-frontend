@@ -40,9 +40,6 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.update();
-    this.subreminders$ = this.store.pipe(
-      select(fromStore.subremindersForMonthSelector(this.year, this.month))
-    );
   }
 
   ngOnChanges(change) {
@@ -82,5 +79,8 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
         col = 0;
       }
     });
+    this.subreminders$ = this.store.pipe(
+      select(fromStore.subremindersForMonthSelector(this.year, this.month))
+    );
   }
 }

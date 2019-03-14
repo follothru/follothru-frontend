@@ -14,6 +14,12 @@ export const DELETE_REMINDERS = '[Reminders] Delete Reminders';
 export const DELETE_REMINDERS_SUCCESS = '[Reminders] Delete Reminders Success';
 export const DELETE_REMINDERS_FAILURE = '[Reminders] Delete Reminders Failure';
 
+export const GET_UPCOMING_REMINDERS = '[Reminders] Get Upcoming Reminders';
+export const GET_UPCOMING_REMINDERS_SUCCESS =
+  '[Reminders] Get Upcoming Reminders Success';
+export const GET_UPCOMING_REMINDERS_FAILURE =
+  '[Reminders] Get Upcoming Reminders Failure';
+
 export class GetReminders implements Action {
   readonly type = GET_REMINDERS;
   constructor(public payload: any) {}
@@ -64,6 +70,25 @@ export class DeleteRemindersFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class GetUpcomingReminders implements Action {
+  readonly type = GET_UPCOMING_REMINDERS;
+  constructor() {}
+}
+
+export class GetUpcomingRemindersSuccess implements Action {
+  readonly type = GET_UPCOMING_REMINDERS_SUCCESS;
+  constructor(
+    public payload: {
+      reminders: ReminderModel[];
+    }
+  ) {}
+}
+
+export class GetUpcomingRemindersFailure implements Action {
+  readonly type = GET_UPCOMING_REMINDERS_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export type RemindersAction =
   | GetReminders
   | GetRemindersSuccess
@@ -73,4 +98,7 @@ export type RemindersAction =
   | CreateRemindersFailure
   | DeleteReminders
   | DeleteRemindersSuccess
-  | DeleteRemindersFailure;
+  | DeleteRemindersFailure
+  | GetUpcomingReminders
+  | GetUpcomingRemindersSuccess
+  | GetUpcomingRemindersFailure;

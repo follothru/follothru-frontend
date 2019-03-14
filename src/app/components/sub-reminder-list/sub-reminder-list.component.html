@@ -1,7 +1,11 @@
 <ng-container *ngIf="list">
-  <ul>
-    <li *ngFor="let item of list">
-      <p>{{ item.display }}</p>
+  <ul class="recursive-list">
+    <li class="recursive-list-item" *ngFor="let item of list">
+      <div class="caption-wrap">
+        <span class="connect-icon"></span>
+        <span class="toggle-icon">❮</span>
+        <p class="caption">{{ item.display }}</p>
+      </div>
       <app-sub-reminder-list [map]="item.content"></app-sub-reminder-list>
     </li>
   </ul>

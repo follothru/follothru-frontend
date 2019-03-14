@@ -123,4 +123,32 @@ export class RemindersEffects {
         })
     )
   );
+
+  @Effect()
+  $getUpcomingReminders: Observable<
+    fromAction.RemindersAction
+  > = this.actions$.pipe(
+    ofType(fromAction.GET_UPCOMING_REMINDERS),
+    switchMap(() =>
+      this.reminderService.getUpcomingReminders().pipe(
+        map(
+          (result: { reminders: ReminderModel[] }) =>
+            new fromAction.GetUpcomingRemindersSuccess(result)
+        ),
+        catchError(err => of(new fromAction.GetUpcomingRemindersFailure(err)))
+      )
+    )
+  );
+
+  @Effect()
+  $getUpcomingRemindersFailure: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.GET_UPCOMING_REMINDERS_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'danger',
+          content: 'Failed to retrieve upcoming reminders information.'
+        })
+    )
+  );
 }

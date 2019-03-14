@@ -10,11 +10,10 @@ branches:
     - master
 
 install:
-  - npm install -g yarn
-  - yarn install
+  - npm install
 
 script:
-  - yarn build
+  - npm build
 deploy:
   provider: pages
   skip_cleanup: true

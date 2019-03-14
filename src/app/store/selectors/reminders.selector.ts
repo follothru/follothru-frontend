@@ -51,3 +51,11 @@ export const subremindersForMonthSelector = (
       return categories[year].content[month].content;
     }
   );
+
+export const upcomingRemindersSelector: MemoizedSelector<
+  fromState.StoreState,
+  ReminderModel[]
+> = createSelector(
+  remindersStateSelector,
+  fromState.getUpcomingReminders
+);

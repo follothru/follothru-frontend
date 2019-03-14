@@ -26,7 +26,8 @@ export interface ActivityModel {
 export interface ReminderModel {
   id: string;
   name: string;
+  course: any;
   subreminders: SubreminderModel[];
-  upcommingDisplay: string;
+  upcomingDisplay: string;
   categories: any;
 }
