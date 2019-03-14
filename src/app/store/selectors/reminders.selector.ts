@@ -21,6 +21,14 @@ export const remindersEntitiesSelector: MemoizedSelector<
   fromState.getReminderEntities
 );
 
+export const remindersCategoriesSelector: MemoizedSelector<
+  fromState.StoreState,
+  any
+> = createSelector(
+  remindersStateSelector,
+  fromState.getRemindersCategories
+);
+
 export const remindersIsLoadingSelector: MemoizedSelector<
   fromState.StoreState,
   boolean
@@ -28,3 +36,18 @@ export const remindersIsLoadingSelector: MemoizedSelector<
   remindersStateSelector,
   fromState.getRemindersIsLoading
 );
+
+export const subremindersForMonthSelector = (
+  year: string | number,
+  month: string | number
+): MemoizedSelector<fromState.StoreState, any> =>
+  createSelector(
+    remindersStateSelector,
+    (state: fromState.RemindersState) => {
+      const categories = fromState.getRemindersCategories(state);
+      if (!categories[year] || !categories[year].content[month]) {
+        return [];
+      }
+      return categories[year].content[month].content;
+    }
+  );

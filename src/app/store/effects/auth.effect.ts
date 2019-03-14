@@ -40,7 +40,9 @@ export class AuthEffects {
     switchMap((action: fromAction.SignInFailure) => [
       new fromAction.RaiseAlert({
         type: 'danger',
-        content: action.payload.message
+        content: `Failed to sign in. ${
+          action.payload.message ? action.payload.message : ''
+        }`
       }),
       new fromAction.ClearCurrentSession(),
       new fromAction.ClearCurrentUser()

@@ -1,0 +1,15 @@
+<ng-container *ngIf="list">
+  <ul>
+    <li *ngFor="let item of list">
+      <p>{{ item.display }}</p>
+      <app-sub-reminder-list [map]="item.content"></app-sub-reminder-list>
+    </li>
+  </ul>
+</ng-container>
+<ng-container *ngIf="subreminders">
+  <ul>
+    <li *ngFor="let subreminder of subreminders">
+      <app-sub-reminder [subreminder]="subreminder"></app-sub-reminder>
+    </li>
+  </ul>
+</ng-container>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { ReminderModel, Category } from '../../models';
+import { ReminderModel } from '../../models';
 
 import * as fromStore from '../../store';
 
@@ -19,7 +19,7 @@ export class ReminderComponent implements OnInit {
 
   subreminders: any[];
   days: string[];
-  categories: Category[];
+  categories: any;
   showInfo = false;
 
   constructor(private store: Store<fromStore.StoreState>) {}

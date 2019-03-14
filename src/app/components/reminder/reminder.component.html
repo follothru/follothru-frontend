@@ -6,28 +6,7 @@
     </p>
     <a href="javascript:;" (click)="onDeleleClick()">Delete</a>
   </div>
-  <div class="reminder-details" [ngClass]="{ active: showInfo }">
-    <div class="subreminders-container">
-      <ul class="months">
-        <li class="month" *ngFor="let monthCat of categories">
-          <p>{{ monthCat.category }}</p>
-          <ul class="days">
-            <li class="day" *ngFor="let dayCat of monthCat.content">
-              <p>{{ dayCat.category }}</p>
-              <ul class="subremidners">
-                <li
-                  class="subreminder"
-                  *ngFor="let subreminder of dayCat.content"
-                >
-                  <app-sub-reminder
-                    [subreminder]="subreminder"
-                  ></app-sub-reminder>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+  <div class="reminder-details">
+    <app-sub-reminder-list [map]="categories"></app-sub-reminder-list>
   </div>
 </div>

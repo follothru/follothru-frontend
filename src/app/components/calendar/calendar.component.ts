@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-calendar',
@@ -17,16 +14,12 @@ export class CalendarComponent implements OnInit {
   currentYear: number;
   currentSeason: number;
 
-  constructor(private store: Store<fromStore.StoreState>) {
+  constructor() {
     this.currentYear = new Date().getFullYear();
     this.currentSeason = this.determineSeason();
   }
 
-  ngOnInit() {
-    this.reminders$ = this.store.pipe(
-      select(fromStore.remindersEntitiesSelector)
-    );
-  }
+  ngOnInit() {}
 
   onNext() {
     if (this.currentSeason >= 2) {

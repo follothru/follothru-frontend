@@ -22,14 +22,17 @@
               date !== undefined ? date.getDate() : ''
             }}</span>
             <div class="markers">
-              <ng-container *ngIf="getRemindersForDate(date) !== null">
-                <span
-                  class="reminder-marker"
-                  *ngFor="let reminder of getRemindersForDate(date)"
-                  (mouseover)="reminder.hover = true"
-                  (mouseleave)="reminder.hover = false"
-                  [ngClass]="{ hover: reminder.hover }"
-                ></span>
+              <ng-container
+                *ngIf="date && (subreminders$ | async) as subreminders"
+              >
+                <ng-container *ngIf="subreminders[date.getDate()]">
+                  <span
+                    class="reminder-marker"
+                    *ngFor="
+                      let reminder of subreminders[date.getDate()].content
+                    "
+                  ></span
+                ></ng-container>
               </ng-container>
             </div>
           </div>
