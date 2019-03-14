@@ -1,2 +1,28 @@
 <h4>Upcomming Reminders</h4>
 <hr />
+<ng-container *ngIf="!(isLoading$ | async); else loading">
+  <ng-container *ngIf="(upcommingReminders$ | async).length > 0; else empty">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Course</th>
+          <th scope="col">Send time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reminder of (upcommingReminders$ | async)">
+          <td>{{ reminder.name }}</td>
+          <td>{{ reminder.course.name }}</td>
+          <td>{{ reminder.dateTime.substr(0, 10) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</ng-container>
+<ng-template #loading><app-spinner></app-spinner></ng-template>
+<ng-template #empty
+  ><p class="padding-lg align-center">
+    There's no upcomming reminders.
+  </p></ng-template
+>

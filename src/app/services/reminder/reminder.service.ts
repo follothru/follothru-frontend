@@ -50,6 +50,10 @@ export class ReminderService {
     );
   }
 
+  getUpcommingReminders(): Observable<any> {
+    return this.httpService.httpAuthGet(this.getBackendUrl());
+  }
+
   private getBackendUrl(): string {
     return this.configService.getBackendUrl() + '/reminder';
   }
