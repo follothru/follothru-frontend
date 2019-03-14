@@ -23,15 +23,10 @@ export interface ActivityModel {
   dateTime: Date;
 }
 
-export interface Category {
-  category: string;
-  content: any;
-}
-
 export interface ReminderModel {
   id: string;
   name: string;
   subreminders: SubreminderModel[];
   upcommingDisplay: string;
-  categories: Category[];
+  categories: any;
 }

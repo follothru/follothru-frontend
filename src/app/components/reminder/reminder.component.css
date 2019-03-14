@@ -19,7 +19,6 @@
 .reminder-details {
   padding-top: 0;
   background-color: #fff;
-  display: none;
 }
 
 .reminder-details.active {

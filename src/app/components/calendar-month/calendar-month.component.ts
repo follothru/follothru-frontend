@@ -1,11 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChange
-} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-calendar-month',
@@ -17,8 +14,8 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   month: number;
   @Input()
   year: number;
-  @Input()
-  reminders: any = {};
+
+  subreminders$: Observable<any>;
 
   monthText: string[] = [
     'January',
@@ -39,10 +36,13 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   dates: Date[];
   grid: Date[][];
 
-  constructor() {}
+  constructor(private store: Store<fromStore.StoreState>) {}
 
   ngOnInit() {
     this.update();
+    this.subreminders$ = this.store.pipe(
+      select(fromStore.subremindersForMonthSelector(this.year, this.month))
+    );
   }
 
   ngOnChanges(change) {
@@ -53,20 +53,6 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
       this.year = change.year.currentValue;
     }
     this.update();
-  }
-
-  getRemindersForDate(date: Date) {
-    if (!date) {
-      return null;
-    }
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-    return this.reminders[year] &&
-      this.reminders[year][month] &&
-      this.reminders[year][month][day]
-      ? this.reminders[year][month][day]
-      : null;
   }
 
   private update() {

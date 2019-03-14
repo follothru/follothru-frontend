@@ -13,7 +13,10 @@ export function RemindersReducer(
       return {
         ...state,
         isLoading: false,
-        remindersEntities: action.payload
+        remindersEntities: action.payload.reminders
+          ? action.payload.reminders
+          : [],
+        categories: action.payload.categories ? action.payload.categories : {}
       };
   }
   return state;

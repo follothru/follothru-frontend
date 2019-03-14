@@ -21,7 +21,12 @@ export class GetReminders implements Action {
 
 export class GetRemindersSuccess implements Action {
   readonly type = GET_REMINDERS_SUCCESS;
-  constructor(public payload: ReminderModel[]) {}
+  constructor(
+    public payload: {
+      reminders: ReminderModel[];
+      categories: any;
+    }
+  ) {}
 }
 
 export class GetRemindersFailure implements Action {

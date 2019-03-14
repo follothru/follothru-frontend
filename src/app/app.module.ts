@@ -39,6 +39,7 @@ import { SignInComponent } from './components/signin/signin.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { SubReminderComponent } from './components/sub-reminder/sub-reminder.component';
+import { SubReminderListComponent } from './components/sub-reminder-list/sub-reminder-list.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -68,7 +69,8 @@ import { services } from './services';
     SignInComponent,
     AlertComponent,
     UserSettingsComponent,
-    SubReminderComponent
+    SubReminderComponent,
+    SubReminderListComponent
   ],
   imports: [
     BrowserModule,
