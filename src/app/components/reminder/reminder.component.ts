@@ -25,7 +25,13 @@ export class ReminderComponent implements OnInit {
   constructor(private store: Store<fromStore.StoreState>) {}
 
   ngOnInit() {
-    this.categories = this.reminder.categories;
+    const keys = Object.keys(this.reminder.categories);
+    this.categories =
+      keys &&
+      keys.length === 1 &&
+      keys[0] === new Date().getFullYear().toString()
+        ? this.reminder.categories[keys[0]].content
+        : this.reminder.categories;
   }
 
   onDeleleClick() {
