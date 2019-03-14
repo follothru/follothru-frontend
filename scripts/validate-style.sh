@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "------"
-echo "Validating code formatting (yarn prettier)..."
+echo "Validating code formatting (npm run prettier)..."
 npm run prettier
 if [ $? -eq 0 ]; then
   echo "SUCCESS: All code has been formatted correctly."
@@ -9,11 +9,11 @@ else
   exit 1
 fi
 
-echo "Validing code pattern (npm eslint)..."
+echo "Validing code pattern (npm run lint)..."
 npm run lint
 if [ $? -eq 0 ]; then
-  echo "SUCCESS: eslint has paassed."
+  echo "SUCCESS: lint has paassed."
 else
-  echo "ERROR: eslint has failed."
+  echo "ERROR: lint has failed."
   exit 1
 fi
