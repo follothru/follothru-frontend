@@ -12,6 +12,7 @@ export class SubReminderListComponent implements OnInit {
 
   list: any[];
   subreminders: ReminderModel[];
+  expand = false;
 
   constructor() {}
 
@@ -21,5 +22,10 @@ export class SubReminderListComponent implements OnInit {
     } else if (this.map) {
       this.list = Object.keys(this.map).map(key => this.map[key]);
     }
+  }
+
+  onClick(item) {
+    item.expand = !item.expand;
+    event.stopPropagation();
   }
 }

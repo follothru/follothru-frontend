@@ -1,10 +1,14 @@
-<div class="reminder-card">
-  <div class="basic-info" (click)="showInfo = !showInfo">
-    <p class="reminder-name">{{ reminder.name }}</p>
-    <p>
-      <small class="upcoming-dates">{{ reminder.upcomingDisplay }}</small>
-    </p>
-    <a href="javascript:;" (click)="onDeleleClick()">Delete</a>
+<div class="reminder-card" [ngClass]="{ expand: expand }">
+  <div class="basic-info" (click)="expand = !expand">
+    <div style="float: right">
+      <a href="javascript:;" (click)="onDeleleClick()">Delete</a>
+    </div>
+    <div>
+      <p class="reminder-name">{{ reminder.name }}</p>
+      <p>
+        <small class="upcoming-dates">{{ reminder.upcomingDisplay }}</small>
+      </p>
+    </div>
   </div>
   <div class="reminder-details">
     <app-sub-reminder-list [map]="categories"></app-sub-reminder-list>

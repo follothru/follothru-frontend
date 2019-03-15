@@ -20,7 +20,7 @@ export class ReminderComponent implements OnInit {
   subreminders: any[];
   days: string[];
   categories: any;
-  showInfo = false;
+  expand = false;
 
   constructor(private store: Store<fromStore.StoreState>) {}
 

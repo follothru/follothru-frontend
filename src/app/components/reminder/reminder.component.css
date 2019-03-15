@@ -2,6 +2,14 @@
   cursor: pointer;
 }
 
+.reminder-card > .reminder-details {
+  display: none;
+}
+
+.reminder-card.expand > .reminder-details {
+  display: block;
+}
+
 .basic-info,
 .reminder-details {
   padding: 0.8em 1.6em;
@@ -26,7 +34,11 @@
 }
 
 .basic-info .reminder-name {
-  margin-bottom: 0.6em;
+  margin-bottom: 0.4em;
+}
+
+.basic-info p {
+  margin: 0;
 }
 
 .basic-info .upcoming-dates {
