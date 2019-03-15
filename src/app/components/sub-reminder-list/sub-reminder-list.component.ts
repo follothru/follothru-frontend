@@ -26,6 +26,5 @@ export class SubReminderListComponent implements OnInit {
 
   onClick(item) {
     item.expand = !item.expand;
-    event.stopPropagation();
   }
 }
