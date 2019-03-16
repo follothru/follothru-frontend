@@ -17,7 +17,6 @@ export class ReminderComponent implements OnInit {
   @Input()
   reminder: ReminderModel;
 
-  subreminders: any[];
   days: string[];
   categories: any;
   expand = false;
@@ -41,5 +40,15 @@ export class ReminderComponent implements OnInit {
         courseId: this.courseId
       })
     );
+  }
+
+  onFocus() {
+    this.store.dispatch(
+      new fromStore.FocusSubreminders(this.reminder.subreminders)
+    );
+  }
+
+  onClearFocus() {
+    this.store.dispatch(new fromStore.ClearSubreminderFocus());
   }
 }

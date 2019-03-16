@@ -1,4 +1,9 @@
-<div class="reminder-card" [ngClass]="{ expand: expand }">
+<div
+  class="reminder-card"
+  [ngClass]="{ expand: expand }"
+  (mouseenter)="onFocus()"
+  (mouseleave)="onClearFocus()"
+>
   <div class="basic-info">
     <div style="float: right; height: inherit">
       <div class="dropdown">
@@ -20,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="" (click)="expand = !expand">
+    <div (click)="expand = !expand">
       <div>
         <p class="reminder-name">{{ reminder.name }}</p>
         <p>

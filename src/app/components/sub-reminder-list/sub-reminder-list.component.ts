@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ReminderModel } from 'src/app/models';
+import { Store } from '@ngrx/store';
+
+import { ReminderModel } from '../../models';
+
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-sub-reminder-list',
@@ -14,7 +18,7 @@ export class SubReminderListComponent implements OnInit {
   subreminders: ReminderModel[];
   expand = false;
 
-  constructor() {}
+  constructor(private store: Store<fromStore.StoreState>) {}
 
   ngOnInit() {
     if (this.map instanceof Array) {
@@ -26,5 +30,29 @@ export class SubReminderListComponent implements OnInit {
 
   onClick(item) {
     item.expand = !item.expand;
+  }
+
+  onFocus(item) {
+    this.store.dispatch(
+      new fromStore.FocusSubreminders(this.getAllSubreminders(item))
+    );
+  }
+
+  onClearFocus() {
+    // this.store.dispatch(new fromStore.ClearSubreminderFocus());
+  }
+
+  private getAllSubreminders(item) {
+    if (!item || !item.content) {
+      return [];
+    }
+    if (item.content instanceof Array) {
+      return item.content;
+    }
+    const { content } = item;
+    return Object.keys(content).reduce(
+      (prev, key) => prev.concat(this.getAllSubreminders(content[key])),
+      []
+    );
   }
 }

@@ -1,10 +1,10 @@
-<div>
-  <button class="btn btn-default" (click)="newReminder()">
-    <i class="fas fa-plus"></i>
-  </button>
-</div>
 <div class="row">
   <div class="col-md-5">
+    <div>
+      <button class="btn btn-default" (click)="newReminder()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
     <ng-container
       *ngIf="
         !(isLoading$ | async) && (reminders$ | async) as reminders;

@@ -31,22 +31,18 @@
   display: block;
 }
 
-.calendar-col .reminder-marker {
-  transition: 0.2s;
+.calendar-col .markers .marker {
   display: inline-block;
   flex: auto;
   flex-basis: 10%;
-  background-color: #1abc9c;
   min-width: 6px;
   height: 4px;
   margin: 1px;
-  border-radius: 14px;
-  opacity: 1;
   cursor: pointer;
 }
 
-.calendar-col .reminder-marker.hover {
-  opacity: 0.5;
+.calendar-col .markers .marker.focused {
+  background-color: #000;
 }
 
 .month-display-text {

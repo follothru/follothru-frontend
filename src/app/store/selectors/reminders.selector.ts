@@ -4,7 +4,7 @@ import {
   createSelector
 } from '@ngrx/store';
 
-import { ReminderModel } from '../../models';
+import { ReminderModel, SubreminderModel } from '../../models';
 
 import * as fromState from '../states';
 
@@ -21,12 +21,20 @@ export const remindersEntitiesSelector: MemoizedSelector<
   fromState.getReminderEntities
 );
 
-export const remindersCategoriesSelector: MemoizedSelector<
+export const subreminderCategoriesSelector: MemoizedSelector<
   fromState.StoreState,
   any
 > = createSelector(
   remindersStateSelector,
-  fromState.getRemindersCategories
+  fromState.getSubreminderCategories
+);
+
+export const eventCategoriesSelector: MemoizedSelector<
+  fromState.StoreState,
+  any
+> = createSelector(
+  remindersStateSelector,
+  fromState.getEventCategories
 );
 
 export const remindersIsLoadingSelector: MemoizedSelector<
@@ -42,15 +50,36 @@ export const subremindersForMonthSelector = (
   month: string | number
 ): MemoizedSelector<fromState.StoreState, any> =>
   createSelector(
-    remindersStateSelector,
-    (state: fromState.RemindersState) => {
-      const categories = fromState.getRemindersCategories(state);
+    subreminderCategoriesSelector,
+    (categories: any) => {
+      if (!categories[year] || !categories[year].content[month]) {
+        return null;
+      }
+      return categories[year].content[month].content;
+    }
+  );
+
+export const eventsForMonthSelector = (
+  year: string | number,
+  month: string | number
+): MemoizedSelector<fromState.StoreState, any> =>
+  createSelector(
+    eventCategoriesSelector,
+    (categories: any) => {
       if (!categories[year] || !categories[year].content[month]) {
         return [];
       }
       return categories[year].content[month].content;
     }
   );
+
+export const focusedSubremindersSelector: MemoizedSelector<
+  fromState.StoreState,
+  SubreminderModel[]
+> = createSelector(
+  remindersStateSelector,
+  fromState.getFocusedSubreminders
+);
 
 export const upcomingRemindersSelector: MemoizedSelector<
   fromState.StoreState,

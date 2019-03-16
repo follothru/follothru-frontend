@@ -10,10 +10,13 @@ import { SubreminderModel } from '../../models';
 export class SubReminderComponent implements OnInit {
   @Input()
   subreminder: SubreminderModel;
+  type: string;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.type = 'reminder';
+  }
 
   getTime() {
     const dateTime = new Date(this.subreminder.dateTime);

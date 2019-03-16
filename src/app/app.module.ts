@@ -40,6 +40,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { SubReminderComponent } from './components/sub-reminder/sub-reminder.component';
 import { SubReminderListComponent } from './components/sub-reminder-list/sub-reminder-list.component';
+import { CalendarMarkerComponent } from './components/calendar-marker/calendar-marker.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -70,7 +71,8 @@ import { services } from './services';
     AlertComponent,
     UserSettingsComponent,
     SubReminderComponent,
-    SubReminderListComponent
+    SubReminderListComponent,
+    CalendarMarkerComponent
   ],
   imports: [
     BrowserModule,

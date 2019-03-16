@@ -4,6 +4,8 @@
       class="recursive-list-item"
       *ngFor="let item of list"
       [ngClass]="{ expand: item.expand }"
+      (mouseenter)="onFocus(item)"
+      (mouseleave)="onClearFocus()"
     >
       <div class="caption-wrap" (click)="onClick(item)">
         <span class="connect-icon"></span>

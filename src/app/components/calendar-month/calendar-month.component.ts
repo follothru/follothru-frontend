@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import * as fromStore from '../../store';
 
@@ -16,6 +17,8 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   year: number;
 
   subreminders$: Observable<any>;
+  events$: Observable<any>;
+  selectedCategory: any = {};
 
   monthText: string[] = [
     'January',
@@ -80,7 +83,23 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
       }
     });
     this.subreminders$ = this.store.pipe(
-      select(fromStore.subremindersForMonthSelector(this.year, this.month))
+      select(fromStore.subremindersForMonthSelector(this.year, this.month)),
+      filter(subreminders => subreminders)
+    );
+    this.events$ = this.store.pipe(
+      select(fromStore.eventsForMonthSelector(this.year, this.month))
+    );
+    this.events$.subscribe();
+  }
+
+  isFocused(subreminder): boolean {
+    if (this.selectedCategory === null) {
+      return false;
+    }
+    const id1 = `${subreminder.parentReminder}-${this.year}`;
+    const id2 = `${id1}-${this.month}`;
+    return (
+      this.selectedCategory.path === id1 || this.selectedCategory.path === id2
     );
   }
 }
