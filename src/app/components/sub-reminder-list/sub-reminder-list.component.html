@@ -7,12 +7,19 @@
       (mouseenter)="onFocus(item)"
       (mouseleave)="onClearFocus()"
     >
-      <div class="caption-wrap" (click)="onClick(item)">
-        <span class="connect-icon"></span>
-        <span class="toggle-icon">❮</span>
-        <p class="caption">
-          {{ item.display }}
-        </p>
+      <div class="list-header">
+        <div>
+          <a href="javascript:;" style="float: right; font-size: 0.8em;"
+            >Delete</a
+          >
+        </div>
+        <div class="caption-wrap" (click)="onClick(item)">
+          <span class="connect-icon"></span>
+          <span class="toggle-icon">❮</span>
+          <p class="caption">
+            {{ item.display }}
+          </p>
+        </div>
       </div>
       <div class="sub-list">
         <app-sub-reminder-list [map]="item.content"></app-sub-reminder-list>

@@ -4,34 +4,33 @@
   (mouseenter)="onFocus()"
   (mouseleave)="onClearFocus()"
 >
-  <div class="basic-info">
-    <div style="float: right; height: inherit">
-      <div class="dropdown">
-        <a
-          class="dropdown-toggle dropdown-icon"
-          href="javascript:;"
-          role="button"
-          id="dropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+  <div style="float: right; padding: 0.8em">
+    <div class="dropdown">
+      <a
+        class="dropdown-toggle dropdown-icon"
+        href="javascript:;"
+        role="button"
+        id="dropdownMenuLink"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-ellipsis-v"></i>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="javascript:;">Edit message</a>
+        <a class="dropdown-item" href="javascript:;" (click)="onDeleleClick()"
+          >Delete</a
         >
-          <i class="fas fa-ellipsis-v"></i>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="javascript:;" (click)="onDeleleClick()"
-            >Delete</a
-          >
-        </div>
       </div>
     </div>
-    <div (click)="expand = !expand">
-      <div>
-        <p class="reminder-name">{{ reminder.name }}</p>
-        <p>
-          <small class="upcoming-dates">{{ reminder.upcomingDisplay }}</small>
-        </p>
-      </div>
+  </div>
+  <div class="basic-info" (click)="expand = !expand">
+    <div>
+      <p class="reminder-name">{{ reminder.name }}</p>
+      <p>
+        <small class="upcoming-dates">{{ reminder.upcomingDisplay }}</small>
+      </p>
     </div>
   </div>
   <div class="reminder-details">

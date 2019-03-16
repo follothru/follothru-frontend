@@ -2,5 +2,20 @@
   <div class="type-indicator">
     <span class="type-marker {{ type }}-marker"></span>
   </div>
-  <b>Time: </b><span>{{ getTime() }}</span>
+  <div class="info-wrap">
+    <div>
+      <b>Time: </b><span style="margin-right: 1em">{{ getTime() }}</span>
+      <a href="javascript:;">Edit</a>
+    </div>
+    <hr />
+    <div class="operations">
+      <a href="javascript:;">Edit message</a>
+      <a href="javascript:;">Disable</a>
+      <a
+        href="javascript:;"
+        style=" float: right;text-align: right;margin-right: 0"
+        >Delete</a
+      >
+    </div>
+  </div>
 </div>
