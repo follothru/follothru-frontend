@@ -38,10 +38,6 @@ export class SubReminderListComponent implements OnInit {
     );
   }
 
-  onClearFocus() {
-    // this.store.dispatch(new fromStore.ClearSubreminderFocus());
-  }
-
   private getAllSubreminders(item) {
     if (!item || !item.content) {
       return [];

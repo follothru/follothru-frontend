@@ -4,21 +4,23 @@
       class="recursive-list-item"
       *ngFor="let item of list"
       [ngClass]="{ expand: item.expand }"
-      (mouseenter)="onFocus(item)"
-      (mouseleave)="onClearFocus()"
     >
       <div class="list-header">
-        <div>
-          <a href="javascript:;" style="float: right; font-size: 0.8em;"
-            >Delete</a
-          >
+        <div class="operations">
+          <a href="javascript:;" style="font-size: 0.8em">Delete</a>
         </div>
-        <div class="caption-wrap" (click)="onClick(item)">
-          <span class="connect-icon"></span>
-          <span class="toggle-icon">❮</span>
-          <p class="caption">
-            {{ item.display }}
-          </p>
+        <div
+          class="list-header-content"
+          (mouseenter)="onFocus(item)"
+          (click)="onClick(item)"
+        >
+          <div class="caption-wrap">
+            <span class="connect-icon"></span>
+            <span class="toggle-icon">❮</span>
+            <p class="caption">
+              {{ item.display }}
+            </p>
+          </div>
         </div>
       </div>
       <div class="sub-list">

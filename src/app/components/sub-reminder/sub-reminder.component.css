@@ -12,6 +12,7 @@
 .subreminder-container .type-indicator {
   float: left;
   font-size: 0.8em;
+  margin-right: 1em;
 }
 
 .subreminder-container .type-marker {
@@ -22,7 +23,6 @@
 }
 
 .subreminder-container .info-wrap {
-  padding-left: 1.6em;
   font-size: 0.8em;
 }
 
@@ -31,5 +31,5 @@
 }
 
 hr {
-  margin-bottom: 0.6em;
+  margin-bottom: 0.6em 0;
 }
