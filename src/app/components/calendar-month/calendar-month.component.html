@@ -21,19 +21,44 @@
             <span class="day-text">{{
               date !== undefined ? date.getDate() : ''
             }}</span>
-            <div class="markers">
-              <ng-container
-                *ngIf="date && (subreminders$ | async) as subreminders"
+            <div>
+              <div
+                class="markers"
+                [ngClass]="{ focus: subremindersOnFocused !== null }"
               >
-                <ng-container *ngIf="subreminders[date.getDate()]">
-                  <span
-                    class="reminder-marker"
-                    *ngFor="
-                      let reminder of subreminders[date.getDate()].content
+                <!-- event markers -->
+                <ng-container *ngIf="date && (events$ | async) as events">
+                  <ng-container *ngIf="events[date.getDate()]">
+                    <ng-container
+                      *ngFor="let item of events[date.getDate()].content"
+                    >
+                      <app-calendar-marker
+                        [item]="item"
+                        class="marker"
+                      ></app-calendar-marker>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <!-- subreminder markers -->
+                <ng-container
+                  *ngIf="date && (subreminders$ | async) as subremindersMap"
+                >
+                  <ng-container
+                    *ngIf="
+                      subremindersMap &&
+                      subremindersMap[date.getDate()] &&
+                      subremindersMap[date.getDate()].content as subreminders
                     "
-                  ></span
-                ></ng-container>
-              </ng-container>
+                  >
+                    <ng-container *ngFor="let item of subreminders">
+                      <app-calendar-marker
+                        [item]="item"
+                        class="marker"
+                      ></app-calendar-marker>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
             </div>
           </div>
         </li>

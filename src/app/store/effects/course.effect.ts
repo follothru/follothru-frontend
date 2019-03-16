@@ -80,4 +80,29 @@ export class CourseEffects {
         })
     )
   );
+
+  @Effect()
+  getEnrolledStudents$: Observable<
+    fromAction.CourseAction
+  > = this.actions$.pipe(
+    ofType(fromAction.GET_ENROLLED_STUDENTS),
+    switchMap((action: fromAction.GetEnrolledStudents) =>
+      this.courseService.getEnrolledStudents(action.couseId).pipe(
+        map(students => new fromAction.GetEnrolledStudentsSuccess(students)),
+        catchError(err => of(new fromAction.GetEnrolledStudentsFailure(err)))
+      )
+    )
+  );
+
+  @Effect()
+  getEnrolledStudentsFailure$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.GET_ENROLLED_STUDENTS_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'danger',
+          content: 'Failed to retrieve students information.'
+        })
+    )
+  );
 }

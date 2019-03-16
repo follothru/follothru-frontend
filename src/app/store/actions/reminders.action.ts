@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { ReminderModel } from '../../models';
+import { ReminderModel, SubreminderModel } from '../../models';
 
 export const GET_REMINDERS = '[Reminders] Get Reminders';
 export const GET_REMINDERS_SUCCESS = '[Reminders] Get Reminders Success';
@@ -19,6 +19,9 @@ export const GET_UPCOMING_REMINDERS_SUCCESS =
   '[Reminders] Get Upcoming Reminders Success';
 export const GET_UPCOMING_REMINDERS_FAILURE =
   '[Reminders] Get Upcoming Reminders Failure';
+
+export const FOCUS_SUBREMINDERS = '[Reminders] Focus Subreminders';
+export const CLEAR_SUBREMINDER_FOCUS = '[Reminders] Clear Subreminder Focus';
 
 export class GetReminders implements Action {
   readonly type = GET_REMINDERS;
@@ -89,6 +92,16 @@ export class GetUpcomingRemindersFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class FocusSubreminders implements Action {
+  readonly type = FOCUS_SUBREMINDERS;
+  constructor(public subreminders: SubreminderModel[]) {}
+}
+
+export class ClearSubreminderFocus implements Action {
+  readonly type = CLEAR_SUBREMINDER_FOCUS;
+  constructor() {}
+}
+
 export type RemindersAction =
   | GetReminders
   | GetRemindersSuccess
@@ -101,4 +114,6 @@ export type RemindersAction =
   | DeleteRemindersFailure
   | GetUpcomingReminders
   | GetUpcomingRemindersSuccess
-  | GetUpcomingRemindersFailure;
+  | GetUpcomingRemindersFailure
+  | FocusSubreminders
+  | ClearSubreminderFocus;

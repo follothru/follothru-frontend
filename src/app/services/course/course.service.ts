@@ -58,6 +58,12 @@ export class CourseService {
     );
   }
 
+  getEnrolledStudents(courseId: string): Observable<any[]> {
+    return this.httpService.httpAuthGet(
+      this.getCourseUrl() + `/${courseId}/student`
+    );
+  }
+
   private getCourseUrl(): string {
     return this.configService.getBackendUrl() + '/course';
   }

@@ -45,3 +45,18 @@ li {
 .align-center {
   text-align: center;
 }
+
+.reminder-marker {
+  color: #1abc9c;
+  background-color: #1abc9c;
+}
+
+.reminder-no-message-marker {
+  color: #c2c2c5;
+  background-color: #c2c2c5;
+}
+
+.event-marker {
+  color: #f46648;
+  background-color: #f46648;
+}

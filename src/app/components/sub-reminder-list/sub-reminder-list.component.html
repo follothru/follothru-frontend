@@ -5,12 +5,28 @@
       *ngFor="let item of list"
       [ngClass]="{ expand: item.expand }"
     >
-      <div class="caption-wrap" (click)="onClick(item)">
-        <span class="connect-icon"></span>
-        <span class="toggle-icon">❮</span>
-        <p class="caption">
-          {{ item.display }}
-        </p>
+      <div class="list-header">
+        <div class="operations">
+          <a
+            href="javascript:;"
+            style="font-size: 0.8em"
+            onclick="alert('Feature not avaliable yet.')"
+            >Delete</a
+          >
+        </div>
+        <div
+          class="list-header-content"
+          (mouseenter)="onFocus(item)"
+          (click)="onClick(item)"
+        >
+          <div class="caption-wrap">
+            <span class="connect-icon"></span>
+            <span class="toggle-icon">❮</span>
+            <p class="caption">
+              {{ item.display }}
+            </p>
+          </div>
+        </div>
       </div>
       <div class="sub-list">
         <app-sub-reminder-list [map]="item.content"></app-sub-reminder-list>

@@ -230,7 +230,9 @@
         </li>
       </ng-container>
 
-      <ng-container *ngIf="answers.endDate_yes || answers.endDate_no">
+      <ng-container
+        *ngIf="answers.endDate_yes || answers.endDate_more_than_once"
+      >
         <li>
           <div class="form-group">
             <div class="question-desc">

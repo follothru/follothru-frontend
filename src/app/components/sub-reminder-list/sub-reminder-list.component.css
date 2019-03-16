@@ -15,11 +15,22 @@
   border-top: 1px dotted #f2f2f2;
 }
 
-.recursive-list:hover {
+.recursive-list:hover,
+.recursive-list-item:hover
+  > .sub-list
+  > app-sub-reminder-list
+  > .recursive-list {
   border-color: #ddd;
 }
 
-.recursive-list:hover .connect-icon {
+.recursive-list-item:hover > .list-header .connect-icon,
+.recursive-list-item:hover
+  > .sub-list
+  > app-sub-reminder-list
+  > .recursive-list
+  > .recursive-list-item
+  > .list-header
+  .connect-icon {
   background-color: #ddd;
 }
 
@@ -27,9 +38,24 @@
   border-top: none;
 }
 
-.caption-wrap {
+.list-header-content,
+.operations {
   position: relative;
   padding: 0.8em 0;
+}
+
+.list-header-content {
+  z-index: 10;
+}
+
+.list-header {
+  position: relative;
+}
+
+.operations {
+  position: absolute;
+  z-index: 100;
+  right: 1em;
 }
 
 .connect-icon,
@@ -53,7 +79,7 @@
   left: -0.2em;
 }
 
-.recursive-list-item.expand > .caption-wrap > .toggle-icon {
+.recursive-list-item.expand > .list-header .toggle-icon {
   transform: rotate(270deg);
 }
 

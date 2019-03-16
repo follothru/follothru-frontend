@@ -19,6 +19,22 @@ export const courseEntitiesSelector: MemoizedSelector<
   fromState.getCourseEntities
 );
 
+export const courseEnrolledStudentsSelector: MemoizedSelector<
+  fromState.StoreState,
+  any[]
+> = createSelector(
+  courseStateSelector,
+  fromState.getCourseEnrolledStudents
+);
+
+export const courseEnrolledStudentsIsLoadingSelector: MemoizedSelector<
+  fromState.StoreState,
+  boolean
+> = createSelector(
+  courseStateSelector,
+  fromState.getCourseEnrollStudentsIsLoading
+);
+
 export const courseIsLoadingSelector: MemoizedSelector<
   fromState.StoreState,
   boolean
