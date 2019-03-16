@@ -17,6 +17,21 @@ export function CourseReducer(
       };
     }
 
+    case fromAction.GET_ENROLLED_STUDENTS:
+      return {
+        ...state,
+        enrolledStudents: {
+          ...state.enrolledStudents,
+          isLoading: true
+        }
+      };
+
+    case fromAction.GET_ENROLLED_STUDENTS_SUCCSSS:
+      return {
+        ...state,
+        enrolledStudents: { entities: action.students, isLoading: false }
+      };
+
     case fromAction.GET_COURSE_FAILURE:
       return {
         ...state,

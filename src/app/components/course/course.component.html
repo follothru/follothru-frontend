@@ -4,7 +4,12 @@
   >
     <ng-container *ngIf="!(isError$ | async); else courseError">
       <h4 class="page-header">{{ course.name }}</h4>
-      <p>{{ course.description }}</p>
+      <p>
+        {{ course.studentsCount }} student{{
+          course.studentsCount > 1 ? 's' : ''
+        }}
+        has enrolled
+      </p>
       <hr />
       <div>
         <ul class="nav nav-tabs">
@@ -21,6 +26,15 @@
             <a
               class="nav-link"
               href="javascript:;"
+              [ngClass]="{ active: currentTab === 'students' }"
+              (click)="setCurrentTab('students')"
+              >Students</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
               [ngClass]="{ active: currentTab === 'settings' }"
               (click)="setCurrentTab('settings')"
               >Settings</a
@@ -30,6 +44,9 @@
         <div class="panel">
           <ng-container *ngIf="currentTab === 'reminders'"
             ><app-course-reminders [courseId]="courseId"></app-course-reminders>
+          </ng-container>
+          <ng-container *ngIf="currentTab === 'students'">
+            <app-course-students [courseId]="courseId"></app-course-students>
           </ng-container>
           <ng-container *ngIf="currentTab === 'settings'">
             <app-course-settings></app-course-settings>

@@ -48,9 +48,14 @@
   z-index: 10;
 }
 
+.list-header {
+  position: relative;
+}
+
 .operations {
-  float: right;
+  position: absolute;
   z-index: 100;
+  right: 1em;
 }
 
 .connect-icon,
