@@ -43,7 +43,7 @@
 
 .basic-info .upcoming-dates {
   font-size: 0.8em;
-  color: #666;
+  color: #444;
 }
 
 .reminder-operations {
@@ -62,4 +62,21 @@
 
 .subreminders-container ul:first-child {
   margin-left: 0;
+}
+
+.dropdown-icon::after {
+  display: none;
+}
+
+.dropdown-icon {
+  display: inline-block;
+  padding: 1em;
+  text-align: center;
+  border-radius: 50%;
+  color: #bbb;
+}
+
+.dropdown-icon:hover,
+.dropdown-icon:focus {
+  color: #999;
 }
