@@ -4,7 +4,7 @@ export interface RemindersState {
   remindersEntities: ReminderModel[];
   subreminderCategories: any;
   eventCategories: any;
-  upcomingReminders: ReminderModel[];
+  upcomingReminders: SubreminderModel[];
   isLoading: boolean;
   focusedSubreminders: any;
 }

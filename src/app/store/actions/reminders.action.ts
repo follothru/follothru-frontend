@@ -80,16 +80,12 @@ export class GetUpcomingReminders implements Action {
 
 export class GetUpcomingRemindersSuccess implements Action {
   readonly type = GET_UPCOMING_REMINDERS_SUCCESS;
-  constructor(
-    public payload: {
-      reminders: ReminderModel[];
-    }
-  ) {}
+  constructor(public subreminders: SubreminderModel[]) {}
 }
 
 export class GetUpcomingRemindersFailure implements Action {
   readonly type = GET_UPCOMING_REMINDERS_FAILURE;
-  constructor(public payload: any) {}
+  constructor(public subreminders: SubreminderModel[]) {}
 }
 
 export class FocusSubreminders implements Action {
