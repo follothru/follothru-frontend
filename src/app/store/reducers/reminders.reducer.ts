@@ -29,9 +29,7 @@ export function RemindersReducer(
       return {
         ...state,
         isLoading: false,
-        upcomingReminders: action.payload.reminders
-          ? action.payload.reminders
-          : []
+        upcomingReminders: action.subreminders ? action.subreminders : []
       };
 
     case fromAction.GET_REMINDERS_FAILURE:

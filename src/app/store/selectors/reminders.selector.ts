@@ -83,7 +83,7 @@ export const focusedSubremindersSelector: MemoizedSelector<
 
 export const upcomingRemindersSelector: MemoizedSelector<
   fromState.StoreState,
-  ReminderModel[]
+  SubreminderModel[]
 > = createSelector(
   remindersStateSelector,
   fromState.getUpcomingReminders
