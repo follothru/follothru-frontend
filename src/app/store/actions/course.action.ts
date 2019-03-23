@@ -8,6 +8,10 @@ export const UPDATE_COURSE = '[Course] Update Course';
 export const UPDATE_COURSE_SUCCESS = '[Course] Update Course Success';
 export const UPDATE_COURSE_FAILURE = '[Course] Update Course Failure';
 
+export const APPROVE_COURSE = '[Course] Approve Course';
+export const APPROVE_COURSE_SUCCESS = '[Course] Approve Course Success';
+export const APPROVE_COURSE_FAILURE = '[Course] Approve Course Failure';
+
 export const GET_ENROLLED_STUDENTS = '[Course] Get Enrolled Students';
 export const GET_ENROLLED_STUDENTS_SUCCSSS =
   '[Course] Get Enrolled Students Success';
@@ -52,6 +56,21 @@ export class UpdateCourseFailure implements Action {
   constructor(public payload: any = {}) {}
 }
 
+export class ApproveCourse implements Action {
+  readonly type = APPROVE_COURSE;
+  constructor(public courseId: string) {}
+}
+
+export class ApproveCourseSuccess implements Action {
+  readonly type = APPROVE_COURSE_SUCCESS;
+  constructor(public courseId: string) {}
+}
+
+export class ApproveCourseFailure implements Action {
+  readonly type = APPROVE_COURSE_FAILURE;
+  constructor(public error: any) {}
+}
+
 export class GetEnrolledStudents implements Action {
   readonly type = GET_ENROLLED_STUDENTS;
   constructor(public couseId: string) {}
@@ -74,6 +93,9 @@ export type CourseAction =
   | UpdateCourse
   | UpdateCourseSuccess
   | UpdateCourseFailure
+  | ApproveCourse
+  | ApproveCourseSuccess
+  | ApproveCourseFailure
   | GetEnrolledStudents
   | GetEnrolledStudentsSuccess
   | GetEnrolledStudentsFailure;

@@ -82,6 +82,41 @@ export class CourseEffects {
   );
 
   @Effect()
+  approveCourse$: Observable<fromAction.CourseAction> = this.actions$.pipe(
+    ofType(fromAction.APPROVE_COURSE),
+    switchMap((action: fromAction.ApproveCourse) =>
+      this.courseService.approveCourse(action.courseId).pipe(
+        map(() => new fromAction.ApproveCourseSuccess(action.courseId)),
+        catchError(err => of(new fromAction.ApproveCourseFailure(err)))
+      )
+    )
+  );
+
+  @Effect()
+  approveCourseSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.APPROVE_COURSE_SUCCESS),
+    switchMap((action: fromAction.ApproveCourseSuccess) => [
+      new fromAction.RaiseAlert({
+        type: 'success',
+        content: 'The course has been approved.'
+      }),
+      new fromAction.GetCourse({ courseId: action.courseId })
+    ])
+  );
+
+  @Effect()
+  approveCourseFailure$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.APPROVE_COURSE_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'danger',
+          content: 'Failed to approve the course.'
+        })
+    )
+  );
+
+  @Effect()
   getEnrolledStudents$: Observable<
     fromAction.CourseAction
   > = this.actions$.pipe(

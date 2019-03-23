@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import * as fromStore from '../../store';
 
@@ -12,6 +12,7 @@ import * as fromStore from '../../store';
 })
 export class CourseSettingsComponent implements OnInit {
   course$: Observable<any>;
+  privileged$: Observable<boolean>;
 
   changed = false;
   courseOriginal: any = {};
@@ -24,6 +25,13 @@ export class CourseSettingsComponent implements OnInit {
       select(fromStore.courseEntitiesSelector),
       tap(course => Object.assign(this.courseOriginal, course)),
       tap(course => Object.assign(this.courseTemp, course))
+    );
+    this.privileged$ = this.store.pipe(
+      select(fromStore.SessionCurrentUserGroupsSelector),
+      map(
+        (groups: string[]) =>
+          groups && (groups.includes('SUPER_ADMIN') || groups.includes('ADMIN'))
+      )
     );
   }
 
