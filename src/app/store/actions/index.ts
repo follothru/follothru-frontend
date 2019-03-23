@@ -5,3 +5,4 @@ export * from './courses.action';
 export * from './reminders.action';
 export * from './session.action';
 export * from './router.action';
+export * from './user.action';

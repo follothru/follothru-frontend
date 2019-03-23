@@ -22,8 +22,8 @@
         class="nav-link"
         href="javascript:;"
         *ngIf="restrict(['ADMIN', 'SUPER_ADMIN'])"
-        onclick="alert('Feature under developed')"
-        [ngClass]="{ active: currentTab === 'user' }"
+        [routerLink]="['/', 'user-management']"
+        [ngClass]="{ active: currentTab === 'user-management' }"
         >User Management</a
       >
       <a
