@@ -3,56 +3,69 @@
     *ngIf="!(isLoading$ | async) && (course$ | async) as course; else loading"
   >
     <ng-container *ngIf="!(isError$ | async); else courseError">
-      <h4 class="page-header">{{ course.name }}</h4>
+      <h4 class="page-header">
+        {{ course.name }} <small *ngIf="!course.approved">(Pending)</small>
+      </h4>
       <p>
         {{ course.studentsCount }} student{{
           course.studentsCount > 1 ? 's' : ''
         }}
         has enrolled
       </p>
+      <ng-container *ngIf="(privileged$ | async) && !course.approved">
+        <button class="btn btn-success" (click)="approveCourse()">
+          Approve
+        </button>
+      </ng-container>
       <hr />
-      <div>
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              [ngClass]="{ active: currentTab === 'reminders' }"
-              href="javascript:;"
-              (click)="setCurrentTab('reminders')"
-              >Reminders</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="javascript:;"
-              [ngClass]="{ active: currentTab === 'students' }"
-              (click)="setCurrentTab('students')"
-              >Students</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="javascript:;"
-              [ngClass]="{ active: currentTab === 'settings' }"
-              (click)="setCurrentTab('settings')"
-              >Settings</a
-            >
-          </li>
-        </ul>
-        <div class="panel">
-          <ng-container *ngIf="currentTab === 'reminders'"
-            ><app-course-reminders [courseId]="courseId"></app-course-reminders>
-          </ng-container>
-          <ng-container *ngIf="currentTab === 'students'">
-            <app-course-students [courseId]="courseId"></app-course-students>
-          </ng-container>
-          <ng-container *ngIf="currentTab === 'settings'">
-            <app-course-settings></app-course-settings>
-          </ng-container>
+      <ng-container
+        *ngIf="course.approved || (privileged$ | async); else pending"
+      >
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                [ngClass]="{ active: currentTab === 'reminders' }"
+                href="javascript:;"
+                (click)="setCurrentTab('reminders')"
+                >Reminders</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="javascript:;"
+                [ngClass]="{ active: currentTab === 'students' }"
+                (click)="setCurrentTab('students')"
+                >Students</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="javascript:;"
+                [ngClass]="{ active: currentTab === 'settings' }"
+                (click)="setCurrentTab('settings')"
+                >Settings</a
+              >
+            </li>
+          </ul>
+          <div class="panel">
+            <ng-container *ngIf="currentTab === 'reminders'"
+              ><app-course-reminders
+                [courseId]="courseId"
+              ></app-course-reminders>
+            </ng-container>
+            <ng-container *ngIf="currentTab === 'students'">
+              <app-course-students [courseId]="courseId"></app-course-students>
+            </ng-container>
+            <ng-container *ngIf="currentTab === 'settings'">
+              <app-course-settings></app-course-settings>
+            </ng-container>
+          </div>
         </div>
-      </div>
+      </ng-container>
     </ng-container>
   </ng-container>
 </div>
@@ -62,3 +75,9 @@
     Failed to retrieve courseInfo.
   </p></ng-template
 >
+<ng-template #pending>
+  <p class="padding-lg align-center">
+    The course is pending approval. Please check again later. If the course has
+    been pending for more than 24 hours please contact the admin team.
+  </p>
+</ng-template>

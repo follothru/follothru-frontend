@@ -58,6 +58,12 @@ export class CourseService {
     );
   }
 
+  approveCourse(courseId: string): Observable<any> {
+    return this.httpService.httpAuthPut(
+      this.getCourseUrl() + `/${courseId}/approve`
+    );
+  }
+
   getEnrolledStudents(courseId: string): Observable<any[]> {
     return this.httpService.httpAuthGet(
       this.getCourseUrl() + `/${courseId}/student`
