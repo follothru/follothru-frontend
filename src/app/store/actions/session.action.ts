@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { UserModel } from '../../models';
 
 export const SET_CURRENT_USER = '[Session] Set Current User';
 export const SET_CURRENT_SESSION = '[Session] Set Current Session';
@@ -7,7 +8,7 @@ export const CLEAR_CURRENT_SESSION = '[Session] Clear Current Session';
 
 export class SetCurrentUser implements Action {
   readonly type = SET_CURRENT_USER;
-  constructor(public currentUser) {}
+  constructor(public currentUser: UserModel) {}
 }
 
 export class SetCurrentSession implements Action {

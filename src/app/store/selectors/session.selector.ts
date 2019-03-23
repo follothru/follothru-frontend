@@ -4,6 +4,8 @@ import {
   createSelector
 } from '@ngrx/store';
 
+import { UserModel } from '../../models';
+
 import * as fromState from '../states';
 
 export const SessionStateSelector: MemoizedSelector<
@@ -13,10 +15,18 @@ export const SessionStateSelector: MemoizedSelector<
 
 export const SessionCurrentUserSelector: MemoizedSelector<
   fromState.StoreState,
-  any
+  UserModel
 > = createSelector(
   SessionStateSelector,
   fromState.getSessionCurrentUser
+);
+
+export const SessionCurrentUserGroupsSelector: MemoizedSelector<
+  fromState.StoreState,
+  any
+> = createSelector(
+  SessionStateSelector,
+  fromState.getSessionCurrentUserGroups
 );
 
 export const SessionCurrentSessionSelector: MemoizedSelector<
