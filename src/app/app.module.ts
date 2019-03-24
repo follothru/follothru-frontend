@@ -42,6 +42,7 @@ import { SubReminderComponent } from './components/sub-reminder/sub-reminder.com
 import { SubReminderListComponent } from './components/sub-reminder-list/sub-reminder-list.component';
 import { CalendarMarkerComponent } from './components/calendar-marker/calendar-marker.component';
 import { CourseStudentsComponent } from './components/course-students/course-students.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -74,7 +75,8 @@ import { services } from './services';
     SubReminderComponent,
     SubReminderListComponent,
     CalendarMarkerComponent,
-    CourseStudentsComponent
+    CourseStudentsComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { MainAppComponent } from './components/main-app/main-app.component';
 import { SignInComponent } from './components/signin/signin.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 const routes: Routes = [
   { path: 'signin', component: SignInComponent },
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'course/:id/:mode',
         component: CourseComponent
+      },
+      {
+        path: 'user-management',
+        component: UserManagementComponent
       }
     ]
   },

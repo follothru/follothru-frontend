@@ -1,0 +1,14 @@
+.operations-td,
+.operations-th {
+  display: none;
+}
+
+.user-table.privileged .operations-td,
+.user-table.privileged .operations-th {
+  display: block;
+}
+
+.operations-td button {
+  display: block;
+  margin: 4px 0;
+}
