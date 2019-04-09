@@ -4,6 +4,9 @@ import { Store } from '@ngrx/store';
 import { ReminderModel } from '../../models';
 
 import * as fromStore from '../../store';
+import { MatDialog } from '@angular/material';
+import { EmailEditorComponent } from '../email-editor/email-editor.component';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reminder',
@@ -21,7 +24,10 @@ export class ReminderComponent implements OnInit {
   categories: any;
   expand = false;
 
-  constructor(private store: Store<fromStore.StoreState>) {}
+  constructor(
+    private store: Store<fromStore.StoreState>,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     const keys = Object.keys(this.reminder.categories);
@@ -50,5 +56,17 @@ export class ReminderComponent implements OnInit {
 
   onClearFocus() {
     this.store.dispatch(new fromStore.ClearSubreminderFocus());
+  }
+
+  editMessage(): void {
+    const dialogRef = this.dialog.open(EmailEditorComponent, {
+      width: '96vw',
+      maxHeight: '96vh',
+      data: {}
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(tap(console.log))
+      .subscribe();
   }
 }

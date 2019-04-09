@@ -5,3 +5,4 @@ export * from './courses.selector';
 export * from './reminders.selector';
 export * from './session.selector';
 export * from './user.selector';
+export * from './email.selector';

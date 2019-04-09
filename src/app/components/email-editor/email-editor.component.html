@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Edit Message</h2>
+<div mat-dialog-content>
+  <ng-container
+    *ngIf="
+      !(isLoading$ | async) && (emailTemplates$ | async) as emailTemplates;
+      else loading
+    "
+  >
+    <ul>
+      <li *ngFor="let template of emailTemplates">{{ template.content }}</li>
+    </ul>
+  </ng-container>
+</div>
+<div mat-dialog-actions class="button-group">
+  <button mat-button>
+    Save
+  </button>
+  <button mat-button>
+    Cancel
+  </button>
+</div>
+
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

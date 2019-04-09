@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { SubreminderModel } from '../../models';
+import { EmailEditorComponent } from '../email-editor/email-editor.component';
 
 @Component({
   selector: 'app-sub-reminder',
@@ -12,7 +14,7 @@ export class SubReminderComponent implements OnInit {
   subreminder: SubreminderModel;
   type: string;
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
     this.type = 'reminder';
@@ -30,5 +32,13 @@ export class SubReminderComponent implements OnInit {
 
   formatTimeDigit(num): string {
     return num < 10 ? '0' + num : `${num}`;
+  }
+
+  editMessage(): void {
+    const dialogRef = this.dialog.open(EmailEditorComponent, {
+      width: '60vw',
+      maxHeight: '96vh',
+      data: {}
+    });
   }
 }

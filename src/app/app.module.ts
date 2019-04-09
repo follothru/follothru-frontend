@@ -49,6 +49,7 @@ import { AuthGuard } from './guards/auth.guard';
 import * as fromStore from './store';
 
 import { services } from './services';
+import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { services } from './services';
     SubReminderListComponent,
     CalendarMarkerComponent,
     CourseStudentsComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    EmailEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,11 @@ import { services } from './services';
     StoreModule.forRoot(fromStore.reducers),
     EffectsModule.forRoot(fromStore.effects)
   ],
-  entryComponents: [ReminderCreateWidzardComponent, NewCourseDialogComponent],
+  entryComponents: [
+    ReminderCreateWidzardComponent,
+    NewCourseDialogComponent,
+    EmailEditorComponent
+  ],
   exports: [],
   providers: [...services, AuthGuard],
   bootstrap: [AppComponent]
