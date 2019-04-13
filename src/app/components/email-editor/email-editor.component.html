@@ -1,25 +1,42 @@
-<h2 mat-dialog-title>Edit Message</h2>
+<h2 mat-dialog-title>Edit Email</h2>
 <div mat-dialog-content>
-  <ng-container
-    *ngIf="
-      !(isLoading$ | async) && (emailTemplates$ | async) as emailTemplates;
-      else loading
-    "
-  >
-    <ul>
-      <li *ngFor="let template of emailTemplates">{{ template.content }}</li>
+  <div id="editor">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="javascript:;"
+          [ngClass]="{ active: currentTab === 'html' }"
+          (click)="chooseTab('html')"
+          >HTML</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="javascript:;"
+          [ngClass]="{ active: currentTab === 'plain' }"
+          (click)="chooseTab('plain')"
+          >Plain Text</a
+        >
+      </li>
     </ul>
-  </ng-container>
+    <br />
+    <div class="primary">
+      <ng-container *ngIf="currentTab === 'html'; else plain">
+        <app-html-email-editor></app-html-email-editor>
+      </ng-container>
+    </div>
+  </div>
 </div>
 <div mat-dialog-actions class="button-group">
-  <button mat-button>
+  <button mat-button (click)="onSave()">
     Save
   </button>
-  <button mat-button>
+  <button mat-button (click)="onCancel()">
     Cancel
   </button>
 </div>
-
-<ng-template #loading>
-  <app-spinner></app-spinner>
+<ng-template #plain>
+  <app-plain-text-editor></app-plain-text-editor>
 </ng-template>

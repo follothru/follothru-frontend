@@ -1,4 +1,4 @@
-<div class="subreminder-container">
+<div class="subreminder-container" *ngIf="!deleted">
   <div class="type-indicator">
     <span class="type-marker {{ type }}-marker"></span>
   </div>
@@ -11,14 +11,14 @@
     </div>
     <hr />
     <div class="operations">
-      <a href="javascript:;" onclick="editMessage()">Edit message</a>
+      <a href="javascript:;" (click)="editMessage()">Edit message</a>
       <a href="javascript:;" onclick="alert('Feature not avaliable yet.')"
         >Disable</a
       >
       <a
         href="javascript:;"
         style=" float: right;text-align: right;margin-right: 0"
-        onclick="alert('Feature not avaliable yet.')"
+        (click)="onDelete()"
         >Delete</a
       >
     </div>

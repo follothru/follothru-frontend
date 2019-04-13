@@ -1,0 +1,269 @@
+<div id="html-editor">
+  <ng-container>
+    <style>
+      td a {
+        text-decoration: underline;
+      }
+
+      .button {
+        display: inline-block;
+        margin: 16px !important;
+        background-color: #95bee3;
+        color: #ffffff;
+        font-size: 0.8em;
+        border-radius: 2px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        width: 80%;
+        line-height: 3em;
+        text-decoration: none !important;
+      }
+
+      .action-button {
+        background-color: #ff003c;
+        color: #ffffff;
+        width: 50%;
+        font-size: 0.8em;
+        line-height: 4em;
+        display: inline-block;
+        border-radius: 2px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        margin: 0px 0px;
+        text-decoration: none !important;
+      }
+
+      .component {
+        padding: 1em 0;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="email-preview">
+            <table
+              width="100%"
+              border="0"
+              cellspacing="0"
+              cellpadding="0"
+              align="center"
+              id="primary"
+              style="font-size: 14px"
+            >
+              <tbody>
+                <tr>
+                  <td align="center" width="600" class="component">
+                    <ng-container *ngTemplateOutlet="header"></ng-container>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" width="600" class="component">
+                    <ng-container *ngTemplateOutlet="mainBody"></ng-container>
+                  </td>
+                </tr>
+                <tr *ngFor="let template of templates">
+                  <ng-container
+                    *ngIf="selectedComponents.includes(template.id)"
+                  >
+                    <td align="center" width="600" class="component">
+                      <div
+                        class="component-box"
+                        (click)="removeComponent($event, template.id)"
+                      >
+                        <ng-container
+                          *ngTemplateOutlet="template.template"
+                        ></ng-container>
+                      </div>
+                    </td>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td align="center" width="600" class="component">
+                    <ng-container *ngTemplateOutlet="closing"></ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="email-components col-md-5">
+          <p>
+            <b>Click on each component to add or remove:</b>
+          </p>
+          <div>
+            <div class="list-group">
+              <ng-container *ngFor="let template of templates">
+                <ng-container *ngIf="!selectedComponents.includes(template.id)">
+                  <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                  >
+                    <div
+                      class="component-box"
+                      (click)="selectComponent($event, template.id)"
+                    >
+                      <ng-container
+                        *ngTemplateOutlet="template.template"
+                      ></ng-container>
+                      <em
+                        style="display:inline-block;font-size: 0.8em; margin-top: 1em"
+                        >{{ template.description }}</em
+                      >
+                    </div>
+                  </button>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
+
+<ng-template #header>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td>
+          <img
+            width="160"
+            src="https://ci6.googleusercontent.com/proxy/mN8aLHDm0Cs_zvh4KAKViDn1PTzFJp23gCgxyzXB5Mg32WsbOKvVTAEMRp_a-yZ7e6IQ9zwgtw-hffog5JzXfT5dbHS0DApHVSh8=s0-d-e1-ft#https://artsresearch.uwaterloo.ca/~efrisko6/img/logo.png"
+            alt=""
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #mainBody>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr align="left">
+        <td>
+          <p>Hi [Student Name],</p>
+          <p>This is a reminder sent to you from [Reminder Name].</p>
+          <textarea
+            class="form-control"
+            cols="30"
+            rows="2"
+            placeholder="Additional message..."
+            [(ngModel)]="mainMessage"
+          ></textarea>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #doItNow>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody align="center">
+      <tr>
+        <td align="center">
+          <a class="action-button" href="#" data-default="1">Work on it now</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #alreadyFinished>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td align="center">
+          <a href="javascript:;" style="color:#4c4c4c"
+            >I already finished the task</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #remindIn>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr>
+        <td>
+          <p>
+            Do not have time now? We can remind you in
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table
+    width="100%"
+    border="0"
+    cellspacing="0"
+    cellpadding="0"
+    align="center"
+    style="table-layout: fixed"
+  >
+    <tbody>
+      <tr>
+        <td align="center">
+          <a style="" href="#" data-default="1" class="button">1 hour</a>
+        </td>
+        <td align="center">
+          <a style="" href="#" data-default="2" class="button">2 hours</a>
+        </td>
+        <td align="center">
+          <a style="" href="#" data-default="2" class="button">3 hours</a>
+        </td>
+        <td align="center">
+          <a style="" href="#" data-default="2" class="button">Customize</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #editReminders>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr>
+        <td align="center">
+          <a href="javascript:;" style="color:#4c4c4c">Edit all reminders</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #dontRemindAgain>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr>
+        <td align="center">
+          <a href="javascript:;" style="color:#4c4c4c">
+            Don't remind me again</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #closing>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr>
+        <td align="left">
+          <p>Sincerely,</p>
+          <p>[Instructors]</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

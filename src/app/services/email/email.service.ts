@@ -18,7 +18,39 @@ export class EmailService {
     return this.httpService.httpAuthGet(this.getServiceUrl() + '/templates');
   }
 
+  setReminderEmail(
+    reminderId: string,
+    templateIds: string[],
+    values: any
+  ): Observable<any> {
+    return this.httpService.httpAuthPut(
+      this.getReminderServiceUrl() + `/${reminderId}/email`,
+      {
+        templateIds,
+        values
+      }
+    );
+  }
+
+  setSubreminderEmail(
+    subreminderId: string,
+    templateIds: string[],
+    values: any
+  ): Observable<any> {
+    return this.httpService.httpAuthPut(
+      this.getReminderServiceUrl() + `/subreminder/${subreminderId}/email`,
+      {
+        templateIds,
+        values
+      }
+    );
+  }
+
   private getServiceUrl(): string {
     return this.configService.getBackendUrl() + '/email';
+  }
+
+  private getReminderServiceUrl(): string {
+    return this.configService.getBackendUrl() + '/reminder';
   }
 }

@@ -125,6 +125,43 @@ export class RemindersEffects {
   );
 
   @Effect()
+  $deleteSubreminders: Observable<
+    fromAction.RemindersAction
+  > = this.actions$.pipe(
+    ofType(fromAction.DELETE_SUBREMINDERS),
+    switchMap((action: fromAction.DeleteSubreminders) =>
+      this.reminderService.deleteSubreminders(action.subreminderIds).pipe(
+        map(() => new fromAction.DeleteSubremindersSuccess(action.courseId)),
+        catchError(err => of(new fromAction.DeleteSubremindersFailure(err)))
+      )
+    )
+  );
+
+  @Effect()
+  $deleteSubreminderSuccesss: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.DELETE_SUBREMINDERS_SUCCESS),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'success',
+          content: 'The reminder has been deleted.'
+        })
+    )
+  );
+
+  @Effect()
+  $deleteSubreminderFailure: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.DELETE_SUBREMINDERS_FAILURE),
+    map(
+      () =>
+        new fromAction.RaiseAlert({
+          type: 'danger',
+          content: 'Failed to delete the reminder.'
+        })
+    )
+  );
+
+  @Effect()
   $getUpcomingReminders: Observable<
     fromAction.RemindersAction
   > = this.actions$.pipe(

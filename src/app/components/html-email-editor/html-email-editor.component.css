@@ -1,0 +1,36 @@
+.mat-dialog-content {
+  max-height: 100%;
+}
+
+.fixActionRow {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.email-components .component {
+  border: 1px dotted #aaa;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.email-preview {
+  background-color: #f2f2f2;
+  padding: 1em 2em;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.email-preview .component-box {
+  border: 1px dotted rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.email-preview .component-box:hover {
+  border: 1px dotted #aaa;
+}

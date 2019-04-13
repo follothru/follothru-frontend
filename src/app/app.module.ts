@@ -17,6 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -43,13 +44,17 @@ import { SubReminderListComponent } from './components/sub-reminder-list/sub-rem
 import { CalendarMarkerComponent } from './components/calendar-marker/calendar-marker.component';
 import { CourseStudentsComponent } from './components/course-students/course-students.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
+import { EmailEditorComponent } from './components/email-editor/email-editor.component';
+import { HtmlEmailEditorComponent } from './components/html-email-editor/html-email-editor.component';
+import { PlainTextEditorComponent } from './components/plain-text-editor/plain-text-editor.component';
+import { InputDialogComponent } from './components/common/input-dialog/input-dialog.component';
+import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
 import * as fromStore from './store';
 
 import { services } from './services';
-import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +83,11 @@ import { EmailEditorComponent } from './components/email-editor/email-editor.com
     CalendarMarkerComponent,
     CourseStudentsComponent,
     UserManagementComponent,
-    EmailEditorComponent
+    EmailEditorComponent,
+    HtmlEmailEditorComponent,
+    PlainTextEditorComponent,
+    InputDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -96,10 +105,12 @@ import { EmailEditorComponent } from './components/email-editor/email-editor.com
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    DragDropModule,
     StoreModule.forRoot(fromStore.reducers),
     EffectsModule.forRoot(fromStore.effects)
   ],
   entryComponents: [
+    ConfirmDialogComponent,
     ReminderCreateWidzardComponent,
     NewCourseDialogComponent,
     EmailEditorComponent

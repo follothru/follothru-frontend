@@ -50,12 +50,22 @@ export class ReminderService {
     );
   }
 
+  deleteSubreminders(subreminderIds: string[]): Observable<any> {
+    return this.httpService.httpAuthDelete(this.getSubreminderServiceUrl(), {
+      subreminderIds
+    });
+  }
+
   getUpcomingReminders(): Observable<any> {
     return this.httpService.httpAuthGet(this.getBackendUrl());
   }
 
   private getBackendUrl(): string {
     return this.configService.getBackendUrl() + '/reminder';
+  }
+
+  private getSubreminderServiceUrl(): string {
+    return this.configService.getBackendUrl() + '/subreminder';
   }
 
   private getCourseServiceBackendUrl(): string {

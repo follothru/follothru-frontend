@@ -1,24 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-
+import { MatDialog } from '@angular/material';
+import { Unsubscribable } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
 import { ReminderModel } from '../../models';
 
-import * as fromStore from '../../store';
-import { MatDialog } from '@angular/material';
 import { EmailEditorComponent } from '../email-editor/email-editor.component';
-import { tap } from 'rxjs/operators';
+
+import * as fromStore from '../../store';
+import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-reminder',
   templateUrl: './reminder.component.html',
   styleUrls: ['./reminder.component.css']
 })
-export class ReminderComponent implements OnInit {
+export class ReminderComponent implements OnInit, OnDestroy {
   @Input()
   courseId: string;
 
   @Input()
   reminder: ReminderModel;
+
+  private emailEditorSub: Unsubscribable = null;
+  private confirmDialogSub: Unsubscribable = null;
 
   days: string[];
   categories: any;
@@ -39,13 +44,33 @@ export class ReminderComponent implements OnInit {
         : this.reminder.categories;
   }
 
+  ngOnDestroy() {
+    if (this.emailEditorSub !== null) {
+      this.emailEditorSub.unsubscribe();
+    }
+    if (this.confirmDialogSub !== null) {
+      this.confirmDialogSub.unsubscribe();
+    }
+  }
+
   onDeleleClick() {
-    this.store.dispatch(
-      new fromStore.DeleteReminders({
-        reminderId: this.reminder.id,
-        courseId: this.courseId
+    this.confirmDialogSub = this.dialog
+      .open(ConfirmDialogComponent, {
+        data: { message: 'Are you sure that you want to delete the reminder?' }
       })
-    );
+      .afterClosed()
+      .pipe(
+        filter(result => result),
+        tap(() =>
+          this.store.dispatch(
+            new fromStore.DeleteReminders({
+              reminderId: this.reminder.id,
+              courseId: this.courseId
+            })
+          )
+        )
+      )
+      .subscribe();
   }
 
   onFocus() {
@@ -60,13 +85,22 @@ export class ReminderComponent implements OnInit {
 
   editMessage(): void {
     const dialogRef = this.dialog.open(EmailEditorComponent, {
-      width: '96vw',
-      maxHeight: '96vh',
       data: {}
     });
-    dialogRef
+    this.emailEditorSub = dialogRef
       .afterClosed()
-      .pipe(tap(console.log))
+      .pipe(
+        filter(config => config),
+        tap(config => {
+          this.store.dispatch(
+            new fromStore.SetReminderEmail(
+              this.reminder.id,
+              config.templateIds,
+              config.values
+            )
+          );
+        })
+      )
       .subscribe();
   }
 }

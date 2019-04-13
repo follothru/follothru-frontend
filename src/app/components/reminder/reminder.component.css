@@ -88,3 +88,7 @@
 .dropdown-menu .dropdown-item {
   font-size: 0.8em;
 }
+
+.full-screen .mat-dialog-container {
+  max-width: none;
+}

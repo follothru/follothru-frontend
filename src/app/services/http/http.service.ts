@@ -43,8 +43,8 @@ export class HttpService {
     return this.httpClient.put(url, data, options);
   }
 
-  httpAuthDelete(url: string, options: any = {}): Observable<any> {
-    options.headers = this.getAuthHeaders();
+  httpAuthDelete(url: string, body: any = {}): Observable<any> {
+    const options = { headers: this.getAuthHeaders(), body };
     return this.httpClient.delete(url, options);
   }
 

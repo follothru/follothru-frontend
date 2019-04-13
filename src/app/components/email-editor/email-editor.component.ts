@@ -1,13 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
-import { CourseComponent } from '../course/course.component';
-import { EmailTemplateModel } from '../../models';
-
-import * as fromStore from '../../store';
+import { CoursesComponent } from '../courses/courses.component';
+import { HtmlEmailEditorComponent } from '../html-email-editor/html-email-editor.component';
+import { PlainTextEditorComponent } from '../plain-text-editor/plain-text-editor.component';
 
 @Component({
   selector: 'app-email-editor',
@@ -15,24 +10,30 @@ import * as fromStore from '../../store';
   styleUrls: ['./email-editor.component.css']
 })
 export class EmailEditorComponent implements OnInit {
-  emailTemplates$: Observable<EmailTemplateModel[]>;
-  isLoading$: Observable<boolean>;
+  currentTab = 'html';
+  @ViewChild(HtmlEmailEditorComponent) htmlEditor;
+  @ViewChild(PlainTextEditorComponent) plainTextEditor;
 
   constructor(
-    private store: Store<fromStore.StoreState>,
-    public dialogRef: MatDialogRef<CourseComponent>,
+    public dialogRef: MatDialogRef<CoursesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit() {
-    this.emailTemplates$ = this.store.pipe(
-      select(fromStore.emailTemplatesSelector),
-      tap(console.log)
-    );
-    this.isLoading$ = this.store.pipe(
-      select(fromStore.emailIsLoadingsSelector)
-    );
+  ngOnInit() {}
 
-    this.store.dispatch(new fromStore.GetEmailTemplates());
+  chooseTab(tab: string): void {
+    this.currentTab = tab;
+  }
+
+  onSave(): void {
+    if (this.currentTab === 'text') {
+      this.dialogRef.close(this.plainTextEditor.onSave());
+      return;
+    }
+    this.dialogRef.close(this.htmlEditor.onSave());
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
   }
 }
