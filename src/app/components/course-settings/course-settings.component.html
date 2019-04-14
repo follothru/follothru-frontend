@@ -35,7 +35,7 @@
       <label for="course_name">Reminder link</label>
       <small>(send this link to students to sign up for reminders) </small>
       <br />
-      <a href="{{ course.registerLink }}">https://www.follothru.com</a>
+      <a [href]="getCourseLink(course)">{{ getCourseLink(course) }}</a>
     </div>
     <div class="form-group">
       <label for="instructors">Instructors</label>

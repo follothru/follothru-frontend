@@ -39,6 +39,12 @@ export class CourseEffects {
   );
 
   @Effect()
+  getCourseEnrollInfoFailure$: Observable<Action> = this.actions$.pipe(
+    ofType(fromAction.GET_COURSE_ENROLL_INFO_FAILURE),
+    map(() => new fromAction.RouterNavigate('/404'))
+  );
+
+  @Effect()
   updateCourse$: Observable<fromAction.CourseAction> = this.actions$.pipe(
     ofType(fromAction.UPDATE_COURSE),
     switchMap((action: fromAction.UpdateCourse) =>

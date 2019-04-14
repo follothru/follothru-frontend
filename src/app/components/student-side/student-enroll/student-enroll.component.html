@@ -1,0 +1,87 @@
+<br />
+<ng-container *ngIf="!(isLoading$ | async); else loading">
+  <ng-container *ngIf="(courseInfo$ | async) as courseInfo">
+    <div class="container">
+      <h2>{{ courseInfo.name }}</h2>
+      <hr />
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="prefName">Preferred Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter preferred name"
+            formControlName="prefName"
+            [ngClass]="{
+              'is-valid': prefName.valid,
+              'is-invalid': !prefName.valid && prefName.touched
+            }"
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <ng-container *ngIf="!prefName.valid">
+            <div class="invalid-feedback" *ngIf="prefName.errors['required']">
+              Preferred name is required.
+            </div>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            formControlName="email"
+            [ngClass]="{
+              'is-valid': email.valid,
+              'is-invalid': !email.valid && email.touched
+            }"
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <ng-container *ngIf="!email.valid && email.errors">
+            <div class="invalid-feedback" *ngIf="email.errors['required']">
+              Email is required.
+            </div>
+            <div class="invalid-feedback" *ngIf="email.errors['email']">
+              Please choose a valid email.
+            </div>
+            <div class="invalid-feedback" *ngIf="email.errors['duplicate']">
+              This email has been registered.
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="email.errors['duplicateNotVerified']"
+            >
+              This email has been registered. A verification email was sent.
+              <a href="javascript:;">Didn't receive the email?</a>
+            </div>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="courseInfo.hasPlanningPrompt">
+          <div class="form-group">
+            <label for="planning">{{ courseInfo.planningPrompt }}</label>
+            <textarea
+              name="planning"
+              cols="30"
+              rows="4"
+              class="form-control"
+              formControlName="planning"
+            ></textarea>
+          </div>
+        </ng-container>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Enroll
+        </button>
+      </form>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

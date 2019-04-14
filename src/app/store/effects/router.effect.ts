@@ -15,7 +15,7 @@ export class RouterEffects {
   routerNavigate$: Observable<Action> = this.actions$.pipe(
     ofType(fromAction.ROUTER_NAVIGATE),
     tap((action: fromAction.RouterNavigate) =>
-      this.router.navigate([action.path])
+      this.router.navigate([action.path], action.options)
     )
   );
 }

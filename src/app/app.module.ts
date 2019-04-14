@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -49,6 +49,8 @@ import { HtmlEmailEditorComponent } from './components/html-email-editor/html-em
 import { PlainTextEditorComponent } from './components/plain-text-editor/plain-text-editor.component';
 import { InputDialogComponent } from './components/common/input-dialog/input-dialog.component';
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
+import { StudentEnrollComponent } from './components/student-side/student-enroll/student-enroll.component';
+import { VerifyEmailComponent } from './components/student-side/verify-email/verify-email.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -87,7 +89,9 @@ import { services } from './services';
     HtmlEmailEditorComponent,
     PlainTextEditorComponent,
     InputDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    StudentEnrollComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -106,6 +110,7 @@ import { services } from './services';
     MatInputModule,
     MatDialogModule,
     DragDropModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(fromStore.reducers),
     EffectsModule.forRoot(fromStore.effects)
   ],

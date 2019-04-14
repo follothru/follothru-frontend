@@ -1,0 +1,14 @@
+.center-box {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 4em;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.4em;
+}
+
+.icon {
+  margin-bottom: 0.4em;
+}

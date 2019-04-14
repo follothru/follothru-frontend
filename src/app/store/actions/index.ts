@@ -7,3 +7,4 @@ export * from './session.action';
 export * from './router.action';
 export * from './user.action';
 export * from './email.action';
+export * from './student-side';

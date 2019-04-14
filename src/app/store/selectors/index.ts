@@ -6,3 +6,4 @@ export * from './reminders.selector';
 export * from './session.selector';
 export * from './user.selector';
 export * from './email.selector';
+export * from './student-side';

@@ -1,0 +1,21 @@
+<ng-container *ngIf="!(isLoading$ | async); else loading">
+  <ng-container *ngIf="(enrollStatus$ | async) as enrollStatus">
+    <div class="container">
+      <div class="center-box">
+        <i class="far fa-envelope fa-5x icon"></i>
+        <p class="title">Verify your email address</p>
+        <hr />
+        <p>
+          In order to start receiving reminders from this course, you need
+          verify your email address. A verification email has been sent to the
+          following email address: <b>{{ enrollStatus.email }}</b>
+        </p>
+        <a href="javascript:;">Resend email</a>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

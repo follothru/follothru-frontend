@@ -9,6 +9,8 @@ import { SignInComponent } from './components/signin/signin.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
+import { StudentEnrollComponent } from './components/student-side/student-enroll/student-enroll.component';
+import { VerifyEmailComponent } from './components/student-side/verify-email/verify-email.component';
 
 const routes: Routes = [
   { path: 'signin', component: SignInComponent },
@@ -45,6 +47,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: UserSettingsComponent
   },
+  { path: 'studentEnroll', component: StudentEnrollComponent },
+  { path: 'studentEnroll/verifyEmail', component: VerifyEmailComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

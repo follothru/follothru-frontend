@@ -6,6 +6,7 @@ import { RemindersState } from './reminders.state';
 import { SessionState } from './session.state';
 import { UserState } from './user.state';
 import { EmailState } from './email.state';
+import { StudentEnrollState } from './student-side';
 
 export * from './auth.state';
 export * from './alert.state';
@@ -15,6 +16,7 @@ export * from './reminders.state';
 export * from './session.state';
 export * from './user.state';
 export * from './email.state';
+export * from './student-side';
 
 export interface StoreState {
   auth: AuthState;
@@ -25,4 +27,5 @@ export interface StoreState {
   session: SessionState;
   user: UserState;
   email: EmailState;
+  studentEnroll: StudentEnrollState;
 }

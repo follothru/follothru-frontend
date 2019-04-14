@@ -35,6 +35,10 @@ export class CourseSettingsComponent implements OnInit {
     );
   }
 
+  getCourseLink(course: any): string {
+    return `${location.origin}/studentEnroll?course=${course.id}`;
+  }
+
   onChange() {
     this.changed =
       this.courseTemp.name !== this.courseOriginal.name ||
