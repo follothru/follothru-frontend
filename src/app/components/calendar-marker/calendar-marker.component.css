@@ -1,9 +1,0 @@
-.marker-item {
-  height: 100%;
-  width: 100%;
-  border-radius: 14px;
-}
-
-.marker-item.focused {
-  background-color: #000;
-}

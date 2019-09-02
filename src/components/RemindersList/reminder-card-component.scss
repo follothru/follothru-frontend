@@ -1,0 +1,16 @@
+.reminder-card-component {
+  .card {
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #f2f2f2;
+  }
+
+  .card-body {
+    padding: 1rem 1.5rem;
+  }
+
+  .card-title {
+    margin-bottom: 0.4rem;
+  }
+}

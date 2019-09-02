@@ -1,0 +1,19 @@
+.courses-layout {
+  .course-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  .course-item {
+    margin: 0 10px;
+  }
+
+  .operations {
+    text-align: right
+  }
+
+  .course-list-row {
+    padding-top: 12px;
+  }
+}
