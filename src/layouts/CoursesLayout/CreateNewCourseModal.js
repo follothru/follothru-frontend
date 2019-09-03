@@ -14,7 +14,7 @@ const CreateNewCourseModal = ({ onHide, show, createNewCourse }) => {
   };
 
   return (
-    <Modal onHide={onHide} show={show} size="lg" centered>
+    <Modal onHide={onHide} show={show} size="lg" backdrop="static" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Create new course

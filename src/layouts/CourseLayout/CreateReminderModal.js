@@ -123,7 +123,7 @@ const CreateReminderModal = ({ onHide, show }) => {
   );
 
   return (
-    <Modal onHide={onHide} show={show} size="lg" centered>
+    <Modal onHide={onHide} show={show} size="lg" backdrop="static" centered >
       <Modal.Header closeButton>
         <Modal.Title>
           Create new reminder
