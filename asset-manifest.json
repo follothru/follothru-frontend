@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/follothru-frontend/static/css/main.40c3d5fe.chunk.css",
+    "main.js": "/follothru-frontend/static/js/main.3e66f510.chunk.js",
+    "main.js.map": "/follothru-frontend/static/js/main.3e66f510.chunk.js.map",
+    "runtime~main.js": "/follothru-frontend/static/js/runtime~main.2d07fb7c.js",
+    "runtime~main.js.map": "/follothru-frontend/static/js/runtime~main.2d07fb7c.js.map",
+    "static/css/2.4d718e19.chunk.css": "/follothru-frontend/static/css/2.4d718e19.chunk.css",
+    "static/js/2.a6d022fe.chunk.js": "/follothru-frontend/static/js/2.a6d022fe.chunk.js",
+    "static/js/2.a6d022fe.chunk.js.map": "/follothru-frontend/static/js/2.a6d022fe.chunk.js.map",
+    "index.html": "/follothru-frontend/index.html",
+    "precache-manifest.63ee45cca24f7e7e13154274ccf9de55.js": "/follothru-frontend/precache-manifest.63ee45cca24f7e7e13154274ccf9de55.js",
+    "service-worker.js": "/follothru-frontend/service-worker.js",
+    "static/css/2.4d718e19.chunk.css.map": "/follothru-frontend/static/css/2.4d718e19.chunk.css.map",
+    "static/css/main.40c3d5fe.chunk.css.map": "/follothru-frontend/static/css/main.40c3d5fe.chunk.css.map",
+    "static/media/logo-black.png": "/follothru-frontend/static/media/logo-black.8cd50d3a.png",
+    "static/media/logo-white.png": "/follothru-frontend/static/media/logo-white.93c7093f.png",
+    "static/media/index.css": "/follothru-frontend/static/media/roboto-latin-900italic.ebf6d164.woff2"
+  }
+}
