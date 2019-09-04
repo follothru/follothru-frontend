@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Row, Col, Container } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { coursesSelector, coursesLoadingSelector } from '../../redux/courses/selectors';
 import { getCourses } from '../../redux/courses/actions';
 import Spinner from '../../components/Spinner/Spinner';

@@ -1,3 +1,5 @@
-const BACKEND_URL = 'http://localhost:8080';
+import urls from "./env";
 
-export const getBackendUrl = () => BACKEND_URL;
+const env = process.env.NODE_ENV;
+
+export const getBackendUrl = () => urls[env].serviceUrl;

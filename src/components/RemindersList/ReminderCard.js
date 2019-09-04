@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import EventsList from '../EventsList/EventsList';
 import { isSameOrAfterNow, compareDates, getCurrentYear, getCurrentMonth, getWeekdayShortForm, getMonthShortForm } from '../../utils/dateUtils';
 import _ from 'lodash';
 import './reminder-card-component.scss';
