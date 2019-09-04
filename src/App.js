@@ -7,7 +7,7 @@ import MainLayout from './layouts/MainLayout/MainLayout';
 const ProtectedRoute = ({ component: Component, ...rest }) =>
   <Route
     {...rest}
-    render={props => getAuthToken() !== undefined ? <Component {...props} /> : <Redirect to="/login" />}
+    render={props => getAuthToken() !== undefined ? <Component {...props} /> : <Redirect to={`${process.env.PUBLIC_URL}/login`} />}
   />;
 
 const App = () => (
