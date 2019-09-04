@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import LoginLayout from './layouts/LoginLayout/LoginLayout';
 import { getAuthToken } from './utils/storageUtils';
 import MainLayout from './layouts/MainLayout/MainLayout';
-import env from './config/env';
 
 const ProtectedRoute = ({ component: Component, ...rest }) =>
   <Route
@@ -12,7 +11,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) =>
   />;
 
 const App = () => (
-  <Router basename={env === 'production' ? 'follothru-frontend' : ''}>
+  <Router basename={process.env.PUBLIC_URL}>
     <ProtectedRoute path="/app" component={MainLayout} />
     <Route path="/login" component={LoginLayout} />
   </Router>
